@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- TODO: BASE_URL is empty until a project domain is set; prefix each <loc> once available. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>/</loc></url>
-  <url><loc>/about</loc></url>
-  <url><loc>/lawyers</loc></url>
-  <url><loc>/practice</loc></url>
-  <url><loc>/fees</loc></url>
-  <url><loc>/flow</loc></url>
-  <url><loc>/column</loc></url>
-  <url><loc>/column/souzoku-tetsuzuki-nagare</loc></url>
-  <url><loc>/column/rikon-yoikuhi-soba</loc></url>
-  <url><loc>/column/zangyodai-seikyu</loc></url>
-  <url><loc>/column/keiyakusho-check</loc></url>
-  <url><loc>/column/kotsujiko-kosyo</loc></url>
-  <url><loc>/column/saimu-seiri-sentakushi</loc></url>
-  <url><loc>/contact</loc></url>
-  <url><loc>/privacy</loc></url>
+  <url><loc>https://takamatsu-law.com/</loc></url>
+  <url><loc>https://takamatsu-law.com/about</loc></url>
+  <url><loc>https://takamatsu-law.com/lawyers</loc></url>
+  <url><loc>https://takamatsu-law.com/practice</loc></url>
+  <url><loc>https://takamatsu-law.com/fees</loc></url>
+  <url><loc>https://takamatsu-law.com/flow</loc></url>
+  <url><loc>https://takamatsu-law.com/column</loc></url>
+  <url><loc>https://takamatsu-law.com/column/nini-hoken-teigaku</loc></url>
+  <url><loc>https://takamatsu-law.com/column/isan-bunkatsu-chotei</loc></url>
+  <url><loc>https://takamatsu-law.com/column/saiban-rikon</loc></url>
+  <url><loc>https://takamatsu-law.com/column/bengoshi-hiyo-tokuyaku</loc></url>
+  <url><loc>https://takamatsu-law.com/column/toshi-higai-denwa</loc></url>
+  <url><loc>https://takamatsu-law.com/column/kyujin-kokoku-kanyu</loc></url>
+  <url><loc>https://takamatsu-law.com/column/se-corporation-niju-keiyaku</loc></url>
+  <url><loc>https://takamatsu-law.com/column/hanrei-keisai</loc></url>
+  <url><loc>https://takamatsu-law.com/news</loc></url>
+  <url><loc>https://takamatsu-law.com/news/natsu-2026</loc></url>
+  <url><loc>https://takamatsu-law.com/news/sodanryo-kaitei-2026</loc></url>
+  <url><loc>https://takamatsu-law.com/news/nenmatsu-2025</loc></url>
+  <url><loc>https://takamatsu-law.com/news/coolbiz-2025</loc></url>
+  <url><loc>https://takamatsu-law.com/contact</loc></url>
+  <url><loc>https://takamatsu-law.com/privacy</loc></url>
+  <url><loc>https://takamatsu-law.com/sitemap</loc></url>
 </urlset>

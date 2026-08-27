@@ -1,165 +1,239 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Scale, Users, Building2, Car, HeartHandshake, Wallet, ArrowRight } from "lucide-react";
-import heroOffice from "@/assets/hero-office.jpg";
+import { ArrowRight } from "lucide-react";
 import { SectionTitle, CtaBand } from "@/components/site/PageHero";
+import { Reveal } from "@/components/site/Reveal";
+import { DiamondField, FrameImg, ScrollHint, VerticalEn } from "@/components/site/Decor";
+import { LogoMark } from "@/components/site/LogoMark";
 import { columns, formatDate } from "@/lib/columns";
+import { news } from "@/lib/news";
+import { PRACTICES } from "@/lib/practices";
+import { FIRM, DEFAULT_DESCRIPTION, SITE_TITLE } from "@/lib/firm";
+import { jsonLdLegalService } from "@/lib/seo";
+import { IMG, CATEGORY_IMG } from "@/lib/media";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "高松法律事務所｜香川・高松の弁護士による法律相談" },
-      {
-        name: "description",
-        content:
-          "香川県高松市の高松法律事務所。相続・離婚・労働・交通事故・債務整理・企業法務のご相談に、地域に根ざした弁護士が対応します。",
-      },
-      { property: "og:title", content: "高松法律事務所｜香川・高松の弁護士による法律相談" },
-      {
-        property: "og:description",
-        content: "香川県高松市の法律事務所。相続・離婚・労働問題などを丁寧にサポートします。",
-      },
+      { title: SITE_TITLE },
+      { name: "description", content: DEFAULT_DESCRIPTION },
+      { property: "og:title", content: SITE_TITLE },
+      { property: "og:description", content: DEFAULT_DESCRIPTION },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: FIRM.siteUrl },
+      { property: "og:image", content: `${FIRM.siteUrl}/og.jpg` },
+      { property: "og:locale", content: "ja_JP" },
     ],
     links: [{ rel: "canonical", href: "/" }],
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "LegalService",
-          name: "高松法律事務所",
-          areaServed: "香川県高松市",
-          address: {
-            "@type": "PostalAddress",
-            addressRegion: "香川県",
-            addressLocality: "高松市",
-            postalCode: "760-0033",
-            streetAddress: "丸の内○-○ ○○ビル4階",
-          },
-          telephone: "+81-87-000-0000",
-        }),
+        children: JSON.stringify(jsonLdLegalService()),
       },
     ],
   }),
   component: Home,
 });
 
-const PRACTICES = [
-  { icon: Scale, title: "相続・遺言", desc: "遺産分割、遺言書の作成、相続放棄。" },
-  { icon: HeartHandshake, title: "離婚・男女問題", desc: "親権、養育費、財産分与の取り決め。" },
-  { icon: Users, title: "労働問題", desc: "未払い残業代、不当解雇、ハラスメント。" },
-  { icon: Building2, title: "企業法務", desc: "契約書チェック、労務、顧問契約。" },
-  { icon: Car, title: "交通事故", desc: "示談交渉、後遺障害、損害賠償請求。" },
-  { icon: Wallet, title: "債務整理", desc: "任意整理、個人再生、自己破産。" },
+const POINTS = [
+  {
+    t: "経験を、見通しに変える",
+    d: "民事・家事・商事・刑事と幅広い分野を扱ってきました。難しい事件、多数被害者の弁護団事件も含め、培った経験を依頼者に還元します。",
+    img: IMG.scales,
+    alt: "法律書と正義の天秤",
+  },
+  {
+    t: "秘密は、厳守します",
+    d: "ご相談・ご依頼の内容がご近所や勤務先に知られることはありません。弁護士法上の守秘義務のもと、個人情報を厳重に管理します。",
+    img: IMG.consult,
+    alt: "静かな相談室",
+  },
+  {
+    t: "費用は、先にお示しします",
+    d: "相談料・着手金・報酬金の目安を公開しています。ご依頼の前に、案件の内容を伺ったうえで費用をご説明します。",
+    img: IMG.corridor,
+    alt: "光の差す事務所の廊下",
+  },
+];
+
+const TICKER = [
+  "香川県高松市",
+  "香川県弁護士会所属",
+  "紹介は不要です",
+  "法律相談は来所面談",
+  "瀬戸内から、確かなリーガルへ",
 ];
 
 function Home() {
   const latest = columns.slice(0, 3);
+  const latestNews = news.slice(0, 3);
 
   return (
     <>
-      <section className="relative">
-        <div className="grid md:grid-cols-2">
-          <div className="flex items-center bg-background px-5 py-20 md:py-32">
-            <div className="mx-auto w-full max-w-lg">
-              <p className="text-[11px] tracking-[0.35em] text-gold">TAKAMATSU LAW OFFICE</p>
-              <h1 className="mt-6 text-3xl leading-[1.7] md:text-[2.6rem]">
-                法律は、
-                <br />
-                日常を取り戻すための
-                <br />
-                道具である。
-              </h1>
-              <p className="mt-8 text-sm leading-9 text-muted-foreground">
-                香川・高松で、地域の方々と企業の相談に向き合ってきました。
-                難しい言葉を使わず、いま何が起きていて、これからどう進むのかを、
-                はじめにご説明します。
-              </p>
-              <div className="mt-10 flex flex-wrap gap-3">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 bg-primary px-7 py-3.5 text-sm text-primary-foreground transition-opacity hover:opacity-90"
-                >
-                  相談を予約する <ArrowRight className="size-4" aria-hidden />
-                </Link>
-                <Link
-                  to="/practice"
-                  className="inline-flex items-center gap-2 border border-border px-7 py-3.5 text-sm text-foreground transition-colors hover:bg-surface"
-                >
-                  取扱業務を見る
-                </Link>
-              </div>
+      <section className="relative isolate min-h-[92vh] overflow-hidden bg-primary">
+        <img
+          src={IMG.hero}
+          alt="朝の光が差し込む高松総合法律事務所の相談室"
+          className="absolute inset-0 h-full w-full object-cover animate-kenburns"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#000c1c]/90 via-[#000c1c]/55 to-[#000c1c]/20" />
+        <DiamondField />
+        <div className="relative container-page flex min-h-[92vh] flex-col justify-end pb-16 pt-28 md:pb-20">
+          <div className="flex items-end gap-10">
+            <VerticalEn text={FIRM.nameEn} />
+            <div className="max-w-2xl text-white">
+              <Reveal>
+                <div className="flex items-center gap-4">
+                  <LogoMark className="size-10 md:size-12" />
+                  <p className="text-[11px] tracking-[0.42em] text-white/70">{FIRM.nameEn}</p>
+                </div>
+                <h1 className="mt-8 text-[2rem] leading-[1.55] md:text-[3.15rem]">
+                  クライアントの安心と
+                  <br />
+                  最良の結果のために
+                </h1>
+                <p className="mt-8 max-w-md text-sm leading-9 text-white/80">
+                  香川県高松市の法律事務所です。紹介は不要です。弁護士への相談が初めての方にも、丁寧に対応いたします。
+                </p>
+                <div className="mt-10 flex flex-wrap gap-3">
+                  <a
+                    href={FIRM.telReserveHref}
+                    className="inline-flex items-center gap-2 bg-white px-7 py-3.5 text-sm text-primary transition-transform duration-300 hover:-translate-y-0.5"
+                  >
+                    相談予約 {FIRM.telReserve}
+                  </a>
+                  <Link
+                    to="/practice"
+                    className="inline-flex items-center gap-2 border border-white/40 px-7 py-3.5 text-sm text-white transition-colors hover:bg-white hover:text-primary"
+                  >
+                    取扱業務を見る <ArrowRight className="size-4" aria-hidden />
+                  </Link>
+                </div>
+              </Reveal>
             </div>
           </div>
-          <img
-            src={heroOffice}
-            alt="静かな光が差し込む高松法律事務所の相談室"
-            width={1600}
-            height={1104}
-            className="h-64 w-full object-cover md:h-full"
-          />
+          <div className="mt-12">
+            <ScrollHint />
+          </div>
         </div>
       </section>
 
-      <section className="container-page py-20 md:py-28">
-        <SectionTitle title="取扱業務" en="PRACTICE AREAS" />
-        <ul className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {PRACTICES.map(({ icon: Icon, title, desc }) => (
-            <li key={title} className="bg-card p-8 transition-colors hover:bg-surface">
-              <Icon className="size-6 text-gold" aria-hidden />
-              <h3 className="mt-5 text-lg">{title}</h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{desc}</p>
+      <div className="overflow-hidden border-y border-border bg-primary text-primary-foreground">
+        <div className="flex w-max animate-marquee py-3 text-[11px] tracking-[0.35em] opacity-80">
+          {[...TICKER, ...TICKER, ...TICKER, ...TICKER].map((t, i) => (
+            <span key={`${t}-${i}`} className="px-8">
+              {t} ·
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <section id="approach" className="container-page py-20 md:py-28">
+        <Reveal>
+          <SectionTitle title="当事務所の姿勢" en="OUR APPROACH" />
+        </Reveal>
+        <ul className="grid gap-8 md:grid-cols-3">
+          {POINTS.map((v, i) => (
+            <li key={v.t}>
+              <Reveal delay={i * 120}>
+                <FrameImg src={v.img} alt={v.alt} className="aspect-[4/3]" />
+                <h3 className="mt-6 text-lg">{v.t}</h3>
+                <p className="mt-3 text-sm leading-8 text-muted-foreground">{v.d}</p>
+              </Reveal>
             </li>
           ))}
         </ul>
-        <div className="mt-10">
-          <Link to="/practice" className="text-sm text-primary underline underline-offset-8">
-            取扱業務の一覧を見る
-          </Link>
+      </section>
+
+      <section className="relative overflow-hidden bg-surface">
+        <div className="container-page py-20 md:py-28">
+          <Reveal>
+            <SectionTitle title="取扱業務" en="PRACTICE AREAS" />
+          </Reveal>
+          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {PRACTICES.map((p, i) => (
+              <li key={p.id}>
+                <Reveal delay={(i % 3) * 90}>
+                  <Link
+                    to="/practice"
+                    hash={p.id}
+                    className="group block overflow-hidden border border-border bg-card transition-shadow duration-500 hover:shadow-soft"
+                  >
+                    <FrameImg
+                      src={IMG.practices[p.id]}
+                      alt=""
+                      className="aspect-[16/10]"
+                      imgClassName="h-44"
+                    />
+                    <div className="p-6">
+                      <p className="text-[10px] tracking-[0.28em] text-brand">
+                        {p.group === "personal" ? "個人の方" : "企業の方"}
+                      </p>
+                      <h3 className="mt-2 text-lg transition-colors group-hover:text-primary">
+                        {p.title}
+                      </h3>
+                      <p className="mt-3 line-clamp-2 text-sm leading-7 text-muted-foreground">
+                        {p.lead}
+                      </p>
+                    </div>
+                  </Link>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <section className="bg-surface">
-        <div className="container-page grid gap-12 py-20 md:grid-cols-[1fr_1.2fr] md:py-28">
-          <SectionTitle title="当事務所について" en="ABOUT US" />
-          <div className="space-y-6 text-sm leading-9 text-muted-foreground">
-            <p>
-              高松法律事務所は、香川県高松市に拠点を置く法律事務所です。
-              個人の方の相続・離婚・労働問題から、地元企業の法務まで、
-              生活と事業に密着した分野を中心に取り扱っています。
-            </p>
-            <p>
-              ご相談の場では、まず事実関係を一緒に整理します。
-              見通し、かかる期間、費用について、最初にお伝えすることを大切にしています。
-            </p>
-            <Link to="/about" className="inline-block text-primary underline underline-offset-8">
-              事務所案内を見る
-            </Link>
+      <section className="relative isolate overflow-hidden">
+        <div className="grid lg:grid-cols-2">
+          <FrameImg
+            src={IMG.sea}
+            alt="瀬戸内海と高松の夕景"
+            className="min-h-72 lg:min-h-[32rem]"
+            kenburns
+          />
+          <div className="flex items-center bg-primary px-8 py-16 text-primary-foreground md:px-16">
+            <Reveal>
+              <p className="text-[11px] tracking-[0.38em] text-white/60">TAKAMATSU / KAGAWA</p>
+              <h2 className="mt-4 text-2xl md:text-3xl">瀬戸内のまちで、暮らしと事業の隣に。</h2>
+              <p className="mt-6 max-w-md text-sm leading-8 text-white/80">
+                JR高松駅から徒歩約10分。兵庫町の交差点ほど近く。紹介がなくても、相談が初めてでも、丁寧にお話を伺います。
+              </p>
+              <Link
+                to="/about"
+                className="mt-8 inline-flex items-center gap-2 border-b border-white/40 pb-1 text-sm hover:border-white"
+              >
+                事務所案内を見る <ArrowRight className="size-4" aria-hidden />
+              </Link>
+            </Reveal>
           </div>
         </div>
       </section>
 
       <section className="container-page py-20 md:py-28">
-        <SectionTitle title="コラム" en="COLUMN" />
-        <ul className="divide-y divide-border border-y border-border">
-          {latest.map((c) => (
+        <Reveal>
+          <SectionTitle title="コラム" en="COLUMN" />
+        </Reveal>
+        <ul className="grid gap-8 md:grid-cols-3">
+          {latest.map((c, i) => (
             <li key={c.slug}>
-              <Link
-                to="/column/$slug"
-                params={{ slug: c.slug }}
-                className="group flex flex-col gap-2 py-7 transition-colors hover:bg-surface md:flex-row md:items-baseline md:gap-8"
-              >
-                <span className="text-xs tracking-widest text-muted-foreground">
-                  {formatDate(c.date)}
-                </span>
-                <span className="w-fit border border-gold/40 px-3 py-0.5 text-xs text-gold">
-                  {c.category}
-                </span>
-                <span className="flex-1 text-base leading-8 group-hover:text-primary">
-                  {c.title}
-                </span>
-              </Link>
+              <Reveal delay={i * 100}>
+                <Link to="/column/$slug" params={{ slug: c.slug }} className="group block">
+                  <FrameImg
+                    src={CATEGORY_IMG[c.category] ?? IMG.scales}
+                    alt=""
+                    className="aspect-[16/10]"
+                  />
+                  <div className="mt-4 flex flex-wrap items-center gap-3">
+                    <span className="text-xs tracking-widest text-muted-foreground">
+                      {formatDate(c.date)}
+                    </span>
+                    <span className="border border-brand/35 px-3 py-0.5 text-xs text-brand">
+                      {c.category}
+                    </span>
+                  </div>
+                  <h3 className="mt-3 text-lg leading-8 group-hover:text-primary">{c.title}</h3>
+                </Link>
+              </Reveal>
             </li>
           ))}
         </ul>
@@ -167,6 +241,30 @@ function Home() {
           <Link to="/column" className="text-sm text-primary underline underline-offset-8">
             コラムの一覧を見る
           </Link>
+        </div>
+      </section>
+
+      <section className="bg-surface">
+        <div className="container-page py-20 md:py-28">
+          <Reveal>
+            <SectionTitle title="お知らせ" en="NEWS" />
+          </Reveal>
+          <ul className="divide-y divide-border border-y border-border">
+            {latestNews.map((n) => (
+              <li key={n.slug}>
+                <Link
+                  to="/news/$slug"
+                  params={{ slug: n.slug }}
+                  className="flex flex-col gap-1 py-5 transition-colors hover:bg-background md:flex-row md:items-baseline md:gap-8"
+                >
+                  <span className="text-xs tracking-widest text-muted-foreground">
+                    {formatDate(n.date)}
+                  </span>
+                  <span className="text-sm leading-7">{n.title}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

@@ -1,54 +1,73 @@
 import { Link } from "@tanstack/react-router";
-import { NAV } from "./SiteHeader";
+import { NAV, FOOTER_EXTRA } from "@/lib/nav";
+import { FIRM } from "@/lib/firm";
+import logo from "@/assets/takamatsu-logo.jpg";
+import { IMG } from "@/lib/media";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 border-t border-border bg-surface">
-      <div className="container-page grid gap-12 py-16 md:grid-cols-[1.2fr_1fr]">
+    <footer className="relative mt-0 overflow-hidden border-t border-border bg-surface">
+      <div className="relative h-40 overflow-hidden md:h-56">
+        <img src={IMG.sea} alt="" className="h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent" />
+        <p className="absolute bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] tracking-[0.42em] text-primary/70">
+          TAKAMATSU · KAGAWA · SETO INLAND SEA
+        </p>
+      </div>
+      <div className="container-page grid gap-14 py-16 md:grid-cols-[1.3fr_1fr] md:py-20">
         <div>
-          <p className="font-serif text-lg tracking-[0.12em] text-primary">高松法律事務所</p>
-          <p className="mt-1 text-[10px] tracking-[0.3em] text-muted-foreground">
-            TAKAMATSU LAW OFFICE
-          </p>
-          <address className="mt-6 text-sm not-italic leading-8 text-muted-foreground">
-            〒760-0033 香川県高松市丸の内○-○ ○○ビル4階
+          <img
+            src={logo}
+            alt={FIRM.name}
+            width={330}
+            height={72}
+            className="h-11 w-auto object-contain object-left"
+          />
+          <p className="mt-5 max-w-md text-sm leading-8 text-muted-foreground">{FIRM.tagline}</p>
+          <address className="mt-8 text-sm not-italic leading-8 text-muted-foreground">
+            {FIRM.address}
             <br />
-            TEL 087-000-0000（受付 平日 9:00–18:00）
+            代表 TEL {FIRM.telMain}
             <br />
-            香川県弁護士会所属
+            相談予約 TEL {FIRM.telReserve}（{FIRM.hours}）
+            <br />
+            {FIRM.bar}所属
           </address>
         </div>
 
         <nav aria-label="フッターナビゲーション">
           <ul className="grid grid-cols-2 gap-y-3 text-sm">
             <li>
-              <Link to="/" className="text-muted-foreground hover:text-primary">
+              <Link to="/" className="text-muted-foreground transition-colors hover:text-primary">
                 ホーム
               </Link>
             </li>
             {NAV.map((item) => (
               <li key={item.to}>
-                <Link to={item.to} className="text-muted-foreground hover:text-primary">
+                <Link
+                  to={item.to}
+                  className="text-muted-foreground transition-colors hover:text-primary"
+                >
                   {item.label}
                 </Link>
               </li>
             ))}
-            <li>
-              <Link to="/contact" className="text-muted-foreground hover:text-primary">
-                お問い合わせ
-              </Link>
-            </li>
-            <li>
-              <Link to="/privacy" className="text-muted-foreground hover:text-primary">
-                プライバシーポリシー
-              </Link>
-            </li>
+            {FOOTER_EXTRA.map((item) => (
+              <li key={item.to}>
+                <Link
+                  to={item.to}
+                  className="text-muted-foreground transition-colors hover:text-primary"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>
       <div className="border-t border-border">
-        <p className="container-page py-6 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} 高松法律事務所
+        <p className="container-page py-6 text-xs tracking-wide text-muted-foreground">
+          © {new Date().getFullYear()} {FIRM.name}
         </p>
       </div>
     </footer>
