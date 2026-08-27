@@ -5,6 +5,9 @@ import { NAV } from "@/lib/nav";
 import { FIRM } from "@/lib/firm";
 import logo from "@/assets/takamatsu-logo.jpg";
 import { cn } from "@/lib/utils";
+import { LogoMark } from "./LogoMark";
+
+const MOBILE_NAV = [...NAV, { to: "/news" as const, label: "お知らせ" }];
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -105,7 +108,12 @@ export function SiteHeader() {
               aria-label={open ? "メニューを閉じる" : "メニューを開く"}
               aria-expanded={open}
               aria-controls="mobile-nav"
-              className="inline-flex size-11 items-center justify-center border border-border text-primary transition-[background-color,border-color,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-surface xl:hidden"
+              className={cn(
+                "inline-flex size-11 items-center justify-center border text-primary transition-[background-color,border-color,color,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] xl:hidden",
+                open
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border hover:bg-surface",
+              )}
             >
               <span className={cn("menu-toggle-bars", open && "is-open")} aria-hidden>
                 <span />
@@ -143,36 +151,41 @@ export function SiteHeader() {
               : "pointer-events-none translate-x-full opacity-0",
           )}
         >
-          <p className="shrink-0 px-5 pt-5 text-[10px] tracking-[0.35em] text-brand">MENU</p>
-          <ul className="flex min-h-0 flex-1 flex-col overflow-y-auto px-2 pb-2 pt-1">
-            {NAV.map((item) => (
+          <div className="flex items-center gap-3 px-5 pt-6">
+            <LogoMark className="size-7" />
+            <p className="text-[10px] tracking-[0.35em] text-brand">MENU</p>
+          </div>
+          <ul className="flex min-h-0 flex-1 flex-col overflow-y-auto px-2 pb-2 pt-4">
+            {MOBILE_NAV.map((item, i) => (
               <li key={item.to} className="menu-sheet-item">
                 <Link
                   to={item.to}
                   onClick={() => setOpen(false)}
-                  className="block px-3 py-3 text-[15px] tracking-wide text-foreground transition-colors hover:text-primary"
+                  className={cn(
+                    "flex items-baseline gap-4 px-3 py-3.5 text-[15px] tracking-wide transition-colors hover:text-primary",
+                    pathname === item.to ? "text-primary" : "text-foreground",
+                  )}
                 >
+                  <span className="font-serif text-[11px] tracking-[0.22em] text-brand">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   {item.label}
                 </Link>
               </li>
             ))}
-            <li className="menu-sheet-item">
-              <Link
-                to="/news"
-                onClick={() => setOpen(false)}
-                className="block px-3 py-3 text-[15px] tracking-wide text-foreground transition-colors hover:text-primary"
-              >
-                お知らせ
-              </Link>
-            </li>
             <li className="menu-sheet-item mt-auto border-t border-border/80 px-3 py-5">
-              <a href={FIRM.telReserveHref} className="block text-sm tracking-wide text-primary">
-                相談予約 {FIRM.telReserve}
+              <p className="text-[10px] tracking-[0.28em] text-muted-foreground">CONSULTATION</p>
+              <a
+                href={FIRM.telReserveHref}
+                className="mt-3 block font-serif text-2xl tracking-wider text-primary"
+              >
+                {FIRM.telReserve}
               </a>
+              <p className="mt-2 text-[11px] tracking-wide text-muted-foreground">{FIRM.hours}</p>
               <Link
                 to="/contact"
                 onClick={() => setOpen(false)}
-                className="mt-3 block bg-primary px-4 py-3 text-center text-sm text-primary-foreground transition-opacity hover:opacity-90"
+                className="mt-5 block bg-primary px-4 py-3 text-center text-sm text-primary-foreground transition-opacity hover:opacity-90"
               >
                 来所予約のご連絡
               </Link>
