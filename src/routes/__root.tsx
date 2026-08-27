@@ -13,23 +13,27 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { Grain } from "@/components/site/Decor";
 import { Toaster } from "@/components/ui/sonner";
+import { FIRM, DEFAULT_DESCRIPTION, SITE_TITLE } from "@/lib/firm";
+import { LogoMark } from "@/components/site/LogoMark";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-[70vh] items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+        <LogoMark className="mx-auto size-14" />
+        <p className="mt-8 text-[11px] tracking-[0.38em] text-brand">404</p>
+        <h1 className="mt-4 text-2xl">ページが見つかりません</h1>
+        <p className="mt-4 text-sm leading-8 text-muted-foreground">
+          お探しのページは移動したか、削除された可能性があります。
         </p>
-        <div className="mt-6">
+        <div className="mt-8">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center bg-primary px-6 py-3 text-sm text-primary-foreground"
           >
-            Go home
+            ホームへ戻る
           </Link>
         </div>
       </div>
@@ -45,30 +49,29 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-[70vh] items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+        <h1 className="text-xl tracking-tight text-foreground">ページを表示できませんでした</h1>
+        <p className="mt-4 text-sm leading-8 text-muted-foreground">
+          申し訳ありません。しばらくしてから再度お試しください。
         </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <button
+            type="button"
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center bg-primary px-6 py-3 text-sm text-primary-foreground"
           >
-            Try again
+            再読み込み
           </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center border border-border px-6 py-3 text-sm"
           >
-            Go home
-          </a>
+            ホームへ戻る
+          </Link>
         </div>
       </div>
     </div>
@@ -80,28 +83,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "高松法律事務所｜香川・高松の弁護士" },
-      {
-        name: "description",
-        content: "香川県高松市の法律事務所。相続・離婚・労働・企業法務のご相談に対応します。",
-      },
-      { property: "og:site_name", content: "高松法律事務所" },
+      { title: SITE_TITLE },
+      { name: "description", content: DEFAULT_DESCRIPTION },
+      { property: "og:site_name", content: FIRM.name },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "ja_JP" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "format-detection", content: "telephone=no" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap",
       },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "apple-touch-icon", href: "/logo.jpg" },
     ],
   }),
 
@@ -113,7 +113,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <head>
         <HeadContent />
       </head>
@@ -132,14 +132,13 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col">
         <SiteHeader />
-        <main className="flex-1">
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <main id="main" className="flex-1">
           <Outlet />
         </main>
         <SiteFooter />
       </div>
+      <Grain />
       <Toaster position="top-center" />
     </QueryClientProvider>
   );
 }
-

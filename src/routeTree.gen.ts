@@ -17,8 +17,11 @@ import { Route as FlowRouteImport } from './routes/flow'
 import { Route as LawyersRouteImport } from './routes/lawyers'
 import { Route as PracticeRouteImport } from './routes/practice'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as ColumnIndexRouteImport } from './routes/column/index'
 import { Route as ColumnSlugRouteImport } from './routes/column/$slug'
+import { Route as NewsIndexRouteImport } from './routes/news/index'
+import { Route as NewsSlugRouteImport } from './routes/news/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -60,6 +63,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapRoute = SitemapRouteImport.update({
+  id: '/sitemap',
+  path: '/sitemap',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ColumnIndexRoute = ColumnIndexRouteImport.update({
   id: '/column/',
   path: '/column/',
@@ -68,6 +76,16 @@ const ColumnIndexRoute = ColumnIndexRouteImport.update({
 const ColumnSlugRoute = ColumnSlugRouteImport.update({
   id: '/column/$slug',
   path: '/column/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsIndexRoute = NewsIndexRouteImport.update({
+  id: '/news/',
+  path: '/news/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsSlugRoute = NewsSlugRouteImport.update({
+  id: '/news/$slug',
+  path: '/news/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -80,8 +98,11 @@ export interface FileRoutesByFullPath {
   '/lawyers': typeof LawyersRoute
   '/practice': typeof PracticeRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap': typeof SitemapRoute
   '/column/$slug': typeof ColumnSlugRoute
+  '/news/$slug': typeof NewsSlugRoute
   '/column/': typeof ColumnIndexRoute
+  '/news/': typeof NewsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -92,8 +113,11 @@ export interface FileRoutesByTo {
   '/lawyers': typeof LawyersRoute
   '/practice': typeof PracticeRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap': typeof SitemapRoute
   '/column/$slug': typeof ColumnSlugRoute
+  '/news/$slug': typeof NewsSlugRoute
   '/column': typeof ColumnIndexRoute
+  '/news': typeof NewsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -105,8 +129,11 @@ export interface FileRoutesById {
   '/lawyers': typeof LawyersRoute
   '/practice': typeof PracticeRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap': typeof SitemapRoute
   '/column/$slug': typeof ColumnSlugRoute
+  '/news/$slug': typeof NewsSlugRoute
   '/column/': typeof ColumnIndexRoute
+  '/news/': typeof NewsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -119,8 +146,11 @@ export interface FileRouteTypes {
     | '/lawyers'
     | '/practice'
     | '/privacy'
+    | '/sitemap'
     | '/column/$slug'
+    | '/news/$slug'
     | '/column/'
+    | '/news/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -131,8 +161,11 @@ export interface FileRouteTypes {
     | '/lawyers'
     | '/practice'
     | '/privacy'
+    | '/sitemap'
     | '/column/$slug'
+    | '/news/$slug'
     | '/column'
+    | '/news'
   id:
     | '__root__'
     | '/'
@@ -143,8 +176,11 @@ export interface FileRouteTypes {
     | '/lawyers'
     | '/practice'
     | '/privacy'
+    | '/sitemap'
     | '/column/$slug'
+    | '/news/$slug'
     | '/column/'
+    | '/news/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -156,8 +192,11 @@ export interface RootRouteChildren {
   LawyersRoute: typeof LawyersRoute
   PracticeRoute: typeof PracticeRoute
   PrivacyRoute: typeof PrivacyRoute
+  SitemapRoute: typeof SitemapRoute
   ColumnSlugRoute: typeof ColumnSlugRoute
+  NewsSlugRoute: typeof NewsSlugRoute
   ColumnIndexRoute: typeof ColumnIndexRoute
+  NewsIndexRoute: typeof NewsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -218,6 +257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap': {
+      id: '/sitemap'
+      path: '/sitemap'
+      fullPath: '/sitemap'
+      preLoaderRoute: typeof SitemapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/column/': {
       id: '/column/'
       path: '/column'
@@ -232,6 +278,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ColumnSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/news/': {
+      id: '/news/'
+      path: '/news'
+      fullPath: '/news/'
+      preLoaderRoute: typeof NewsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news/$slug': {
+      id: '/news/$slug'
+      path: '/news/$slug'
+      fullPath: '/news/$slug'
+      preLoaderRoute: typeof NewsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -244,8 +304,11 @@ const rootRouteChildren: RootRouteChildren = {
   LawyersRoute: LawyersRoute,
   PracticeRoute: PracticeRoute,
   PrivacyRoute: PrivacyRoute,
+  SitemapRoute: SitemapRoute,
   ColumnSlugRoute: ColumnSlugRoute,
+  NewsSlugRoute: NewsSlugRoute,
   ColumnIndexRoute: ColumnIndexRoute,
+  NewsIndexRoute: NewsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

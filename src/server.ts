@@ -47,6 +47,14 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+      if (request.method === "GET" || request.method === "HEAD") {
+        const { matchRedirect } = await import("./lib/redirects");
+        const to = matchRedirect(url.pathname);
+        if (to) {
+          return Response.redirect(new URL(to, url.origin), 301);
+        }
+      }
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);
