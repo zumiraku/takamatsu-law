@@ -48,6 +48,7 @@ export function SiteHeader() {
             alt={FIRM.name}
             width={330}
             height={72}
+            decoding="async"
             className={cn(
               "w-auto max-w-[min(100%,16rem)] object-contain object-left transition-[height] duration-500",
               scrolled ? "h-8 md:h-10" : "h-10 md:h-12",

@@ -23,7 +23,10 @@ export const Route = createFileRoute("/")({
       { property: "og:image", content: `${FIRM.siteUrl}/og.jpg` },
       { property: "og:locale", content: "ja_JP" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [
+      { rel: "canonical", href: "/" },
+      { rel: "preload", href: IMG.hero, as: "image", type: "image/webp" },
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -73,6 +76,12 @@ function Home() {
         <img
           src={IMG.hero}
           alt="朝の光が差し込む高松総合法律事務所の相談室"
+          sizes="100vw"
+          width={1920}
+          height={1080}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover animate-kenburns"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#000c1c]/90 via-[#000c1c]/55 to-[#000c1c]/20" />
@@ -190,6 +199,7 @@ function Home() {
             alt="瀬戸内海と高松の夕景"
             className="min-h-72 lg:min-h-[32rem]"
             kenburns
+            sizes="(min-width: 1024px) 50vw, 100vw"
           />
           <div className="flex items-center bg-primary px-8 py-16 text-primary-foreground md:px-16">
             <Reveal>

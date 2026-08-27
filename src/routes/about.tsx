@@ -56,7 +56,12 @@ function About() {
           </Reveal>
           <Reveal delay={140}>
             <div className="grid grid-cols-2 gap-3">
-              <FrameImg src={IMG.consult} alt="相談室" className="col-span-2 aspect-[16/9]" />
+              <FrameImg
+                src={IMG.consult}
+                alt="相談室"
+                className="col-span-2 aspect-[16/9]"
+                sizes="(min-width: 1024px) 40vw, 100vw"
+              />
               <FrameImg src={IMG.scales} alt="法律書と天秤" className="aspect-square" />
               <FrameImg src={IMG.heroOffice} alt="朝の光が入る執務室" className="aspect-square" />
             </div>

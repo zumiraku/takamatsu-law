@@ -8,7 +8,17 @@ export function SiteFooter() {
   return (
     <footer className="relative mt-0 overflow-hidden border-t border-border bg-surface">
       <div className="relative h-40 overflow-hidden md:h-56">
-        <img src={IMG.sea} alt="" className="h-full w-full object-cover" />
+        <img
+          src={IMG.sea}
+          alt=""
+          sizes="100vw"
+          width={1600}
+          height={400}
+          loading="lazy"
+          decoding="async"
+          fetchPriority="low"
+          className="h-full w-full object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent" />
         <p className="absolute bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] tracking-[0.42em] text-primary/70">
           TAKAMATSU · KAGAWA · SETO INLAND SEA
@@ -21,6 +31,7 @@ export function SiteFooter() {
             alt={FIRM.name}
             width={330}
             height={72}
+            decoding="async"
             className="h-11 w-auto object-contain object-left"
           />
           <p className="mt-5 max-w-md text-sm leading-8 text-muted-foreground">{FIRM.tagline}</p>

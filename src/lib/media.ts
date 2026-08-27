@@ -1,19 +1,18 @@
-import heroCinematic from "@/assets/hero-cinematic.jpg";
-import heroOffice from "@/assets/hero-office.jpg";
-import takamatsuSeto from "@/assets/takamatsu-seto.jpg";
-import stillScales from "@/assets/still-scales.jpg";
-import corridorLight from "@/assets/corridor-light.jpg";
-import consultChairs from "@/assets/consult-chairs.jpg";
-import textureWashi from "@/assets/texture-washi.jpg";
-import practiceKotsu from "@/assets/practice-kotsu.jpg";
-import practiceSouzoku from "@/assets/practice-souzoku.jpg";
-import practiceRikon from "@/assets/practice-rikon.jpg";
-import practiceSaimu from "@/assets/practice-saimu.jpg";
-import practiceHigai from "@/assets/practice-higai.jpg";
-import practiceMinji from "@/assets/practice-minji.jpg";
-import practiceCorporate from "@/assets/practice-corporate.jpg";
-import practiceSaisei from "@/assets/practice-saisei.jpg";
-import practiceRoumu from "@/assets/practice-roumu.jpg";
+import heroCinematic from "@/assets/opt/hero-cinematic.webp";
+import heroOffice from "@/assets/opt/hero-office.webp";
+import takamatsuSeto from "@/assets/opt/takamatsu-seto.webp";
+import stillScales from "@/assets/opt/still-scales.webp";
+import corridorLight from "@/assets/opt/corridor-light.webp";
+import consultChairs from "@/assets/opt/consult-chairs.webp";
+import practiceKotsu from "@/assets/opt/practice-kotsu.webp";
+import practiceSouzoku from "@/assets/opt/practice-souzoku.webp";
+import practiceRikon from "@/assets/opt/practice-rikon.webp";
+import practiceSaimu from "@/assets/opt/practice-saimu.webp";
+import practiceHigai from "@/assets/opt/practice-higai.webp";
+import practiceMinji from "@/assets/opt/practice-minji.webp";
+import practiceCorporate from "@/assets/opt/practice-corporate.webp";
+import practiceSaisei from "@/assets/opt/practice-saisei.webp";
+import practiceRoumu from "@/assets/opt/practice-roumu.webp";
 
 export const IMG = {
   hero: heroCinematic,
@@ -22,7 +21,6 @@ export const IMG = {
   scales: stillScales,
   corridor: corridorLight,
   consult: consultChairs,
-  washi: textureWashi,
   practices: {
     kotsu: practiceKotsu,
     souzoku: practiceSouzoku,

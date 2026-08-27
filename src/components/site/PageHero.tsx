@@ -25,6 +25,12 @@ export function PageHero({
       <img
         src={src}
         alt={alt}
+        sizes="100vw"
+        width={1600}
+        height={900}
+        loading="eager"
+        decoding="async"
+        fetchPriority="high"
         className="absolute inset-0 h-full w-full object-cover animate-kenburns"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[#001226]/88 via-[#001226]/55 to-[#001226]/25" />
@@ -57,6 +63,12 @@ export function CtaBand() {
       <img
         src={IMG.sea}
         alt=""
+        sizes="100vw"
+        width={1600}
+        height={900}
+        loading="lazy"
+        decoding="async"
+        fetchPriority="low"
         className="absolute inset-0 h-full w-full object-cover animate-kenburns"
       />
       <div className="absolute inset-0 bg-primary/82" />

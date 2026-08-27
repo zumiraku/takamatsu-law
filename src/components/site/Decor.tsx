@@ -1,15 +1,8 @@
 import { cn } from "@/lib/utils";
-import { IMG } from "@/lib/media";
 import { LogoMark } from "./LogoMark";
 
 export function Grain() {
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none fixed inset-0 z-[60] opacity-[0.035] mix-blend-multiply"
-      style={{ backgroundImage: `url(${IMG.washi})`, backgroundSize: "420px" }}
-    />
-  );
+  return <div aria-hidden className="site-grain" />;
 }
 
 export function DiamondField({ className }: { className?: string }) {
@@ -55,18 +48,26 @@ export function FrameImg({
   className,
   imgClassName,
   kenburns = false,
+  priority = false,
+  sizes = "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw",
 }: {
   src: string;
   alt: string;
   className?: string;
   imgClassName?: string;
   kenburns?: boolean;
+  priority?: boolean;
+  sizes?: string;
 }) {
   return (
     <div className={cn("group relative overflow-hidden bg-surface", className)}>
       <img
         src={src}
         alt={alt}
+        sizes={sizes}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        fetchPriority={priority ? "high" : "low"}
         className={cn(
           "h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105",
           kenburns && "animate-kenburns",
