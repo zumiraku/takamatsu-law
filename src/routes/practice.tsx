@@ -21,7 +21,12 @@ function AreaCard({ p, i }: { p: Practice; i: number }) {
   return (
     <li id={p.id} className="scroll-mt-28 overflow-hidden border border-border bg-card">
       <Reveal delay={(i % 2) * 80}>
-        <FrameImg src={IMG.practices[p.id]} alt="" className="aspect-[16/9]" />
+        <FrameImg
+          src={IMG.practices[p.id]}
+          alt=""
+          className="aspect-[16/9]"
+          sizes="(min-width: 768px) 50vw, 100vw"
+        />
         <div className="p-8 md:p-10">
           <h3 className="text-xl">{p.title}</h3>
           <p className="mt-4 text-sm leading-8 text-muted-foreground">{p.lead}</p>
