@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TODO: BASE_URL is empty until a project domain is set; prefix each <loc> once available. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>/</loc></url>
+  <url><loc>/about</loc></url>
+  <url><loc>/lawyers</loc></url>
+  <url><loc>/practice</loc></url>
+  <url><loc>/fees</loc></url>
+  <url><loc>/flow</loc></url>
+  <url><loc>/column</loc></url>
+  <url><loc>/column/souzoku-tetsuzuki-nagare</loc></url>
+  <url><loc>/column/rikon-yoikuhi-soba</loc></url>
+  <url><loc>/column/zangyodai-seikyu</loc></url>
+  <url><loc>/column/keiyakusho-check</loc></url>
+  <url><loc>/column/kotsujiko-kosyo</loc></url>
+  <url><loc>/column/saimu-seiri-sentakushi</loc></url>
+  <url><loc>/contact</loc></url>
+  <url><loc>/privacy</loc></url>
+</urlset>
