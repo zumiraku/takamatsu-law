@@ -18,7 +18,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 const FIELD =
-  "mt-2 w-full border border-input bg-card px-4 py-3 text-sm outline-none transition-colors focus:border-ring";
+  "mt-2 w-full border border-input bg-card px-4 py-3 text-sm outline-none transition-[border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus:border-brand focus:shadow-[0_0_0_3px_oklch(0.48_0.13_260_/_0.14)]";
 
 function Contact() {
   const [sent, setSent] = useState(false);

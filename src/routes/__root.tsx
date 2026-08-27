@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -14,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Grain } from "@/components/site/Decor";
+import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { Toaster } from "@/components/ui/sonner";
 import { FIRM, DEFAULT_DESCRIPTION, SITE_TITLE } from "@/lib/firm";
 import { LogoMark } from "@/components/site/LogoMark";
@@ -127,12 +129,14 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col">
+        <ScrollProgress />
         <SiteHeader />
-        <main id="main" className="flex-1">
+        <main id="main" key={pathname} className="page-enter flex-1">
           <Outlet />
         </main>
         <SiteFooter />

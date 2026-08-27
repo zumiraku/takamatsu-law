@@ -17,7 +17,7 @@ export function SiteFooter() {
           loading="lazy"
           decoding="async"
           fetchPriority="low"
-          className="media-fill"
+          className="media-fill animate-kenburns"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent" />
         <p className="absolute bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] tracking-[0.42em] text-primary/70">
@@ -38,12 +38,27 @@ export function SiteFooter() {
           <address className="mt-8 text-sm not-italic leading-8 text-muted-foreground">
             {FIRM.address}
             <br />
-            代表 TEL {FIRM.telMain}
+            代表 TEL{" "}
+            <a href={FIRM.telMainHref} className="transition-colors hover:text-primary">
+              {FIRM.telMain}
+            </a>
             <br />
-            相談予約 TEL {FIRM.telReserve}（{FIRM.hours}）
+            相談予約 TEL{" "}
+            <a href={FIRM.telReserveHref} className="transition-colors hover:text-primary">
+              {FIRM.telReserve}
+            </a>
+            （{FIRM.hours}）
             <br />
             {FIRM.bar}所属
           </address>
+          <a
+            href={FIRM.facebook}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-6 inline-block text-[11px] tracking-[0.28em] text-brand transition-opacity hover:opacity-70"
+          >
+            FACEBOOK
+          </a>
         </div>
 
         <nav aria-label="フッターナビゲーション">

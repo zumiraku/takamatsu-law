@@ -75,7 +75,8 @@ export function CtaBand() {
       <DiamondField />
       <div className="relative container-page grid gap-10 py-20 md:grid-cols-[1.4fr_1fr] md:items-center md:py-24">
         <div>
-          <h2 className="text-2xl md:text-3xl">まずは、お電話ください</h2>
+          <p className="text-[11px] tracking-[0.32em] opacity-70">RESERVE</p>
+          <h2 className="mt-4 text-2xl md:text-3xl">まずは、お電話ください</h2>
           <p className="mt-5 max-w-lg text-sm leading-8 opacity-85">
             法律相談は原則として来所面談です。紹介は不要です。弁護士への相談が初めての方も、丁寧に対応いたします。
           </p>

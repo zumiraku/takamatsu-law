@@ -1,5 +1,7 @@
+import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { LogoMark } from "./LogoMark";
+import type { ReactNode } from "react";
 
 export function Grain() {
   return <div aria-hidden className="site-grain" />;
@@ -78,6 +80,29 @@ export function FrameImg({
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/25 to-transparent opacity-70"
       />
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-3 border border-white/0 transition-[border-color] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:border-white/40"
+      />
     </div>
+  );
+}
+
+export function TextLink({
+  to,
+  hash,
+  children,
+  light = false,
+}: {
+  to: string;
+  hash?: string;
+  children: ReactNode;
+  light?: boolean;
+}) {
+  return (
+    <Link to={to} hash={hash} className={cn("text-link", light && "is-light")}>
+      {children}
+      <span className="text-link-rule" aria-hidden />
+    </Link>
   );
 }

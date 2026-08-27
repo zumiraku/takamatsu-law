@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
 import { SectionTitle, CtaBand } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
-import { DiamondField, FrameImg, ScrollHint, VerticalEn } from "@/components/site/Decor";
+import { DiamondField, FrameImg, ScrollHint, TextLink, VerticalEn } from "@/components/site/Decor";
 import { LogoMark } from "@/components/site/LogoMark";
 import { columns, formatDate } from "@/lib/columns";
 import { news } from "@/lib/news";
@@ -89,35 +88,33 @@ function Home() {
         <div className="relative container-page flex min-h-[92vh] flex-col justify-end pb-16 pt-28 md:pb-20">
           <div className="flex items-end gap-10">
             <VerticalEn text={FIRM.nameEn} />
-            <div className="max-w-2xl text-white">
-              <Reveal>
-                <div className="flex items-center gap-4">
-                  <LogoMark className="size-10 md:size-12" />
-                  <p className="text-[11px] tracking-[0.42em] text-white/70">{FIRM.nameEn}</p>
-                </div>
-                <h1 className="mt-8 text-[2rem] leading-[1.55] md:text-[3.15rem]">
-                  クライアントの安心と
-                  <br />
-                  最良の結果のために
-                </h1>
-                <p className="mt-8 max-w-md text-sm leading-9 text-white/80">
-                  香川県高松市の法律事務所です。紹介は不要です。弁護士への相談が初めての方にも、丁寧に対応いたします。
-                </p>
-                <div className="mt-10 flex flex-wrap gap-3">
-                  <a
-                    href={FIRM.telReserveHref}
-                    className="inline-flex items-center gap-2 bg-white px-7 py-3.5 text-sm text-primary transition-transform duration-300 hover:-translate-y-0.5"
-                  >
-                    相談予約 {FIRM.telReserve}
-                  </a>
-                  <Link
-                    to="/practice"
-                    className="inline-flex items-center gap-2 border border-white/40 px-7 py-3.5 text-sm text-white transition-colors hover:bg-white hover:text-primary"
-                  >
-                    取扱業務を見る <ArrowRight className="size-4" aria-hidden />
-                  </Link>
-                </div>
-              </Reveal>
+            <div className="hero-enter max-w-2xl text-white">
+              <div className="flex items-center gap-4">
+                <LogoMark className="size-10 md:size-12" />
+                <p className="text-[11px] tracking-[0.42em] text-white/70">{FIRM.nameEn}</p>
+              </div>
+              <h1 className="mt-8 text-[2rem] leading-[1.55] md:text-[3.15rem]">
+                クライアントの安心と
+                <br />
+                最良の結果のために
+              </h1>
+              <p className="mt-8 max-w-md text-sm leading-9 text-white/80">
+                香川県高松市の法律事務所です。紹介は不要です。弁護士への相談が初めての方にも、丁寧に対応いたします。
+              </p>
+              <div className="mt-10 flex flex-wrap gap-3">
+                <a
+                  href={FIRM.telReserveHref}
+                  className="inline-flex items-center gap-2 bg-white px-7 py-3.5 text-sm text-primary transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
+                >
+                  相談予約 {FIRM.telReserve}
+                </a>
+                <Link
+                  to="/practice"
+                  className="inline-flex items-center gap-2 border border-white/40 px-7 py-3.5 text-sm text-white transition-colors duration-500 hover:bg-white hover:text-primary"
+                >
+                  取扱業務を見る
+                </Link>
+              </div>
             </div>
           </div>
           <div className="mt-12">
@@ -126,8 +123,8 @@ function Home() {
         </div>
       </section>
 
-      <div className="overflow-hidden border-y border-border bg-primary text-primary-foreground">
-        <div className="flex w-max animate-marquee py-3 text-[11px] tracking-[0.35em] opacity-80">
+      <div className="group/ticker overflow-hidden border-y border-border bg-primary text-primary-foreground">
+        <div className="flex w-max animate-marquee py-3 text-[11px] tracking-[0.35em] opacity-80 group-hover/ticker:[animation-play-state:paused]">
           {[...TICKER, ...TICKER, ...TICKER, ...TICKER].map((t, i) => (
             <span key={`${t}-${i}`} className="px-8">
               {t} ·
@@ -144,7 +141,10 @@ function Home() {
           {POINTS.map((v, i) => (
             <li key={v.t}>
               <Reveal delay={i * 120}>
-                <FrameImg src={v.img} alt={v.alt} className="aspect-[4/3]" />
+                <p className="font-serif text-[11px] tracking-[0.32em] text-brand">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <FrameImg src={v.img} alt={v.alt} className="mt-4 aspect-[4/3]" />
                 <h3 className="mt-6 text-lg">{v.t}</h3>
                 <p className="mt-3 text-sm leading-8 text-muted-foreground">{v.d}</p>
               </Reveal>
@@ -165,9 +165,12 @@ function Home() {
                   <Link
                     to="/practice"
                     hash={p.id}
-                    className="group block overflow-hidden border border-border bg-card transition-shadow duration-500 hover:shadow-soft"
+                    className="group relative block overflow-hidden border border-border bg-card transition-shadow duration-500 hover:shadow-soft"
                   >
                     <FrameImg src={IMG.practices[p.id]} alt="" className="aspect-[16/10]" />
+                    <span className="pointer-events-none absolute left-4 top-4 font-serif text-[11px] tracking-[0.28em] text-white/85">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                     <div className="p-6">
                       <p className="text-[10px] tracking-[0.28em] text-brand">
                         {p.group === "personal" ? "個人の方" : "企業の方"}
@@ -203,12 +206,11 @@ function Home() {
               <p className="mt-6 max-w-md text-sm leading-8 text-white/80">
                 JR高松駅から徒歩約10分。兵庫町の交差点ほど近く。紹介がなくても、相談が初めてでも、丁寧にお話を伺います。
               </p>
-              <Link
-                to="/about"
-                className="mt-8 inline-flex items-center gap-2 border-b border-white/40 pb-1 text-sm hover:border-white"
-              >
-                事務所案内を見る <ArrowRight className="size-4" aria-hidden />
-              </Link>
+              <div className="mt-8">
+                <TextLink to="/about" light>
+                  事務所案内を見る
+                </TextLink>
+              </div>
             </Reveal>
           </div>
         </div>
@@ -243,9 +245,7 @@ function Home() {
           ))}
         </ul>
         <div className="mt-10">
-          <Link to="/column" className="text-sm text-primary underline underline-offset-8">
-            コラムの一覧を見る
-          </Link>
+          <TextLink to="/column">コラムの一覧を見る</TextLink>
         </div>
       </section>
 
@@ -260,7 +260,7 @@ function Home() {
                 <Link
                   to="/news/$slug"
                   params={{ slug: n.slug }}
-                  className="flex flex-col gap-1 py-5 transition-colors hover:bg-background md:flex-row md:items-baseline md:gap-8"
+                  className="flex flex-col gap-1 py-5 transition-[background-color,padding] duration-500 hover:bg-background md:flex-row md:items-baseline md:gap-8 md:hover:px-4"
                 >
                   <span className="text-xs tracking-widest text-muted-foreground">
                     {formatDate(n.date)}

@@ -102,13 +102,15 @@ function About() {
               お車でお越しの場合は、近隣のコインパーキングをご利用ください。
             </p>
           </div>
-          <iframe
-            title={`${FIRM.name}の地図`}
-            src={FIRM.mapEmbed}
-            className="min-h-72 w-full border border-border bg-surface"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          <div className="overflow-hidden border border-border">
+            <iframe
+              title={`${FIRM.name}の地図`}
+              src={FIRM.mapEmbed}
+              className="min-h-72 w-full border-0 bg-surface grayscale-[25%] contrast-[0.96]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </div>
       </section>
 

@@ -28,7 +28,10 @@ function AreaCard({ p, i }: { p: Practice; i: number }) {
           sizes="(min-width: 768px) 50vw, 100vw"
         />
         <div className="p-8 md:p-10">
-          <h3 className="text-xl">{p.title}</h3>
+          <p className="font-serif text-[11px] tracking-[0.28em] text-brand">
+            {String(i + 1).padStart(2, "0")}
+          </p>
+          <h3 className="mt-3 text-xl">{p.title}</h3>
           <p className="mt-4 text-sm leading-8 text-muted-foreground">{p.lead}</p>
           <ul className="mt-6 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
             {p.items.map((item) => (
