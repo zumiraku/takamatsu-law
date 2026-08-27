@@ -211,6 +211,87 @@
   animation: draw-rule 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+@keyframes menu-sheet-item {
+  from {
+    opacity: 0;
+    transform: translate3d(12px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.menu-toggle-bars {
+  position: relative;
+  display: block;
+  width: 1.15rem;
+  height: 0.8rem;
+}
+.menu-toggle-bars span {
+  position: absolute;
+  left: 0;
+  height: 1.5px;
+  width: 100%;
+  background: currentColor;
+  transform-origin: center;
+  transition:
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease,
+    width 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.menu-toggle-bars span:nth-child(1) {
+  top: 0;
+}
+.menu-toggle-bars span:nth-child(2) {
+  top: 50%;
+  margin-top: -0.75px;
+}
+.menu-toggle-bars span:nth-child(3) {
+  bottom: 0;
+}
+.menu-toggle-bars.is-open span:nth-child(1) {
+  transform: translateY(calc(0.4rem - 0.75px)) rotate(45deg);
+}
+.menu-toggle-bars.is-open span:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+.menu-toggle-bars.is-open span:nth-child(3) {
+  transform: translateY(calc(-0.4rem + 0.75px)) rotate(-45deg);
+}
+
+.menu-sheet[data-open="true"] .menu-sheet-item {
+  animation: menu-sheet-item 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.menu-sheet[data-open="true"] .menu-sheet-item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.menu-sheet[data-open="true"] .menu-sheet-item:nth-child(2) {
+  animation-delay: 0.08s;
+}
+.menu-sheet[data-open="true"] .menu-sheet-item:nth-child(3) {
+  animation-delay: 0.11s;
+}
+.menu-sheet[data-open="true"] .menu-sheet-item:nth-child(4) {
+  animation-delay: 0.14s;
+}
+.menu-sheet[data-open="true"] .menu-sheet-item:nth-child(5) {
+  animation-delay: 0.17s;
+}
+.menu-sheet[data-open="true"] .menu-sheet-item:nth-child(6) {
+  animation-delay: 0.2s;
+}
+.menu-sheet[data-open="true"] .menu-sheet-item:nth-child(7) {
+  animation-delay: 0.23s;
+}
+.menu-sheet[data-open="true"] .menu-sheet-item:nth-child(8) {
+  animation-delay: 0.26s;
+}
+.menu-sheet[data-open="true"] .menu-sheet-item:nth-child(9) {
+  animation-delay: 0.3s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-kenburns,
   .animate-float-slow,
@@ -220,6 +301,13 @@
   .animate-marquee,
   .rule-draw::after {
     animation: none !important;
+  }
+  .menu-sheet[data-open="true"],
+  .menu-sheet[data-open="true"] .menu-sheet-item {
+    animation: none !important;
+  }
+  .menu-toggle-bars span {
+    transition: none !important;
   }
   .reveal {
     opacity: 1;
@@ -294,6 +382,17 @@
 
 @utility shadow-soft {
   box-shadow: var(--shadow-soft);
+}
+
+.media-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
 }
 
 .site-grain {

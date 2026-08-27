@@ -82,7 +82,7 @@ function Home() {
           loading="eager"
           decoding="async"
           fetchPriority="high"
-          className="absolute inset-0 h-full w-full object-cover animate-kenburns"
+          className="media-fill animate-kenburns"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#000c1c]/90 via-[#000c1c]/55 to-[#000c1c]/20" />
         <DiamondField />
@@ -167,12 +167,7 @@ function Home() {
                     hash={p.id}
                     className="group block overflow-hidden border border-border bg-card transition-shadow duration-500 hover:shadow-soft"
                   >
-                    <FrameImg
-                      src={IMG.practices[p.id]}
-                      alt=""
-                      className="aspect-[16/10]"
-                      imgClassName="h-44"
-                    />
+                    <FrameImg src={IMG.practices[p.id]} alt="" className="aspect-[16/10]" />
                     <div className="p-6">
                       <p className="text-[10px] tracking-[0.28em] text-brand">
                         {p.group === "personal" ? "個人の方" : "企業の方"}

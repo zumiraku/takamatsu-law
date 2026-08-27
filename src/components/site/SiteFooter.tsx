@@ -17,7 +17,7 @@ export function SiteFooter() {
           loading="lazy"
           decoding="async"
           fetchPriority="low"
-          className="h-full w-full object-cover"
+          className="media-fill"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent" />
         <p className="absolute bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] tracking-[0.42em] text-primary/70">
