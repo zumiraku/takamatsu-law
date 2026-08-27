@@ -69,7 +69,7 @@ export function FrameImg({
         decoding="async"
         fetchPriority={priority ? "high" : "low"}
         className={cn(
-          "h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105",
+          "media-fill transition-transform duration-[1200ms] ease-out group-hover:scale-105",
           kenburns && "animate-kenburns",
           imgClassName,
         )}

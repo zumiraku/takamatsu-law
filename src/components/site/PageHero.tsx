@@ -31,7 +31,7 @@ export function PageHero({
         loading="eager"
         decoding="async"
         fetchPriority="high"
-        className="absolute inset-0 h-full w-full object-cover animate-kenburns"
+        className="media-fill animate-kenburns"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[#001226]/88 via-[#001226]/55 to-[#001226]/25" />
       <DiamondField />
@@ -69,7 +69,7 @@ export function CtaBand() {
         loading="lazy"
         decoding="async"
         fetchPriority="low"
-        className="absolute inset-0 h-full w-full object-cover animate-kenburns"
+        className="media-fill animate-kenburns"
       />
       <div className="absolute inset-0 bg-primary/82" />
       <DiamondField />
