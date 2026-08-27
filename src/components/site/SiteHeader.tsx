@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Phone } from "lucide-react";
 import { NAV } from "@/lib/nav";
 import { FIRM } from "@/lib/firm";
@@ -8,15 +8,24 @@ import { cn } from "@/lib/utils";
 import { LogoMark } from "./LogoMark";
 
 const MOBILE_NAV = [...NAV, { to: "/news" as const, label: "お知らせ" }];
+const EASE = "duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mode, setMode] = useState<"unknown" | "bar" | "menu">("unknown");
+  const measureRef = useRef<HTMLDivElement>(null);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const compact = mode === "menu";
+  const wide = mode === "bar";
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (wide) setOpen(false);
+  }, [wide]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -32,13 +41,29 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1280px)");
-    const onChange = () => {
-      if (mq.matches) setOpen(false);
+  useLayoutEffect(() => {
+    const el = measureRef.current;
+    if (!el) return;
+
+    const update = () => {
+      setMode(el.scrollWidth > el.clientWidth + 1 ? "menu" : "bar");
     };
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
+
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    if (el.parentElement) ro.observe(el.parentElement);
+
+    const fonts = document.fonts;
+    fonts?.ready.then(update);
+    fonts?.addEventListener("loadingdone", update);
+    window.addEventListener("resize", update);
+
+    return () => {
+      ro.disconnect();
+      fonts?.removeEventListener("loadingdone", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   useEffect(() => {
@@ -58,7 +83,10 @@ export function SiteHeader() {
       <header className="sticky top-0 z-[80]">
         <div
           className={cn(
-            "border-b backdrop-blur-md transition-[height,background,box-shadow] duration-500",
+            "border-b backdrop-blur-md",
+            "transition-[height,background-color,border-color,box-shadow]",
+            EASE,
+            barHeight,
             scrolled
               ? "border-border/80 bg-background/90 shadow-soft"
               : "border-transparent bg-background/70",
@@ -67,7 +95,33 @@ export function SiteHeader() {
           <a href="#main" className="skip-link">
             本文へスキップ
           </a>
-          <div className={cn("container-page flex items-center justify-between gap-4", barHeight)}>
+          <div className="container-page relative flex h-full items-center justify-between gap-4">
+            <div
+              ref={measureRef}
+              aria-hidden
+              inert
+              className="pointer-events-none invisible absolute inset-x-0 top-0 flex h-px items-center justify-between gap-4 overflow-hidden whitespace-nowrap"
+            >
+              <img
+                src={logo}
+                alt=""
+                width={330}
+                height={72}
+                className="h-10 w-auto shrink-0 md:h-12"
+              />
+              <div className="flex shrink-0 items-center gap-8">
+                {NAV.map((item) => (
+                  <span key={item.to} className="text-[13px] tracking-wide">
+                    {item.label}
+                  </span>
+                ))}
+                <span className="inline-flex items-center gap-2 px-5 py-2.5 text-[13px]">
+                  <span className="size-3.5 shrink-0" />
+                  相談のご予約
+                </span>
+              </div>
+            </div>
+
             <Link to="/" className="min-w-0 shrink" onClick={() => setOpen(false)}>
               <img
                 src={logo}
@@ -76,18 +130,35 @@ export function SiteHeader() {
                 height={72}
                 decoding="async"
                 className={cn(
-                  "w-auto max-w-[min(100%,16rem)] object-contain object-left transition-[height] duration-500",
+                  "w-auto max-w-[min(100%,16rem)] object-contain object-left",
+                  "transition-[height]",
+                  EASE,
                   scrolled ? "h-8 md:h-10" : "h-10 md:h-12",
                 )}
               />
             </Link>
 
-            <nav className="hidden items-center gap-8 xl:flex" aria-label="メインナビゲーション">
+            <nav
+              className={cn(
+                "items-center",
+                mode === "unknown" && "hidden lg:flex",
+                wide && "flex",
+                compact && "hidden",
+                "transition-[gap]",
+                EASE,
+                scrolled ? "gap-6" : "gap-8",
+              )}
+              aria-label="メインナビゲーション"
+            >
               {NAV.map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="nav-link text-[13px] tracking-wide text-foreground/75 transition-colors hover:text-primary"
+                  className={cn(
+                    "nav-link tracking-wide text-foreground/75 transition-[color,font-size,letter-spacing] hover:text-primary",
+                    EASE,
+                    scrolled ? "text-[12px] tracking-wider" : "text-[13px]",
+                  )}
                   activeProps={{ className: "text-primary" }}
                 >
                   {item.label}
@@ -95,9 +166,21 @@ export function SiteHeader() {
               ))}
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 bg-primary px-5 py-2.5 text-[13px] text-primary-foreground transition-all duration-300 hover:translate-y-[-1px] hover:opacity-90"
+                className={cn(
+                  "inline-flex items-center gap-2 bg-primary text-[13px] text-primary-foreground",
+                  "transition-[padding,transform,opacity] hover:-translate-y-0.5 hover:opacity-90",
+                  EASE,
+                  scrolled ? "px-4 py-2" : "px-5 py-2.5",
+                )}
               >
-                <Phone className="size-3.5" aria-hidden />
+                <Phone
+                  className={cn(
+                    "transition-[width,height]",
+                    EASE,
+                    scrolled ? "size-3" : "size-3.5",
+                  )}
+                  aria-hidden
+                />
                 相談のご予約
               </Link>
             </nav>
@@ -109,7 +192,13 @@ export function SiteHeader() {
               aria-expanded={open}
               aria-controls="mobile-nav"
               className={cn(
-                "inline-flex size-11 items-center justify-center border text-primary transition-[background-color,border-color,color,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] xl:hidden",
+                "inline-flex items-center justify-center border text-primary",
+                mode === "unknown" && "lg:hidden",
+                wide && "hidden",
+                compact && "inline-flex",
+                "transition-[width,height,background-color,border-color,color,transform]",
+                EASE,
+                scrolled ? "size-10" : "size-11",
                 open
                   ? "border-primary bg-primary text-primary-foreground"
                   : "border-border hover:bg-surface",
@@ -125,7 +214,7 @@ export function SiteHeader() {
         </div>
       </header>
 
-      <div className="xl:hidden">
+      <div className={cn(mode === "unknown" && "lg:hidden", wide && "hidden")}>
         <button
           type="button"
           tabIndex={-1}
@@ -133,7 +222,8 @@ export function SiteHeader() {
           aria-label="メニューを閉じる"
           onClick={() => setOpen(false)}
           className={cn(
-            "fixed inset-0 z-[70] bg-primary/25 backdrop-blur-[2px] transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            "fixed inset-0 z-[70] bg-primary/25 backdrop-blur-[2px] transition-opacity",
+            EASE,
             open ? "opacity-100" : "pointer-events-none opacity-0",
           )}
         />
@@ -143,7 +233,8 @@ export function SiteHeader() {
           aria-hidden={!open}
           inert={!open ? true : undefined}
           className={cn(
-            "menu-sheet fixed inset-y-0 right-0 z-[75] flex h-dvh w-[min(100%,20.5rem)] flex-col border-l border-border/80 bg-background/95 shadow-soft backdrop-blur-md transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            "menu-sheet fixed inset-y-0 right-0 z-[75] flex h-dvh w-[min(100%,20.5rem)] flex-col border-l border-border/80 bg-background/95 shadow-soft backdrop-blur-md transition-[opacity,transform,padding-top]",
+            EASE,
             "origin-right",
             panelPad,
             open
