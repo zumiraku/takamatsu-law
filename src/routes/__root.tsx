@@ -14,7 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
-import { Grain } from "@/components/site/Decor";
+import { Grain, LightPass } from "@/components/site/Decor";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { SiteScrollbar } from "@/components/site/SiteScrollbar";
 import { Toaster } from "@/components/ui/sonner";
@@ -34,7 +34,7 @@ function NotFoundComponent() {
         <div className="mt-8">
           <Link
             to="/"
-            className="inline-flex items-center justify-center bg-primary px-6 py-3 text-sm text-primary-foreground"
+            className="light-pass inline-flex items-center justify-center bg-primary px-6 py-3 text-sm text-primary-foreground"
           >
             ホームへ戻る
           </Link>
@@ -65,13 +65,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center bg-primary px-6 py-3 text-sm text-primary-foreground"
+            className="light-pass inline-flex items-center justify-center bg-primary px-6 py-3 text-sm text-primary-foreground"
           >
             再読み込み
           </button>
           <Link
             to="/"
-            className="inline-flex items-center justify-center border border-border px-6 py-3 text-sm"
+            className="light-pass inline-flex items-center justify-center border border-border px-6 py-3 text-sm"
           >
             ホームへ戻る
           </Link>
@@ -144,6 +144,7 @@ function RootComponent() {
         <SiteFooter />
       </div>
       <Grain />
+      <LightPass />
       <Toaster position="top-center" />
     </QueryClientProvider>
   );

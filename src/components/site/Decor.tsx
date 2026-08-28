@@ -1,10 +1,28 @@
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { LogoMark } from "./LogoMark";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 export function Grain() {
   return <div aria-hidden className="site-grain" />;
+}
+
+export function LightPass() {
+  useEffect(() => {
+    const onMove = (e: PointerEvent) => {
+      let el = (e.target as Element | null)?.closest?.(".light-pass") as HTMLElement | null;
+      if (!el) return;
+      const outer = el.parentElement?.closest(".light-pass");
+      if (outer instanceof HTMLElement) el = outer;
+      const r = el.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      el.style.setProperty("--lx", `${((e.clientX - r.left) / r.width) * 100}%`);
+      el.style.setProperty("--ly", `${((e.clientY - r.top) / r.height) * 100}%`);
+    };
+    document.addEventListener("pointermove", onMove, { passive: true });
+    return () => document.removeEventListener("pointermove", onMove);
+  }, []);
+  return null;
 }
 
 export function DiamondField({ className }: { className?: string }) {
@@ -62,7 +80,7 @@ export function FrameImg({
   sizes?: string;
 }) {
   return (
-    <div className={cn("group relative overflow-hidden bg-surface", className)}>
+    <div className={cn("light-pass group relative overflow-hidden bg-surface", className)}>
       <img
         src={src}
         alt={alt}

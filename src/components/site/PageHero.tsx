@@ -91,7 +91,7 @@ export function CtaBand() {
           </a>
           <Link
             to="/contact"
-            className="inline-flex w-full items-center justify-center border border-primary-foreground/35 px-6 py-3.5 text-sm transition-colors hover:bg-primary-foreground hover:text-primary"
+            className="light-pass inline-flex w-full items-center justify-center border border-primary-foreground/35 px-6 py-3.5 text-sm transition-colors hover:bg-primary-foreground hover:text-primary"
           >
             来所予約のご連絡
           </Link>
