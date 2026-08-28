@@ -167,7 +167,7 @@ export function SiteHeader() {
               <Link
                 to="/contact"
                 className={cn(
-                  "inline-flex items-center gap-2 bg-primary text-[13px] text-primary-foreground",
+                  "light-pass inline-flex items-center gap-2 bg-primary text-[13px] text-primary-foreground",
                   "transition-[padding,transform,opacity] hover:-translate-y-0.5 hover:opacity-90",
                   EASE,
                   scrolled ? "px-4 py-2" : "px-5 py-2.5",
@@ -192,7 +192,7 @@ export function SiteHeader() {
               aria-expanded={open}
               aria-controls="mobile-nav"
               className={cn(
-                "inline-flex items-center justify-center border text-primary",
+                "light-pass inline-flex items-center justify-center border text-primary",
                 mode === "unknown" && "lg:hidden",
                 wide && "hidden",
                 compact && "inline-flex",
@@ -276,7 +276,7 @@ export function SiteHeader() {
               <Link
                 to="/contact"
                 onClick={() => setOpen(false)}
-                className="mt-5 block bg-primary px-4 py-3 text-center text-sm text-primary-foreground transition-opacity hover:opacity-90"
+                className="light-pass mt-5 block bg-primary px-4 py-3 text-center text-sm text-primary-foreground transition-opacity hover:opacity-90"
               >
                 来所予約のご連絡
               </Link>

@@ -41,8 +41,8 @@ function ColumnIndex() {
               aria-pressed={cat === c}
               className={
                 cat === c
-                  ? "border border-primary bg-primary px-4 py-2 text-xs text-primary-foreground"
-                  : "border border-border px-4 py-2 text-xs text-muted-foreground transition-colors hover:border-brand hover:text-brand"
+                  ? "light-pass border border-primary bg-primary px-4 py-2 text-xs text-primary-foreground"
+                  : "light-pass border border-border px-4 py-2 text-xs text-muted-foreground transition-colors hover:border-brand hover:text-brand"
               }
             >
               {c}
@@ -56,7 +56,7 @@ function ColumnIndex() {
               <Link
                 to="/column/$slug"
                 params={{ slug: c.slug }}
-                className="group block overflow-hidden border border-transparent transition-colors hover:border-border"
+                className="light-pass group block overflow-hidden border border-transparent transition-colors hover:border-border"
               >
                 <FrameImg
                   src={CATEGORY_IMG[c.category] ?? IMG.scales}

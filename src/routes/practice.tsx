@@ -19,7 +19,7 @@ export const Route = createFileRoute("/practice")({
 
 function AreaCard({ p, i }: { p: Practice; i: number }) {
   return (
-    <li id={p.id} className="scroll-mt-28 overflow-hidden border border-border bg-card">
+    <li id={p.id} className="light-pass scroll-mt-28 overflow-hidden border border-border bg-card">
       <Reveal delay={(i % 2) * 80}>
         <FrameImg
           src={IMG.practices[p.id]}

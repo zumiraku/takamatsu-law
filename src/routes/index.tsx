@@ -104,13 +104,13 @@ function Home() {
               <div className="mt-10 flex flex-wrap gap-3">
                 <a
                   href={FIRM.telReserveHref}
-                  className="inline-flex items-center gap-2 bg-white px-7 py-3.5 text-sm text-primary transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
+                  className="light-pass inline-flex items-center gap-2 bg-white px-7 py-3.5 text-sm text-primary transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
                 >
                   相談予約 {FIRM.telReserve}
                 </a>
                 <Link
                   to="/practice"
-                  className="inline-flex items-center gap-2 border border-white/40 px-7 py-3.5 text-sm text-white transition-colors duration-500 hover:bg-white hover:text-primary"
+                  className="light-pass inline-flex items-center gap-2 border border-white/40 px-7 py-3.5 text-sm text-white transition-colors duration-500 hover:bg-white hover:text-primary"
                 >
                   取扱業務を見る
                 </Link>
@@ -165,7 +165,7 @@ function Home() {
                   <Link
                     to="/practice"
                     hash={p.id}
-                    className="group relative block overflow-hidden border border-border bg-card transition-shadow duration-500 hover:shadow-soft"
+                    className="light-pass group relative block overflow-hidden border border-border bg-card transition-shadow duration-500 hover:shadow-soft"
                   >
                     <FrameImg src={IMG.practices[p.id]} alt="" className="aspect-[16/10]" />
                     <span className="pointer-events-none absolute left-4 top-4 font-serif text-[11px] tracking-[0.28em] text-white/85">
@@ -224,7 +224,11 @@ function Home() {
           {latest.map((c, i) => (
             <li key={c.slug}>
               <Reveal delay={i * 100}>
-                <Link to="/column/$slug" params={{ slug: c.slug }} className="group block">
+                <Link
+                  to="/column/$slug"
+                  params={{ slug: c.slug }}
+                  className="light-pass group block"
+                >
                   <FrameImg
                     src={CATEGORY_IMG[c.category] ?? IMG.scales}
                     alt=""

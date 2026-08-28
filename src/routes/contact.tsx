@@ -110,7 +110,7 @@ function Contact() {
           </p>
           <button
             type="submit"
-            className="w-full bg-primary px-8 py-4 text-sm text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto"
+            className="light-pass w-full bg-primary px-8 py-4 text-sm text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto"
           >
             この内容で送信する
           </button>
