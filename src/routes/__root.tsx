@@ -16,6 +16,7 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Grain } from "@/components/site/Decor";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
+import { SiteScrollbar } from "@/components/site/SiteScrollbar";
 import { Toaster } from "@/components/ui/sonner";
 import { FIRM, DEFAULT_DESCRIPTION, SITE_TITLE } from "@/lib/firm";
 import { LogoMark } from "@/components/site/LogoMark";
@@ -135,6 +136,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col">
         <ScrollProgress />
+        <SiteScrollbar />
         <SiteHeader />
         <main id="main" key={pathname} className="page-enter flex-1">
           <Outlet />
