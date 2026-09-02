@@ -32,8 +32,6 @@ export const FIRM = {
     "https://maps.google.com/maps?q=%E9%A6%99%E5%B7%9D%E7%9C%8C%E9%AB%98%E6%9D%BE%E5%B8%82%E7%A3%A8%E5%B1%8B%E7%94%BA3-1&hl=ja&z=17&output=embed",
   siteUrl: "https://takamatsu-law.com",
   facebook: "https://www.facebook.com/takamatsu.law/",
-  note: "https://note.com/saikoseiko",
-  noteName: "Saiko-Seiko",
 } as const;
 
 export const SITE_TITLE = FIRM.name;
