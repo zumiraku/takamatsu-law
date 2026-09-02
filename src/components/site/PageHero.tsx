@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { FIRM } from "@/lib/firm";
 import { IMG } from "@/lib/media";
 import { DiamondField } from "./Decor";
 import { Reveal } from "./Reveal";
@@ -74,20 +75,28 @@ export function JournalBand() {
       <DiamondField />
       <div className="relative container-page grid gap-10 py-20 md:grid-cols-[1.4fr_1fr] md:items-center md:py-24">
         <div>
-          <p className="text-[11px] tracking-[0.32em] opacity-70">JOURNAL</p>
+          <p className="text-[11px] tracking-[0.32em] opacity-70">JOURNAL / NOTE</p>
           <h2 className="mt-4 text-2xl md:text-3xl">事務所の考えは、コラムに残しています。</h2>
           <p className="mt-5 max-w-lg text-sm leading-8 opacity-85">
-            実務で積み重ねた論点を、一般向けの論考として公開しています。記事の読み行きを見ながら、将来は
-            note での発信も検討します。正規の掲載場所は、このサイトです。
+            全文の正規掲載はこのサイトです。有料を含む抄録・連載は note（{FIRM.noteName}
+            ）で公開し、スキ数を見ながら販売を検討します。
           </p>
         </div>
-        <div>
+        <div className="space-y-3">
           <Link
             to="/column"
             className="light-pass inline-flex w-full items-center justify-center border border-primary-foreground/35 px-6 py-3.5 text-sm transition-colors hover:bg-primary-foreground hover:text-primary"
           >
             コラム一覧へ
           </Link>
+          <a
+            href={FIRM.note}
+            target="_blank"
+            rel="noreferrer"
+            className="light-pass inline-flex w-full items-center justify-center bg-primary-foreground px-6 py-3.5 text-sm text-primary transition-opacity hover:opacity-90"
+          >
+            note で読む
+          </a>
         </div>
       </div>
     </section>

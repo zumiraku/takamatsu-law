@@ -264,6 +264,14 @@ export function SiteHeader() {
               >
                 コラムを読む
               </Link>
+              <a
+                href={FIRM.note}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-3 block text-center text-[11px] tracking-[0.22em] text-brand"
+              >
+                NOTE
+              </a>
               <p className="mt-4 text-[11px] tracking-wide text-muted-foreground">
                 {FIRM.hours}
                 <br />
