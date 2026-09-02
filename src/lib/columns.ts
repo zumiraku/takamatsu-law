@@ -22,8 +22,7 @@ export const COLUMN_CATEGORIES: ColumnCategory[] = [
 
 /**
  * 現行サイトのブログ／解説記事を移行したもの。
- * oldPaths は 301 リダイレクト用。各記事の canonical は新URLを指す
- * （将来 note に要約を載せる場合も、正規URLはこのサイト側にする）。
+ * oldPaths は 301 リダイレクト用。各記事の canonical は新URLを指す。
  */
 export const columns: Column[] = [
   {
