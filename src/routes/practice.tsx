@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHero, CtaBand, SectionTitle } from "@/components/site/PageHero";
+import { PageHero, JournalBand, SectionTitle } from "@/components/site/PageHero";
 import { FrameImg } from "@/components/site/Decor";
 import { Reveal } from "@/components/site/Reveal";
 import { PERSONAL, CORPORATE, type Practice } from "@/lib/practices";
@@ -54,7 +54,7 @@ function Practice() {
         en="PRACTICE AREAS"
         image={IMG.practices.komon}
         imageAlt="会議室"
-        lead="個人の方、企業の方、いずれのご相談にも対応しています。該当がはっきりしない場合も、まずはお問い合わせください。"
+        lead="個人の方、企業の方、いずれにも対応しています。各分野の考え方は、コラムでも公開しています。"
       />
 
       <section className="container-page py-20 md:py-28">
@@ -81,7 +81,7 @@ function Practice() {
         </div>
       </section>
 
-      <CtaBand />
+      <JournalBand />
     </>
   );
 }

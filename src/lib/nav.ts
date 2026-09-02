@@ -1,10 +1,10 @@
 export const NAV = [
+  { to: "/column", label: "コラム" },
   { to: "/about", label: "事務所案内" },
   { to: "/lawyers", label: "弁護士紹介" },
   { to: "/practice", label: "取扱業務" },
   { to: "/fees", label: "弁護士費用" },
   { to: "/flow", label: "相談までの流れ" },
-  { to: "/column", label: "コラム" },
 ] as const;
 
 export const FOOTER_EXTRA = [

@@ -4,6 +4,8 @@ export const FIRM = {
   name: "高松総合法律事務所",
   nameEn: "TAKAMATSU LAW OFFICE",
   tagline: "クライアントの安心と最良の結果のために",
+  /** GA4 の測定 ID。入れると記事閲覧がイベントとして記録される。 */
+  gaMeasurementId: "",
   representative: "玉井邦芳",
   bar: "香川県弁護士会",
   postalCode: "760-0026",
@@ -32,10 +34,10 @@ export const FIRM = {
   facebook: "https://www.facebook.com/takamatsu.law/",
 } as const;
 
-export const SITE_TITLE = `${FIRM.name}｜香川・高松の弁護士`;
+export const SITE_TITLE = FIRM.name;
 
 export const DEFAULT_DESCRIPTION =
-  "香川県高松市の法律事務所。交通事故、相続、離婚、借金問題、投資・消費者被害、企業法務まで。紹介は不要です。法律相談は来所面談にてお受けします。";
+  "香川県高松市の法律事務所。実務に根ざしたコラムを中心に、事務所の考えを発信しています。香川県弁護士会所属。";
 
 export function pageTitle(page: string) {
   return `${page}｜${FIRM.name}`;

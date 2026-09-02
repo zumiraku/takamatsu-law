@@ -34,7 +34,9 @@ export function SiteFooter() {
             decoding="async"
             className="h-11 w-auto object-contain object-left"
           />
-          <p className="mt-5 max-w-md text-sm leading-8 text-muted-foreground">{FIRM.tagline}</p>
+          <p className="mt-5 max-w-md text-sm leading-8 text-muted-foreground">
+            実務に根ざしたコラムを中心に、事務所の考えを発信しています。
+          </p>
           <address className="mt-8 text-sm not-italic leading-8 text-muted-foreground">
             {FIRM.address}
             <br />

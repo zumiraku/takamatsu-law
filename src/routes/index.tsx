@@ -1,9 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SectionTitle, CtaBand } from "@/components/site/PageHero";
+import { SectionTitle, JournalBand } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
 import { DiamondField, FrameImg, ScrollHint, TextLink, VerticalEn } from "@/components/site/Decor";
 import { LogoMark } from "@/components/site/LogoMark";
-import { columns, formatDate } from "@/lib/columns";
+import { columnsByDate, formatDate, readingMinutes } from "@/lib/columns";
 import { news } from "@/lib/news";
 import { PRACTICES } from "@/lib/practices";
 import { FIRM, DEFAULT_DESCRIPTION, SITE_TITLE } from "@/lib/firm";
@@ -38,8 +38,8 @@ export const Route = createFileRoute("/")({
 
 const POINTS = [
   {
-    t: "経験を、見通しに変える",
-    d: "民事・家事・商事・刑事と幅広い分野を扱ってきました。難しい事件、多数被害者の弁護団事件も含め、培った経験を依頼者に還元します。",
+    t: "実務を、言葉にする",
+    d: "取り扱ってきた事件の蓄積を、一般論としてコラムに残します。事務所の考えを、検索のための文章ではなく、読むための文章として公開しています。",
     img: IMG.scales,
     alt: "法律書と正義の天秤",
   },
@@ -50,8 +50,8 @@ const POINTS = [
     alt: "静かな相談室",
   },
   {
-    t: "費用は、先にお示しします",
-    d: "相談料・着手金・報酬金の目安を公開しています。ご依頼の前に、案件の内容を伺ったうえで費用をご説明します。",
+    t: "瀬戸内のまちで",
+    d: "高松市磨屋町。駅から徒歩圏の小さな事務所です。大きな広告で集めるのではなく、仕事の質と、公開する情報で事務所を知っていただきたいと考えています。",
     img: IMG.corridor,
     alt: "光の差す事務所の廊下",
   },
@@ -60,13 +60,13 @@ const POINTS = [
 const TICKER = [
   "香川県高松市",
   "香川県弁護士会所属",
-  "紹介は不要です",
-  "法律相談は来所面談",
-  "瀬戸内から、確かなリーガルへ",
+  "コラムによる情報発信",
+  "瀬戸内から、考える法律事務所",
 ];
 
 function Home() {
-  const latest = columns.slice(0, 3);
+  const [featured, ...rest] = columnsByDate;
+  const more = rest.slice(0, 4);
   const latestNews = news.slice(0, 3);
 
   return (
@@ -94,25 +94,25 @@ function Home() {
                 <p className="text-[11px] tracking-[0.42em] text-white/70">{FIRM.nameEn}</p>
               </div>
               <h1 className="mt-8 text-[2rem] leading-[1.55] md:text-[3.15rem]">
-                クライアントの安心と
+                考えることを、
                 <br />
-                最良の結果のために
+                公開する事務所でありたい。
               </h1>
-              <p className="mt-8 max-w-md text-sm leading-9 text-white/80">
-                香川県高松市の法律事務所です。紹介は不要です。弁護士への相談が初めての方にも、丁寧に対応いたします。
+              <p className="mt-8 max-w-lg text-sm leading-9 text-white/80">
+                {FIRM.name}は、香川県高松市の法律事務所です。集客のためのサイトではなく、事務所の姿勢と、実務に根ざした情報発信の場としてこのサイトを置いています。
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
-                <a
-                  href={FIRM.telReserveHref}
+                <Link
+                  to="/column"
                   className="light-pass inline-flex items-center gap-2 bg-white px-7 py-3.5 text-sm text-primary transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5"
                 >
-                  相談予約 {FIRM.telReserve}
-                </a>
+                  コラムを読む
+                </Link>
                 <Link
-                  to="/practice"
+                  to="/about"
                   className="light-pass inline-flex items-center gap-2 border border-white/40 px-7 py-3.5 text-sm text-white transition-colors duration-500 hover:bg-white hover:text-primary"
                 >
-                  取扱業務を見る
+                  事務所案内
                 </Link>
               </div>
             </div>
@@ -135,54 +135,81 @@ function Home() {
 
       <section id="approach" className="container-page py-20 md:py-28">
         <Reveal>
-          <SectionTitle title="当事務所の姿勢" en="OUR APPROACH" />
+          <SectionTitle title="最新のコラム" en="JOURNAL" />
         </Reveal>
-        <ul className="grid gap-8 md:grid-cols-3">
-          {POINTS.map((v, i) => (
-            <li key={v.t}>
-              <Reveal delay={i * 120}>
-                <p className="font-serif text-[11px] tracking-[0.32em] text-brand">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <FrameImg src={v.img} alt={v.alt} className="mt-4 aspect-[4/3]" />
-                <h3 className="mt-6 text-lg">{v.t}</h3>
-                <p className="mt-3 text-sm leading-8 text-muted-foreground">{v.d}</p>
+        {featured && (
+          <Reveal>
+            <Link
+              to="/column/$slug"
+              params={{ slug: featured.slug }}
+              className="light-pass group grid overflow-hidden border border-border bg-card md:grid-cols-[1.15fr_0.85fr]"
+            >
+              <FrameImg
+                src={CATEGORY_IMG[featured.category] ?? IMG.scales}
+                alt=""
+                className="aspect-[16/10] md:aspect-auto md:min-h-[22rem]"
+                sizes="(min-width: 768px) 55vw, 100vw"
+              />
+              <div className="flex flex-col justify-center p-8 md:p-12">
+                <p className="text-[10px] tracking-[0.28em] text-brand">FEATURED</p>
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <time className="text-xs tracking-widest text-muted-foreground">
+                    {formatDate(featured.date)}
+                  </time>
+                  <span className="border border-brand/35 px-3 py-0.5 text-xs text-brand">
+                    {featured.category}
+                  </span>
+                  <span className="text-xs text-muted-foreground">{readingMinutes(featured)}分</span>
+                </div>
+                <h3 className="mt-4 text-2xl leading-9 transition-colors group-hover:text-primary">
+                  {featured.title}
+                </h3>
+                <p className="mt-4 text-sm leading-8 text-muted-foreground">{featured.excerpt}</p>
+              </div>
+            </Link>
+          </Reveal>
+        )}
+        <ul className="mt-6 divide-y divide-border border-y border-border">
+          {more.map((c, i) => (
+            <li key={c.slug}>
+              <Reveal delay={i * 60}>
+                <Link
+                  to="/column/$slug"
+                  params={{ slug: c.slug }}
+                  className="group flex flex-col gap-2 py-6 transition-colors hover:bg-surface md:flex-row md:items-baseline md:gap-10 md:px-2"
+                >
+                  <span className="w-36 shrink-0 text-xs tracking-widest text-muted-foreground">
+                    {formatDate(c.date)}
+                  </span>
+                  <span className="w-28 shrink-0 text-xs text-brand">{c.category}</span>
+                  <span className="text-sm leading-7 transition-colors group-hover:text-primary">
+                    {c.title}
+                  </span>
+                </Link>
               </Reveal>
             </li>
           ))}
         </ul>
+        <div className="mt-10">
+          <TextLink to="/column">コラムの一覧を見る</TextLink>
+        </div>
       </section>
 
-      <section className="relative overflow-hidden bg-surface">
+      <section className="bg-surface">
         <div className="container-page py-20 md:py-28">
           <Reveal>
-            <SectionTitle title="取扱業務" en="PRACTICE AREAS" />
+            <SectionTitle title="事務所の姿勢" en="OUR STANCE" />
           </Reveal>
-          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {PRACTICES.map((p, i) => (
-              <li key={p.id}>
-                <Reveal delay={(i % 3) * 90}>
-                  <Link
-                    to="/practice"
-                    hash={p.id}
-                    className="light-pass group relative block overflow-hidden border border-border bg-card transition-shadow duration-500 hover:shadow-soft"
-                  >
-                    <FrameImg src={IMG.practices[p.id]} alt="" className="aspect-[16/10]" />
-                    <span className="pointer-events-none absolute left-4 top-4 font-serif text-[11px] tracking-[0.28em] text-white/85">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div className="p-6">
-                      <p className="text-[10px] tracking-[0.28em] text-brand">
-                        {p.group === "personal" ? "個人の方" : "企業の方"}
-                      </p>
-                      <h3 className="mt-2 text-lg transition-colors group-hover:text-primary">
-                        {p.title}
-                      </h3>
-                      <p className="mt-3 line-clamp-2 text-sm leading-7 text-muted-foreground">
-                        {p.lead}
-                      </p>
-                    </div>
-                  </Link>
+          <ul className="grid gap-8 md:grid-cols-3">
+            {POINTS.map((v, i) => (
+              <li key={v.t}>
+                <Reveal delay={i * 120}>
+                  <p className="font-serif text-[11px] tracking-[0.32em] text-brand">
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <FrameImg src={v.img} alt={v.alt} className="mt-4 aspect-[4/3]" />
+                  <h3 className="mt-6 text-lg">{v.t}</h3>
+                  <p className="mt-3 text-sm leading-8 text-muted-foreground">{v.d}</p>
                 </Reveal>
               </li>
             ))}
@@ -204,7 +231,7 @@ function Home() {
               <p className="text-[11px] tracking-[0.38em] text-white/60">TAKAMATSU / KAGAWA</p>
               <h2 className="mt-4 text-2xl md:text-3xl">瀬戸内のまちで、暮らしと事業の隣に。</h2>
               <p className="mt-6 max-w-md text-sm leading-8 text-white/80">
-                JR高松駅から徒歩約10分。兵庫町の交差点ほど近く。紹介がなくても、相談が初めてでも、丁寧にお話を伺います。
+                JR高松駅から徒歩約10分。磨屋町の小さな事務所です。{FIRM.tagline}
               </p>
               <div className="mt-8">
                 <TextLink to="/about" light>
@@ -218,39 +245,31 @@ function Home() {
 
       <section className="container-page py-20 md:py-28">
         <Reveal>
-          <SectionTitle title="コラム" en="COLUMN" />
+          <SectionTitle title="専門とする領域" en="PRACTICE" />
         </Reveal>
-        <ul className="grid gap-8 md:grid-cols-3">
-          {latest.map((c, i) => (
-            <li key={c.slug}>
-              <Reveal delay={i * 100}>
+        <ul className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {PRACTICES.map((p, i) => (
+            <li key={p.id} className="bg-background">
+              <Reveal delay={(i % 3) * 70}>
                 <Link
-                  to="/column/$slug"
-                  params={{ slug: c.slug }}
-                  className="light-pass group block"
+                  to="/practice"
+                  hash={p.id}
+                  className="group block p-7 transition-colors hover:bg-surface"
                 >
-                  <FrameImg
-                    src={CATEGORY_IMG[c.category] ?? IMG.scales}
-                    alt=""
-                    className="aspect-[16/10]"
-                  />
-                  <div className="mt-4 flex flex-wrap items-center gap-3">
-                    <span className="text-xs tracking-widest text-muted-foreground">
-                      {formatDate(c.date)}
-                    </span>
-                    <span className="border border-brand/35 px-3 py-0.5 text-xs text-brand">
-                      {c.category}
-                    </span>
-                  </div>
-                  <h3 className="mt-3 text-lg leading-8 group-hover:text-primary">{c.title}</h3>
+                  <p className="font-serif text-[11px] tracking-[0.28em] text-brand">
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="mt-3 text-lg transition-colors group-hover:text-primary">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-[11px] tracking-widest text-muted-foreground">
+                    {p.group === "personal" ? "個人の方" : "企業の方"}
+                  </p>
                 </Link>
               </Reveal>
             </li>
           ))}
         </ul>
-        <div className="mt-10">
-          <TextLink to="/column">コラムの一覧を見る</TextLink>
-        </div>
       </section>
 
       <section className="bg-surface">
@@ -277,7 +296,7 @@ function Home() {
         </div>
       </section>
 
-      <CtaBand />
+      <JournalBand />
     </>
   );
 }

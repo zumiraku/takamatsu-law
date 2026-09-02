@@ -1,13 +1,16 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Phone } from "lucide-react";
 import { NAV } from "@/lib/nav";
 import { FIRM } from "@/lib/firm";
 import logo from "@/assets/takamatsu-logo.jpg";
 import { cn } from "@/lib/utils";
 import { LogoMark } from "./LogoMark";
 
-const MOBILE_NAV = [...NAV, { to: "/news" as const, label: "お知らせ" }];
+const MOBILE_NAV = [
+  ...NAV,
+  { to: "/news" as const, label: "お知らせ" },
+  { to: "/contact" as const, label: "お問い合わせ" },
+];
 const EASE = "duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
 
 export function SiteHeader() {
@@ -115,10 +118,7 @@ export function SiteHeader() {
                     {item.label}
                   </span>
                 ))}
-                <span className="inline-flex items-center gap-2 px-5 py-2.5 text-[13px]">
-                  <span className="size-3.5 shrink-0" />
-                  相談のご予約
-                </span>
+                <span className="text-[13px] tracking-wide">お問い合わせ</span>
               </div>
             </div>
 
@@ -167,21 +167,12 @@ export function SiteHeader() {
               <Link
                 to="/contact"
                 className={cn(
-                  "light-pass inline-flex items-center gap-2 bg-primary text-[13px] text-primary-foreground",
-                  "transition-[padding,transform,opacity] hover:-translate-y-0.5 hover:opacity-90",
+                  "nav-link tracking-wide text-foreground/75 transition-[color,font-size,letter-spacing] hover:text-primary",
                   EASE,
-                  scrolled ? "px-4 py-2" : "px-5 py-2.5",
+                  scrolled ? "text-[12px] tracking-wider" : "text-[13px]",
                 )}
               >
-                <Phone
-                  className={cn(
-                    "transition-[width,height]",
-                    EASE,
-                    scrolled ? "size-3" : "size-3.5",
-                  )}
-                  aria-hidden
-                />
-                相談のご予約
+                お問い合わせ
               </Link>
             </nav>
 
@@ -265,21 +256,19 @@ export function SiteHeader() {
               </li>
             ))}
             <li className="menu-sheet-item mt-auto border-t border-border/80 px-3 py-5">
-              <p className="text-[10px] tracking-[0.28em] text-muted-foreground">CONSULTATION</p>
-              <a
-                href={FIRM.telReserveHref}
-                className="mt-3 block font-serif text-2xl tracking-wider text-primary"
-              >
-                {FIRM.telReserve}
-              </a>
-              <p className="mt-2 text-[11px] tracking-wide text-muted-foreground">{FIRM.hours}</p>
+              <p className="text-[10px] tracking-[0.28em] text-muted-foreground">JOURNAL</p>
               <Link
-                to="/contact"
+                to="/column"
                 onClick={() => setOpen(false)}
                 className="light-pass mt-5 block bg-primary px-4 py-3 text-center text-sm text-primary-foreground transition-opacity hover:opacity-90"
               >
-                来所予約のご連絡
+                コラムを読む
               </Link>
+              <p className="mt-4 text-[11px] tracking-wide text-muted-foreground">
+                {FIRM.hours}
+                <br />
+                代表 {FIRM.telMain}
+              </p>
             </li>
           </ul>
         </nav>

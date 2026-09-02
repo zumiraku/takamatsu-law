@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { PageHero, CtaBand, SectionTitle } from "@/components/site/PageHero";
+import { PageHero, SectionTitle } from "@/components/site/PageHero";
 import { FrameImg } from "@/components/site/Decor";
 import { FIRM, pageTitle } from "@/lib/firm";
 import { seoMeta } from "@/lib/seo";
@@ -187,8 +187,6 @@ function Fees() {
           <br />※ 本ページに記載のない事案は、法律相談時にお尋ねください。
         </p>
       </section>
-
-      <CtaBand />
     </>
   );
 }

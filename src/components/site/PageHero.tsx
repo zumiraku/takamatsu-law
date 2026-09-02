@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { FIRM } from "@/lib/firm";
 import { IMG } from "@/lib/media";
 import { DiamondField } from "./Decor";
 import { Reveal } from "./Reveal";
@@ -57,7 +56,7 @@ export function SectionTitle({ title, en }: { title: string; en: string }) {
   );
 }
 
-export function CtaBand() {
+export function JournalBand() {
   return (
     <section className="relative isolate overflow-hidden text-primary-foreground">
       <img
@@ -75,25 +74,19 @@ export function CtaBand() {
       <DiamondField />
       <div className="relative container-page grid gap-10 py-20 md:grid-cols-[1.4fr_1fr] md:items-center md:py-24">
         <div>
-          <p className="text-[11px] tracking-[0.32em] opacity-70">RESERVE</p>
-          <h2 className="mt-4 text-2xl md:text-3xl">まずは、お電話ください</h2>
+          <p className="text-[11px] tracking-[0.32em] opacity-70">JOURNAL</p>
+          <h2 className="mt-4 text-2xl md:text-3xl">事務所の考えは、コラムに残しています。</h2>
           <p className="mt-5 max-w-lg text-sm leading-8 opacity-85">
-            法律相談は原則として来所面談です。紹介は不要です。弁護士への相談が初めての方も、丁寧に対応いたします。
+            実務で積み重ねた論点を、一般向けの論考として公開しています。記事の読み行きを見ながら、将来は
+            note での発信も検討します。正規の掲載場所は、このサイトです。
           </p>
         </div>
-        <div className="space-y-4">
-          <p className="text-[11px] tracking-[0.28em] opacity-70">相談予約専用（{FIRM.hours}）</p>
-          <a
-            href={FIRM.telReserveHref}
-            className="block font-serif text-3xl tracking-wider transition-opacity hover:opacity-80"
-          >
-            {FIRM.telReserve}
-          </a>
+        <div>
           <Link
-            to="/contact"
+            to="/column"
             className="light-pass inline-flex w-full items-center justify-center border border-primary-foreground/35 px-6 py-3.5 text-sm transition-colors hover:bg-primary-foreground hover:text-primary"
           >
-            来所予約のご連絡
+            コラム一覧へ
           </Link>
         </div>
       </div>
