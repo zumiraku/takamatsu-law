@@ -29,15 +29,14 @@ function ColumnIndex() {
         en="JOURNAL"
         image={IMG.scales}
         imageAlt="法律書"
-        lead="事務所の考えを、論考として残しています。記事の読み行きを見ながら、将来は note での発信も検討します。個別の事案についての助言ではありません。"
+        lead="事務所の考えを、論考として残しています。個別の事案についての助言ではありません。"
       />
 
       <section className="container-page py-16 md:py-24">
         <div className="mb-12 max-w-2xl">
           <p className="text-[11px] tracking-[0.32em] text-brand">PUBLISHING</p>
           <p className="mt-4 text-sm leading-8 text-muted-foreground">
-            コラムは当事務所の情報発信の中心です。同じ文章を複数の場所に置くと評価が分かれるため、全文の正規URLはこのサイトに置きます。note
-            を使う場合も、抄録とこちらへの案内に留める想定です。
+            コラムは当事務所の情報発信の中心です。全文の正規URLはこのサイトに置きます。
           </p>
         </div>
 
