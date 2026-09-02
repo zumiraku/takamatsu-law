@@ -129,8 +129,16 @@ function ColumnDetail() {
       </p>
 
       <p className="mt-8 text-xs leading-7 text-muted-foreground">
-        この記事の正規URLは {FIRM.siteUrl}/column/{column.slug}{" "}
-        です。将来 note 等で抄録を公開する場合も、全文の掲載場所はこちらとします。
+        この記事の正規URLは {FIRM.siteUrl}/column/{column.slug} です。抄録・有料記事は{" "}
+        <a
+          href={FIRM.note}
+          target="_blank"
+          rel="noreferrer"
+          className="text-primary underline underline-offset-4"
+        >
+          note（{FIRM.noteName}）
+        </a>
+        で公開します。
       </p>
 
       {related.length > 0 && (

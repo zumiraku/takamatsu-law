@@ -34,7 +34,7 @@ export function jsonLdLegalService() {
       name: FIRM.representative,
       jobTitle: "代表弁護士",
     },
-    sameAs: [FIRM.facebook],
+    sameAs: [FIRM.facebook, FIRM.note],
   };
 }
 
