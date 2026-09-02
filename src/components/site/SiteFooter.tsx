@@ -53,24 +53,14 @@ export function SiteFooter() {
             <br />
             {FIRM.bar}所属
           </address>
-          <div className="mt-6 flex flex-wrap gap-5">
-            <a
-              href={FIRM.facebook}
-              target="_blank"
-              rel="noreferrer"
-              className="text-[11px] tracking-[0.28em] text-brand transition-opacity hover:opacity-70"
-            >
-              FACEBOOK
-            </a>
-            <a
-              href={FIRM.note}
-              target="_blank"
-              rel="noreferrer"
-              className="text-[11px] tracking-[0.28em] text-brand transition-opacity hover:opacity-70"
-            >
-              NOTE
-            </a>
-          </div>
+          <a
+            href={FIRM.facebook}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-6 inline-block text-[11px] tracking-[0.28em] text-brand transition-opacity hover:opacity-70"
+          >
+            FACEBOOK
+          </a>
         </div>
 
         <nav aria-label="フッターナビゲーション">
