@@ -132,6 +132,22 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
+  useEffect(() => {
+    const id = FIRM.gaMeasurementId;
+    if (!id || document.getElementById("ga4-src")) return;
+    window.dataLayer = window.dataLayer ?? [];
+    window.gtag = function gtag() {
+      window.dataLayer?.push(arguments as unknown as Record<string, unknown>);
+    };
+    window.gtag("js", new Date());
+    window.gtag("config", id);
+    const s = document.createElement("script");
+    s.id = "ga4-src";
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+    document.head.appendChild(s);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col">

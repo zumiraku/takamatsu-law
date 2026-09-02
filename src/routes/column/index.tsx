@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { PageHero, CtaBand } from "@/components/site/PageHero";
+import { PageHero } from "@/components/site/PageHero";
 import { FrameImg } from "@/components/site/Decor";
-import { columns, COLUMN_CATEGORIES, formatDate } from "@/lib/columns";
+import { columnsByDate, COLUMN_CATEGORIES, formatDate, readingMinutes } from "@/lib/columns";
 import { FIRM, pageTitle } from "@/lib/firm";
 import { seoMeta } from "@/lib/seo";
 import { CATEGORY_IMG, IMG } from "@/lib/media";
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/column/")({
   head: () =>
     seoMeta({
       title: pageTitle("コラム"),
-      description: `交通事故、相続、離婚、投資・消費者被害。${FIRM.name}の弁護士が、実務に即した法律情報をお伝えします。`,
+      description: `${FIRM.name}の情報発信。交通事故、相続、離婚、投資・消費者被害など、実務に即した論考を公開しています。正規の掲載場所はこのサイトです。`,
       path: "/column",
     }),
   component: ColumnIndex,
@@ -19,19 +19,28 @@ export const Route = createFileRoute("/column/")({
 
 function ColumnIndex() {
   const [cat, setCat] = useState<string>("すべて");
-  const list = cat === "すべて" ? columns : columns.filter((c) => c.category === cat);
+  const list =
+    cat === "すべて" ? columnsByDate : columnsByDate.filter((c) => c.category === cat);
 
   return (
     <>
       <PageHero
         title="コラム"
-        en="COLUMN"
+        en="JOURNAL"
         image={IMG.scales}
         imageAlt="法律書"
-        lead="サイト本体では基本的なご案内を、コラムではもう少し踏み込んだ法律情報をお伝えします。個別の事案についての助言ではありません。"
+        lead="事務所の考えを、論考として残しています。記事の読み行きを見ながら、将来は note での発信も検討します。個別の事案についての助言ではありません。"
       />
 
       <section className="container-page py-16 md:py-24">
+        <div className="mb-12 max-w-2xl">
+          <p className="text-[11px] tracking-[0.32em] text-brand">PUBLISHING</p>
+          <p className="mt-4 text-sm leading-8 text-muted-foreground">
+            コラムは当事務所の情報発信の中心です。同じ文章を複数の場所に置くと評価が分かれるため、全文の正規URLはこのサイトに置きます。note
+            を使う場合も、抄録とこちらへの案内に留める想定です。
+          </p>
+        </div>
+
         <div className="flex flex-wrap gap-2">
           {["すべて", ...COLUMN_CATEGORIES].map((c) => (
             <button
@@ -46,6 +55,11 @@ function ColumnIndex() {
               }
             >
               {c}
+              {c !== "すべて" && (
+                <span className="ml-2 opacity-60">
+                  {columnsByDate.filter((x) => x.category === c).length}
+                </span>
+              )}
             </button>
           ))}
         </div>
@@ -71,6 +85,7 @@ function ColumnIndex() {
                     <span className="border border-brand/35 px-3 py-0.5 text-xs text-brand">
                       {c.category}
                     </span>
+                    <span className="text-xs text-muted-foreground">{readingMinutes(c)}分</span>
                   </div>
                   <h2 className="mt-3 text-lg leading-8 group-hover:text-primary">{c.title}</h2>
                   <p className="mt-2 text-sm leading-7 text-muted-foreground">{c.excerpt}</p>
@@ -85,8 +100,6 @@ function ColumnIndex() {
           </p>
         )}
       </section>
-
-      <CtaBand />
     </>
   );
 }

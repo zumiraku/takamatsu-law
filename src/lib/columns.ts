@@ -149,6 +149,13 @@ export const columns: Column[] = [
 
 export const getColumn = (slug: string) => columns.find((c) => c.slug === slug);
 
+export const columnsByDate = [...columns].sort((a, b) => (a.date < b.date ? 1 : -1));
+
+export function readingMinutes(col: Column) {
+  const chars = col.body.join("").length;
+  return Math.max(1, Math.round(chars / 500));
+}
+
 export const formatDate = (iso: string) =>
   new Date(`${iso}T00:00:00+09:00`).toLocaleDateString("ja-JP", {
     year: "numeric",

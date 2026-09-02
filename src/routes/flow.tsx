@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHero, CtaBand, SectionTitle } from "@/components/site/PageHero";
+import { PageHero, SectionTitle } from "@/components/site/PageHero";
 import { FrameImg } from "@/components/site/Decor";
 import { Reveal } from "@/components/site/Reveal";
 import { FIRM, pageTitle } from "@/lib/firm";
@@ -10,7 +10,7 @@ export const Route = createFileRoute("/flow")({
   head: () =>
     seoMeta({
       title: pageTitle("相談までの流れ"),
-      description: `お電話でのご予約から来所相談、ご依頼までの流れ。相談予約専用 ${FIRM.telReserve}（${FIRM.hours}）。紹介は不要です。`,
+      description: `お電話でのご予約から来所相談、ご依頼までの流れ。相談予約専用 ${FIRM.telReserve}（${FIRM.hours}）。`,
       path: "/flow",
     }),
   component: Flow,
@@ -98,8 +98,6 @@ function Flow() {
           </p>
         </div>
       </section>
-
-      <CtaBand />
     </>
   );
 }

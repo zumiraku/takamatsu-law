@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHero, CtaBand, SectionTitle } from "@/components/site/PageHero";
+import { PageHero, JournalBand, SectionTitle } from "@/components/site/PageHero";
 import { FrameImg } from "@/components/site/Decor";
 import { Reveal } from "@/components/site/Reveal";
 import { FIRM, pageTitle } from "@/lib/firm";
@@ -34,7 +34,7 @@ function About() {
         en="ABOUT US"
         image={IMG.corridor}
         imageAlt="光の差す事務所の廊下"
-        lead="一般の方にも、事業者の方にも、弁護士によるリーガルサービスが届くべきだと考えています。紹介のない方、相談が初めての方にも、丁寧に対応します。"
+        lead="一般の方にも、事業者の方にも、弁護士によるリーガルサービスが届くべきだと考えています。事務所の考えは、コラムでも公開しています。"
       />
 
       <section className="container-page py-20 md:py-28">
@@ -47,7 +47,7 @@ function About() {
               </p>
               <p>
                 {FIRM.name}
-                は、一般市民や事業者・企業等のさまざまな方々にリーガルサービスが届くべきとの考えから、広く相談を受け付けています。紹介者のいない方、弁護士への相談が初めての方へも丁寧に対応します。
+                は、一般市民や事業者・企業等のさまざまな方々にリーガルサービスが届くべきとの考えから、広く相談を受け付けています。同時に、実務で得た論点をコラムとして残し、事務所の考えを公開することを大切にしています。
               </p>
               <p>
                 取り扱う業務は、交通事故、相続、離婚・男女問題、消費者被害、投資被害、債務整理、損害賠償、債権回収、不動産の問題といった個人の問題から、契約書作成、顧問業務、倒産・再生、労務管理、会社関係訴訟といった法人の問題まで、広く対応しています。他事務所の弁護士や他士業とのアライアンスもあり、案件の内容によっては協力して職務を行います。
@@ -114,7 +114,7 @@ function About() {
         </div>
       </section>
 
-      <CtaBand />
+      <JournalBand />
     </>
   );
 }

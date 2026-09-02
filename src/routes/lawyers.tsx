@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { PageHero, CtaBand } from "@/components/site/PageHero";
+import { PageHero, JournalBand } from "@/components/site/PageHero";
 import { LawyerPortrait } from "@/components/site/LawyerPortrait";
 import { Reveal } from "@/components/site/Reveal";
 import { IMG } from "@/lib/media";
@@ -113,7 +113,7 @@ function Lawyers() {
         </ul>
       </section>
 
-      <CtaBand />
+      <JournalBand />
     </>
   );
 }
