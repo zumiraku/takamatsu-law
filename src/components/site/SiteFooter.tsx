@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { NAV, FOOTER_EXTRA } from "@/lib/nav";
 import { FIRM } from "@/lib/firm";
+import { NOTE } from "@/lib/note";
+import { trackOutbound } from "@/lib/analytics";
 import logo from "@/assets/takamatsu-logo.jpg";
 import { IMG } from "@/lib/media";
 
@@ -53,14 +55,27 @@ export function SiteFooter() {
             <br />
             {FIRM.bar}所属
           </address>
-          <a
-            href={FIRM.facebook}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-6 inline-block text-[11px] tracking-[0.28em] text-brand transition-opacity hover:opacity-70"
-          >
-            FACEBOOK
-          </a>
+          <div className="mt-6 flex flex-wrap items-center gap-6">
+            <a
+              href={FIRM.facebook}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[11px] tracking-[0.28em] text-brand transition-opacity hover:opacity-70"
+            >
+              FACEBOOK
+            </a>
+            {NOTE.status === "live" && NOTE.accountUrl && (
+              <a
+                href={NOTE.accountUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackOutbound("note", "footer")}
+                className="text-[11px] tracking-[0.28em] text-brand transition-opacity hover:opacity-70"
+              >
+                NOTE
+              </a>
+            )}
+          </div>
         </div>
 
         <nav aria-label="フッターナビゲーション">

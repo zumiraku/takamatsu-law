@@ -93,6 +93,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:locale", content: "ja_JP" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "format-detection", content: "telephone=no" },
+      { name: "theme-color", content: "#001a4d" },
+      // Search Console の所有権確認。src/lib/firm.ts に値を入れると出力される。
+      ...(FIRM.searchConsoleToken
+        ? [{ name: "google-site-verification", content: FIRM.searchConsoleToken }]
+        : []),
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -137,16 +142,29 @@ function RootComponent() {
     if (!id || document.getElementById("ga4-src")) return;
     window.dataLayer = window.dataLayer ?? [];
     window.gtag = function gtag() {
+      // gtag.js は Arguments オブジェクトをそのまま dataLayer に積むことを前提にしている。
+      // eslint-disable-next-line prefer-rest-params
       window.dataLayer?.push(arguments as unknown as Record<string, unknown>);
     };
     window.gtag("js", new Date());
-    window.gtag("config", id);
+    // ページ遷移は下の effect から送るので、自動計測は切っておく（二重計上を避ける）。
+    window.gtag("config", id, { send_page_view: false });
     const s = document.createElement("script");
     s.id = "ga4-src";
     s.async = true;
     s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
     document.head.appendChild(s);
   }, []);
+
+  // 画面遷移でページが再読み込みされないため、遷移のたびに page_view を送る。
+  useEffect(() => {
+    if (!FIRM.gaMeasurementId) return;
+    window.gtag?.("event", "page_view", {
+      page_path: pathname,
+      page_location: window.location.href,
+      page_title: document.title,
+    });
+  }, [pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>

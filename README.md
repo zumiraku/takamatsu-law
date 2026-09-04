@@ -1,98 +1,86 @@
-# takamatsu-law
+# 高松総合法律事務所 ウェブサイト
 
-依頼詳細
+香川県高松市の法律事務所サイトのリニューアル案です。
+**コラムを軸にした情報発信と、事務所のブランディング**を目的として構成しています。
+（集客・問い合わせ獲得を主目的とした設計ではありません。）
 
-サイトの種類
+本リポジトリはデザインと導線を確認するための**試作環境**（TanStack Start / React /
+Tailwind CSS）です。納品は WordPress で行います。試作で確定した構成・仕様は
+[`docs/`](./docs) にまとめてあり、そのまま WordPress 側へ移せる形にしています。
 
-企業サイト
+## 設計の要点
 
-依頼の目的・背景
+- **コラムは独立した投稿タイプ。** 固定ページ・お知らせと混ざらず、分野ごとの
+  アーカイブ（`/column/category/<分野>`）を持ちます。記事が増えても管理画面が
+  散らかりません。
+- **全文の正本は当サイト。** 各記事に絶対URLの `canonical` を出力しています。
+  将来 note に要約を載せても、検索エンジンからの評価は当サイトに集約されます。
+  → [docs/note-operation.md](./docs/note-operation.md)
+- **読ませるための本文設計。** 記事冒頭の要点、目次（見出しから自動生成・
+  スクロール追従）、読了目安時間、前後の記事への送り、共有ボタン、執筆者情報。
+  本文は 16.5〜17px / 行間 2.05 で、60代・70代の閲覧を前提にしています。
+- **反応が見える。** 記事の表示だけでなく、本文を 50% / 90% まで読み進めた割合を
+  計測します。「開かれた数」と「最後まで読まれた数」を分けて取ることが、
+  note で何を出すかの判断材料になります。
+  → [docs/seo-migration.md](./docs/seo-migration.md)
+- **旧サイトの評価を引き継ぐ。** 旧URLから新URLへの 301 を、記事データから
+  自動生成しています。日本語URLにも対応。
+- **弁護士の写真は使わない。** 氏名の一文字からロゴのダイヤをモチーフにした
+  シンボルマークを生成し、無機質にならないようにしています。
 
-現サイト（https://takamatsu-law.com）が古くなったため、リニューアルを考えています。事務所ロゴにマッチした、信頼感、安心感、専門性を感じられる、シンプルで見やすいデザインを希望します。新サイトではブログを中心とした情報発信を考えています。（将来的にはnoteでの発信も検討しています。）
+## ページ構成（全17ページ）
 
-期待する効果
+| ページ | URL |
+| --- | --- |
+| トップ | `/` |
+| コラム一覧 | `/column` |
+| コラム記事 | `/column/<slug>` |
+| コラム分野別（6分野） | `/column/category/<slug>` |
+| 発信について | `/publishing` |
+| 事務所案内 | `/about` |
+| 弁護士紹介 | `/lawyers` |
+| 取扱業務 | `/practice` |
+| 弁護士費用 | `/fees` |
+| 相談までの流れ | `/flow` |
+| よくあるご質問 | `/faq` |
+| お知らせ一覧 / 記事 | `/news`, `/news/<slug>` |
+| お問い合わせ | `/contact` |
+| プライバシーポリシー | `/privacy` |
+| サイトマップ | `/sitemap` |
 
-スマートフォンに対応させたい
+## ドキュメント
 
-サイトが古いのでリニューアルしたい
+| 資料 | 内容 |
+| --- | --- |
+| [docs/wordpress-spec.md](./docs/wordpress-spec.md) | 投稿タイプ・カスタムフィールド・管理画面から更新できる範囲 |
+| [docs/note-operation.md](./docs/note-operation.md) | note との併用ルール、重複コンテンツの回避、開設時の手順 |
+| [docs/seo-migration.md](./docs/seo-migration.md) | 301 リダイレクト、サイトマップ、構造化データ、GA4 / Search Console |
 
-ターゲット像
+## 設定を変える場所
 
-30代
+| 変えたいもの | ファイル |
+| --- | --- |
+| 事務所情報・公開ドメイン・GA4 測定ID・Search Console トークン | `src/lib/firm.ts` |
+| note のアカウントと公開状態 | `src/lib/note.ts` |
+| コラム／お知らせ／弁護士／取扱業務／FAQ | `src/lib/*.ts` |
+| 旧URL → 新URL | `src/lib/redirects.ts` |
 
-40代
+## 開発
 
-50代
-
-60代
-
-70代
-
-男性
-
-女性
-
-ページ数
-
-11 ～ 20ページ
-
-参考URL
-
-https://nakamotopartners.com/
-
-• TOPページ
-
-• 事務所案内
-
-• 弁護士紹介（弁護士の写真は用いない。現行のものより簡略化。）
-
-• 取扱業務（現行のものより簡略化。）
-
-• 弁護士費用
-
-• 相談までの流れ
-
-• コラム（現行のブログを配置）
-------------
-まず現サイト、拝見しました。ホーム・弁護士紹介・依頼者の声・ご相談の流れ・弁護士費用・事務所概要という構成、内容自体はしっかりしてるんですが、正直ちょっと「情報量で押してくる」タイプのレイアウトになってますよね。文字がびっしり詰まってて、スマホで見ると余計に息苦しい。今回ご希望の「シンプルで見やすい」というのは、たぶん情報を削ることじゃなくて、情報の"見せ方"を整理することだと理解してます。ここ、認識ズレてたら教えてください。
-
-参考にあげていただいた3サイト、全部見ました。西村あさひさんは大手法律事務所らしい静けさと余白の使い方が上手いタイプです。敷居は高くしすぎない、という塩梅を狙うのが良さそうだと感じました。事務所ロゴにも触れられてたので、色味とフォントのトーンはロゴから逆算して組み立てます。ここが実は一番大事で、ロゴが持ってる「信頼感」を壊さずにWeb側の余白・行間・写真の使い方に翻訳していく作業になります。
-
-構成案、いただいた7ページ（TOP／事務所案内／弁護士紹介／取扱業務／弁護士費用／相談までの流れ／コラム）をベースに、固定ページ・お知らせも合わせて11〜20ページのご希望に収まる形で組みます。弁護士紹介は写真を使わない方針とのことなので、代わりにアイコンイラストか、シルエット的なグラフィック要素で「顔が見えないなりの温度感」を出す方向を考えてます。無機質になりすぎないようにするのがコツです。
-
-あと、いくつか提案させてください。
-
-・現行ブログ（コラム）って、たぶんそれなりの本数の記事が溜まってると思うんですが、これ移行時にURL構造を変えてしまうと、今まで積み上げたSEO評価がリセットされます。専門用語で恐縮ですが「301リダイレクト」という、古いURLから新しいURLへ自動で案内する仕組みを設定すれば、評価を引き継いだまま新サイトに移行できます。ここは絶対にやったほうがいいです。
-
-・将来のnote連携について。noteとご自身のサイトで同じ内容を両方に載せると、Googleから見て「同じ文章が2箇所にある」状態になって、評価が分散したり最悪どちらも上位に出にくくなったりします。やるなら、サイト側をメインにしてnoteは要約＋誘導リンクに留める、もしくは正規URLを指定する設定（canonical）を入れるのがセオリーです。将来の話とのことなので、今すぐじゃなくて設計段階で"あとから困らない形"にだけしておきます。
-
-・コラムを固定ページやお知らせと同じ扱いにすると、あとで記事が増えたときに管理画面がごちゃつきます。コラムだけ独立した投稿タイプとして作っておくと、カテゴリ分けや一覧表示の自由度が上がって、将来「相続コラムだけまとめたい」みたいな要望にも対応しやすくなります。
-
-・弁護士紹介ページ、項目（経歴・取扱分野・実績など）を管理画面から入力するだけで自動整形される仕組みにしておけば、弁護士が増えたり紹介文を直したりするたびに業者に発注する必要がなくなります。これはご自身で更新したいというご希望にも直結する部分です。
-
-・地域名（高松・香川）を意識した内部SEOと、Googleビジネスプロフィールとの連携もセットでやっておくのをおすすめします。法律事務所は「地域＋悩みごと」で検索されることが多いので、ここを疎かにすると集客効果が半減します。
-
----------------------
-I have attached the client’s brief and my proposal.
-Please create a website that best meets the client’s requirements.
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/84408e52-2683-41b5-85b3-0d4ad9cda01c).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Node.js が必要です。
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+npm install
+npm run dev      # 開発サーバー
+npm run build    # 本番ビルド
+npm run lint     # ESLint + Prettier
+npm run format   # 整形
 ```
+
+`sitemap.xml` は静的ファイルではなく、コラム・お知らせのデータから
+`src/server.ts` が生成して配信します。記事を追加すれば自動で反映されます。
+
+---
+
+This project was built with [Lovable](https://lovable.dev).
+Continue developing in the [Lovable editor](https://lovable.dev/projects/84408e52-2683-41b5-85b3-0d4ad9cda01c).

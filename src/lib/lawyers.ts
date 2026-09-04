@@ -114,3 +114,10 @@ export const lawyers: Lawyer[] = [
 ];
 
 export const getLawyer = (id: string) => lawyers.find((l) => l.id === id);
+
+/** 記事の執筆者として表示する弁護士（協力弁護士を除く筆頭）。 */
+export function representativeLawyer(): Lawyer {
+  const found = lawyers.find((l) => !l.cooperating) ?? lawyers[0];
+  if (!found) throw new Error("lawyers が空です");
+  return found;
+}

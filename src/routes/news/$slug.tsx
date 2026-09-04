@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getNews } from "@/lib/news";
 import { formatDate } from "@/lib/columns";
 import { FIRM, pageTitle } from "@/lib/firm";
+import { seoMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/news/$slug")({
   loader: ({ params }) => {
@@ -19,19 +20,13 @@ export const Route = createFileRoute("/news/$slug")({
       };
     }
     const { item } = loaderData;
-    const title = `${item.title}｜${FIRM.name}`;
     const path = `/news/${params.slug}`;
-    return {
-      meta: [
-        { title },
-        { name: "description", content: item.body[0] },
-        { property: "og:title", content: title },
-        { property: "og:description", content: item.body[0] },
-        { property: "og:type", content: "article" },
-        { property: "og:url", content: `${FIRM.siteUrl}${path}` },
-      ],
-      links: [{ rel: "canonical", href: path }],
-    };
+    return seoMeta({
+      title: `${item.title}｜${FIRM.name}`,
+      description: item.body[0] ?? `${FIRM.name}からのお知らせです。`,
+      path,
+      type: "article",
+    });
   },
   notFoundComponent: NewsNotFound,
   component: NewsDetail,

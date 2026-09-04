@@ -9,6 +9,8 @@ import { LogoMark } from "./LogoMark";
 const MOBILE_NAV = [
   ...NAV,
   { to: "/news" as const, label: "お知らせ" },
+  { to: "/publishing" as const, label: "発信について" },
+  { to: "/faq" as const, label: "よくあるご質問" },
   { to: "/contact" as const, label: "お問い合わせ" },
 ];
 const EASE = "duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";

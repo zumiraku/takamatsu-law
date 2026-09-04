@@ -22,7 +22,7 @@ export function Reveal({
     }
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry?.isIntersecting) {
           el.classList.add("is-in");
           io.disconnect();
         }
