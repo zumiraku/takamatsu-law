@@ -3,8 +3,9 @@ import { NAV, FOOTER_EXTRA } from "@/lib/nav";
 import { FIRM } from "@/lib/firm";
 import { NOTE } from "@/lib/note";
 import { trackOutbound } from "@/lib/analytics";
-import logo from "@/assets/takamatsu-logo.jpg";
-import { IMG } from "@/lib/media";
+import logo from "@/assets/opt/takamatsu-logo.webp";
+import logo2x from "@/assets/opt/takamatsu-logo@2x.webp";
+import { IMG, srcSetFor } from "@/lib/media";
 
 export function SiteFooter() {
   return (
@@ -12,6 +13,7 @@ export function SiteFooter() {
       <div className="relative h-40 overflow-hidden md:h-56">
         <img
           src={IMG.sea}
+          srcSet={srcSetFor(IMG.sea)}
           alt=""
           sizes="100vw"
           width={1600}
@@ -31,6 +33,7 @@ export function SiteFooter() {
           <img
             src={logo}
             alt={FIRM.name}
+            srcSet={`${logo} 1x, ${logo2x} 2x`}
             width={330}
             height={72}
             decoding="async"

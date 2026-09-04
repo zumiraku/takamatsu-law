@@ -2,7 +2,8 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { NAV } from "@/lib/nav";
 import { FIRM } from "@/lib/firm";
-import logo from "@/assets/takamatsu-logo.jpg";
+import logo from "@/assets/opt/takamatsu-logo.webp";
+import logo2x from "@/assets/opt/takamatsu-logo@2x.webp";
 import { cn } from "@/lib/utils";
 import { LogoMark } from "./LogoMark";
 
@@ -128,6 +129,7 @@ export function SiteHeader() {
               <img
                 src={logo}
                 alt={FIRM.name}
+                srcSet={`${logo} 1x, ${logo2x} 2x`}
                 width={330}
                 height={72}
                 decoding="async"
