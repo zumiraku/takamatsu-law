@@ -20,7 +20,7 @@ export function sitemapEntries(): Entry[] {
   const entries: Entry[] = [
     { path: "/", lastmod: latestColumn, priority: "1.0", changefreq: "weekly" },
     { path: "/column", lastmod: latestColumn, priority: "0.9", changefreq: "weekly" },
-    { path: "/publishing", priority: "0.7", changefreq: "yearly" },
+    { path: "/publishing", priority: "0.8", changefreq: "yearly" },
     { path: "/about", priority: "0.8", changefreq: "yearly" },
     { path: "/lawyers", priority: "0.8", changefreq: "yearly" },
     { path: "/practice", priority: "0.8", changefreq: "yearly" },

@@ -50,6 +50,15 @@ export default {
       const url = new URL(request.url);
       if (request.method === "GET" || request.method === "HEAD") {
         // コラム・お知らせを足せばそのまま反映されるよう、データから組み立てる。
+        if (url.pathname === "/feed.xml") {
+          const { buildFeedXml } = await import("./lib/feed");
+          return new Response(buildFeedXml(), {
+            headers: {
+              "content-type": "application/rss+xml; charset=utf-8",
+              "cache-control": "public, max-age=3600",
+            },
+          });
+        }
         if (url.pathname === "/sitemap.xml") {
           const { buildSitemapXml } = await import("./lib/sitemap");
           return new Response(buildSitemapXml(), {
