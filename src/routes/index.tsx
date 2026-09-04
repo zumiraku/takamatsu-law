@@ -72,6 +72,22 @@ const POINTS = [
   },
 ];
 
+/** 発信の姿勢。トップで先に示し、詳細は /publishing に置く。 */
+const PUBLISHING_STANCE = [
+  {
+    t: "全文は、ここに置く",
+    d: "コラムの本文は当サイトを正本とします。事務所の言葉が、事務所の場所に積み上がっていく形を崩しません。",
+  },
+  {
+    t: "note は、要約と入口に",
+    d: "同じ本文を二か所に置くことはしません。note には要点と本文への案内を置き、全文はこのサイトでお読みいただきます。",
+  },
+  {
+    t: "反応を見て、次を決める",
+    d: "どの記事がどこまで読まれたかを記録しています。次に何を書くか、どの主題を掘り下げるかは、その反応から決めます。",
+  },
+];
+
 const TICKER = [
   "香川県高松市",
   "香川県弁護士会所属",
@@ -313,39 +329,37 @@ function Home() {
       <section className="border-t border-border">
         <div className="container-page py-16 md:py-20">
           <Reveal>
-            <SectionTitle title="はじめての方へ" en="FIRST VISIT" />
+            <SectionTitle title="発信について" en="PUBLISHING" />
           </Reveal>
           <ul className="grid gap-px border border-border bg-border sm:grid-cols-3">
-            {[
-              {
-                to: "/flow" as const,
-                t: "相談までの流れ",
-                d: "ご予約から相談当日まで、どう進むのかをご説明します。紹介は不要です。",
-              },
-              {
-                to: "/fees" as const,
-                t: "弁護士費用",
-                d: "相談料と、分野ごとの着手金・報酬金の目安を公開しています。",
-              },
-              {
-                to: "/faq" as const,
-                t: "よくあるご質問",
-                d: "相談方法、費用、当日の持ち物について、よくいただくご質問をまとめました。",
-              },
-            ].map((c, i) => (
-              <li key={c.to} className="bg-background">
+            {PUBLISHING_STANCE.map((c, i) => (
+              <li key={c.t} className="bg-background">
                 <Reveal delay={i * 70}>
-                  <Link
-                    to={c.to}
-                    className="group block h-full p-8 transition-colors hover:bg-surface"
-                  >
-                    <h3 className="text-lg transition-colors group-hover:text-primary">{c.t}</h3>
+                  <div className="h-full p-8">
+                    <p className="font-serif text-[11px] tracking-[0.28em] text-brand">
+                      {String(i + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="mt-3 text-lg">{c.t}</h3>
                     <p className="mt-3 text-sm leading-8 text-muted-foreground">{c.d}</p>
-                  </Link>
+                  </div>
                 </Reveal>
               </li>
             ))}
           </ul>
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-x-10 gap-y-5">
+            <TextLink to="/publishing">発信の方針をくわしく見る</TextLink>
+            <p className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
+              {[
+                { to: "/flow" as const, label: "相談までの流れ" },
+                { to: "/fees" as const, label: "弁護士費用" },
+                { to: "/faq" as const, label: "よくあるご質問" },
+              ].map((l) => (
+                <Link key={l.to} to={l.to} className="transition-colors hover:text-primary">
+                  {l.label}
+                </Link>
+              ))}
+            </p>
+          </div>
         </div>
       </section>
 

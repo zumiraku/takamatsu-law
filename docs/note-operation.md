@@ -16,11 +16,11 @@
 
 ## 2. 決めごと
 
-| | 掲載する内容 | 正規URL（canonical） |
-| --- | --- | --- |
-| 当サイトのコラム | 全文 | 当サイトの記事URL |
-| note（要約版） | 要点＋導入＋本文への導線 | 当サイトの記事URL |
-| note（有料記事） | note 限定の書き下ろし | note の記事URL |
+|                  | 掲載する内容             | 正規URL（canonical） |
+| ---------------- | ------------------------ | -------------------- |
+| 当サイトのコラム | 全文                     | 当サイトの記事URL    |
+| note（要約版）   | 要点＋導入＋本文への導線 | 当サイトの記事URL    |
+| note（有料記事） | note 限定の書き下ろし    | note の記事URL       |
 
 - **全文は必ず当サイト。** note には要約と導線のみ。
 - 有料記事は、無料記事の焼き直しにしない。**別に書き下ろす。**
@@ -41,10 +41,10 @@ note は canonical タグの任意指定に対応していないため、
 
 ```ts
 export const NOTE = {
-  status: "live",                          // "planned" から変更
+  status: "live", // "planned" から変更
   accountUrl: "https://note.com/xxxxxxxx", // 事務所のアカウント
   handle: "xxxxxxxx",
-  salesEnabled: false,                     // 有料記事を始めたら true
+  salesEnabled: false, // 有料記事を始めたら true
 } as const;
 ```
 

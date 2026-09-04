@@ -9,22 +9,22 @@ URL 構造を変えたまま放置すると、その評価は引き継がれま�
 実装は `src/lib/redirects.ts`。旧URLの一覧は各データに持たせてあるため、
 記事や取扱業務を追加しても、リダイレクト表を手で書き足す必要はありません。
 
-| 旧 URL | 新 URL |
-| --- | --- |
-| `/office` | `/about` |
-| `/lawyer` | `/lawyers` |
-| `/rate`, `/price` | `/fees` |
-| `/inquiry` | `/flow` |
-| `/reserve` | `/contact` |
-| `/policy` | `/privacy` |
-| `/blog`, `/consult` | `/column` |
-| `/topics`, `/topics/*` | `/news` |
-| `/law/1145` ほか記事URL | 対応するコラム記事 |
-| `/law/*`（上記以外） | `/column` |
+| 旧 URL                            | 新 URL                 |
+| --------------------------------- | ---------------------- |
+| `/office`                         | `/about`               |
+| `/lawyer`                         | `/lawyers`             |
+| `/rate`, `/price`                 | `/fees`                |
+| `/inquiry`                        | `/flow`                |
+| `/reserve`                        | `/contact`             |
+| `/policy`                         | `/privacy`             |
+| `/blog`, `/consult`               | `/column`              |
+| `/topics`, `/topics/*`            | `/news`                |
+| `/law/1145` ほか記事URL           | 対応するコラム記事     |
+| `/law/*`（上記以外）              | `/column`              |
 | `/blog/koutujiko` ほかカテゴリURL | 対応する分野アーカイブ |
-| `/personal/*`, `/companies/*` | `/practice#<分野>` |
-| `/voice` | `/about` |
-| `/note` | `/publishing` |
+| `/personal/*`, `/companies/*`     | `/practice#<分野>`     |
+| `/voice`                          | `/about`               |
+| `/note`                           | `/publishing`          |
 
 - 記事の旧 URL は `src/lib/columns.ts` の `oldPaths`、取扱業務は
   `src/lib/practices.ts` の `oldPaths` に持たせています。
@@ -50,16 +50,24 @@ WordPress 版では、同じ対応表を `Redirection` プラグイン、また�
 - `robots.txt` からサイトマップの場所を明示
 - 人が読む一覧は `/sitemap`（HTML）に別途用意
 
+## 2-2. RSS フィード
+
+`/feed.xml` でコラムとお知らせを配信しています（`src/lib/feed.ts`）。
+発信を軸にする以上、読み手が購読して追える状態にしておくためです。
+全文は載せず、抜粋と要点だけを流します（正本はサイト）。
+HTML の `<head>` からも参照しているので、購読ソフトが自動で見つけます。
+メール配信や note へ記事を流したくなったときの繋ぎ込み口にもなります。
+
 ## 3. 構造化データ
 
-| ページ | 型 |
-| --- | --- |
-| トップ | `LegalService`（住所・電話・営業時間・地図座標・`sameAs`） |
-| コラム一覧 | `Blog` + `BreadcrumbList` |
-| コラム記事 | `BlogPosting`（著者・公開日・加筆日・分野・文字数）+ `BreadcrumbList` |
-| 分野アーカイブ | `BreadcrumbList` |
-| よくあるご質問 | `FAQPage` |
-| 発信について | `BreadcrumbList` |
+| ページ         | 型                                                                    |
+| -------------- | --------------------------------------------------------------------- |
+| トップ         | `LegalService`（住所・電話・営業時間・地図座標・`sameAs`）            |
+| コラム一覧     | `Blog` + `BreadcrumbList`                                             |
+| コラム記事     | `BlogPosting`（著者・公開日・加筆日・分野・文字数）+ `BreadcrumbList` |
+| 分野アーカイブ | `BreadcrumbList`                                                      |
+| よくあるご質問 | `FAQPage`                                                             |
+| 発信について   | `BreadcrumbList`                                                      |
 
 `LegalService` に `@id` を振り、記事の `publisher` から参照しています。
 検索エンジンから見て「同じ事務所が発行している記事」として繋がります。
@@ -89,13 +97,13 @@ WordPress 版では、同じ対応表を `Redirection` プラグイン、また�
 `src/lib/firm.ts` の `gaMeasurementId` に測定 ID を入れると有効になります。
 Search Console の所有権確認は `searchConsoleToken` に値を入れると meta タグが出ます。
 
-| イベント | 発火 | パラメータ |
-| --- | --- | --- |
-| `page_view` | 画面遷移ごと（SPA のため手動送信） | `page_path` / `page_title` |
-| `article_view` | コラム記事の表示 | `article_id` / `article_title` / `article_category` |
-| `article_progress` | 本文の 50% / 90% 到達 | `article_id` / `article_category` / `percent` |
-| `share_click` | X・Facebook・URLコピー | `method` / `article_path` |
-| `outbound_click` | note などの外部リンク | `destination` / `context` |
+| イベント           | 発火                               | パラメータ                                          |
+| ------------------ | ---------------------------------- | --------------------------------------------------- |
+| `page_view`        | 画面遷移ごと（SPA のため手動送信） | `page_path` / `page_title`                          |
+| `article_view`     | コラム記事の表示                   | `article_id` / `article_title` / `article_category` |
+| `article_progress` | 本文の 50% / 90% 到達              | `article_id` / `article_category` / `percent`       |
+| `share_click`      | X・Facebook・URLコピー             | `method` / `article_path`                           |
+| `outbound_click`   | note などの外部リンク              | `destination` / `context`                           |
 
 自動のページビュー計測は切り、遷移のたびに手動で送っています
 （SPA では自動計測が二重に走る、あるいは遷移を取りこぼすため）。

@@ -106,6 +106,12 @@ export const Route = createRootRoute({
         // 本文は 400 のみ使用。日本語フォントは1ウェイトが重いので 500 は読み込まない。
         href: "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500&family=Zen+Kaku+Gothic+New&display=swap",
       },
+      {
+        rel: "alternate",
+        type: "application/rss+xml",
+        title: `${FIRM.name}｜コラム`,
+        href: "/feed.xml",
+      },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "apple-touch-icon", href: "/logo.jpg" },

@@ -67,6 +67,12 @@ export function SiteFooter() {
             >
               FACEBOOK
             </a>
+            <a
+              href="/feed.xml"
+              className="text-[11px] tracking-[0.28em] text-brand transition-opacity hover:opacity-70"
+            >
+              RSS
+            </a>
             {NOTE.status === "live" && NOTE.accountUrl && (
               <a
                 href={NOTE.accountUrl}

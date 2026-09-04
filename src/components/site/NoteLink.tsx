@@ -101,27 +101,45 @@ export function NoteAccountLink({ context }: { context: string }) {
   );
 }
 
+const PREVIEWS = [
+  {
+    caption: "無料の記事に、note の要約版がある場合",
+    headline: "この記事の要約版を note にも掲載しています",
+    body: "note では要点のみをお読みいただけます。全文はこのページが正本です。",
+  },
+  {
+    caption: "note で有料の書き下ろしを販売する場合",
+    headline: "この主題を掘り下げた記事を note で公開しています（¥500）",
+    body: "note 限定の書き下ろしです。当ページの内容とは別に、実務上の手順や判断の分かれ目を詳しくまとめています。",
+  },
+];
+
 /** 開設前に、記事下へどう出るかを示す掲載イメージ。リンクは張らない。 */
 export function NotePreview() {
   return (
-    <div>
-      <NoteCard
-        muted
-        label="NOTE"
-        headline="この記事の要約版を note にも掲載しています"
-        body="note では要点のみをお読みいただけます。全文はこのページが正本です。"
-        action={
-          <span
-            aria-hidden
-            className="inline-flex w-full items-center justify-center whitespace-nowrap border border-border px-7 py-3.5 text-sm text-muted-foreground md:w-auto"
-          >
-            note で読む
-          </span>
-        }
-      />
-      <p className="mt-3 text-xs leading-6 text-muted-foreground">
-        ※ 掲載イメージです。note のアカウントを開設し、URL
-        を登録した時点で、各コラムの本文下に自動で表示されます。
+    <div className="space-y-8">
+      {PREVIEWS.map((p) => (
+        <div key={p.caption}>
+          <p className="mb-3 text-xs tracking-wide text-muted-foreground">{p.caption}</p>
+          <NoteCard
+            muted
+            label="NOTE"
+            headline={p.headline}
+            body={p.body}
+            action={
+              <span
+                aria-hidden
+                className="inline-flex w-full items-center justify-center whitespace-nowrap border border-border px-7 py-3.5 text-sm text-muted-foreground md:w-auto"
+              >
+                note で読む
+              </span>
+            }
+          />
+        </div>
+      ))}
+      <p className="text-xs leading-6 text-muted-foreground">
+        ※ どちらも掲載イメージです。note のアカウントを開設し、URL
+        を登録した時点で、記事ごとにどちらの形で出すかを選べます。無料・有料の切り替えも、記事側の設定だけで済みます。
       </p>
     </div>
   );
