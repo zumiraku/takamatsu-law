@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { IMG } from "@/lib/media";
+import { IMG, srcSetFor } from "@/lib/media";
 import { DiamondField } from "./Decor";
 import { Reveal } from "./Reveal";
 
@@ -23,6 +23,7 @@ export function PageHero({
     <section className="relative isolate min-h-[44vh] overflow-hidden md:min-h-[52vh]">
       <img
         src={src}
+        srcSet={srcSetFor(src)}
         alt={alt}
         sizes="100vw"
         width={1600}
@@ -61,6 +62,7 @@ export function JournalBand() {
     <section className="relative isolate overflow-hidden text-primary-foreground">
       <img
         src={IMG.sea}
+        srcSet={srcSetFor(IMG.sea)}
         alt=""
         sizes="100vw"
         width={1600}

@@ -14,7 +14,7 @@ import { news } from "@/lib/news";
 import { PRACTICES } from "@/lib/practices";
 import { FIRM, DEFAULT_DESCRIPTION, SITE_TITLE } from "@/lib/firm";
 import { jsonLdLegalService } from "@/lib/seo";
-import { IMG, CATEGORY_IMG } from "@/lib/media";
+import { IMG, CATEGORY_IMG, srcSetFor } from "@/lib/media";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,7 +30,16 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: "/" },
-      { rel: "preload", href: IMG.hero, as: "image", type: "image/webp" },
+      // 先読みも srcset に合わせる。合わせないと携帯で大小2枚を読みに行く。
+      {
+        rel: "preload",
+        href: IMG.hero,
+        as: "image",
+        type: "image/webp",
+        imageSrcSet: srcSetFor(IMG.hero),
+        imageSizes: "100vw",
+        fetchPriority: "high",
+      },
     ],
     scripts: [
       {
@@ -80,6 +89,7 @@ function Home() {
       <section className="relative isolate min-h-[92vh] overflow-hidden bg-primary">
         <img
           src={IMG.hero}
+          srcSet={srcSetFor(IMG.hero)}
           alt="朝の光が差し込む高松総合法律事務所の相談室"
           sizes="100vw"
           width={1920}

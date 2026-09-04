@@ -1,5 +1,12 @@
 @import "tailwindcss" source(none);
-@source "../src";
+/*
+ * 走査対象は実際に画面を作っているファイルだけに限定する。
+ * 未使用の UI キット（src/components/ui/*）まで走査すると、
+ * 使っていないクラスが CSS に載り、初回表示を遅くする。
+ */
+@source "../src/routes";
+@source "../src/components/site";
+@source "../src/components/ui/sonner.tsx";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));

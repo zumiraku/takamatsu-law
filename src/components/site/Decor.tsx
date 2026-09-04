@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
+import { srcSetFor } from "@/lib/media";
 import { LogoMark } from "./LogoMark";
 import { useEffect, type ReactNode } from "react";
 
@@ -83,6 +84,7 @@ export function FrameImg({
     <div className={cn("light-pass group relative overflow-hidden bg-surface", className)}>
       <img
         src={src}
+        srcSet={srcSetFor(src)}
         alt={alt}
         sizes={sizes}
         loading={priority ? "eager" : "lazy"}

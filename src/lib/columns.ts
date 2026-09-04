@@ -435,9 +435,16 @@ export function headings(col: Column) {
   return out;
 }
 
+/**
+ * 日付の表示。
+ * timeZone を固定しないと、サーバー（UTC）と閲覧者のブラウザ（JST）で
+ * 表示が1日ずれ、SSR と画面の内容が食い違う。事務所は日本にあるので
+ * 常に日本時間で表示する。
+ */
 export const formatDate = (iso: string) =>
   new Date(`${iso}T00:00:00+09:00`).toLocaleDateString("ja-JP", {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: "Asia/Tokyo",
   });

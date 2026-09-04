@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 import { PageHero } from "@/components/site/PageHero";
 import { FrameImg } from "@/components/site/Decor";
 import { FIRM, pageTitle } from "@/lib/firm";
@@ -31,6 +32,8 @@ function Contact() {
 
   return (
     <>
+      {/* トーストはこのページでしか使わないので、他ページの初期読み込みには載せない。 */}
+      <Toaster position="top-center" />
       <PageHero
         title="お問い合わせ"
         en="CONTACT"
