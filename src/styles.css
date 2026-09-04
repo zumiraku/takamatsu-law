@@ -359,6 +359,12 @@
 .menu-sheet[data-open="true"] .menu-sheet-item:nth-child(9) {
   animation-delay: 0.3s;
 }
+.menu-sheet[data-open="true"] .menu-sheet-item:nth-child(10) {
+  animation-delay: 0.33s;
+}
+.menu-sheet[data-open="true"] .menu-sheet-item:nth-child(11) {
+  animation-delay: 0.36s;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .animate-kenburns,
@@ -608,4 +614,74 @@ body,
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 280px;
+}
+
+/*
+ * 読み物としてのコラム本文。
+ * 30代〜70代が読む前提で、本文は 16.5px / 行間 2.05。段落間を広めに取り、
+ * 見出しの前に十分な余白を置いて、スクロールしても現在地を見失わないようにする。
+ */
+.article-body {
+  font-size: 1.03rem;
+  line-height: 2.05;
+  color: oklch(0.28 0.03 260);
+}
+.article-body > * + * {
+  margin-top: 1.9rem;
+}
+.article-body h2 {
+  font-size: 1.28rem;
+  line-height: 1.7;
+  color: var(--primary);
+  margin-top: 3.6rem;
+  padding-left: 0.95rem;
+  border-left: 2px solid var(--brand);
+  scroll-margin-top: 7rem;
+}
+.article-body h2 + * {
+  margin-top: 1.35rem;
+}
+.article-body ul {
+  margin-left: 0.1rem;
+  padding-left: 0;
+  list-style: none;
+}
+.article-body ul li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+.article-body ul li + li {
+  margin-top: 0.75rem;
+}
+.article-body ul li::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 1.02em;
+  width: 0.4rem;
+  height: 0.4rem;
+  transform: rotate(45deg);
+  background: var(--brand);
+  opacity: 0.7;
+}
+.article-body blockquote {
+  border-left: 2px solid var(--border);
+  padding: 0.2rem 0 0.2rem 1.4rem;
+  color: var(--muted-foreground);
+}
+.article-body blockquote cite {
+  display: block;
+  margin-top: 0.8rem;
+  font-size: 0.82rem;
+  font-style: normal;
+  letter-spacing: 0.04em;
+}
+
+@media (min-width: 768px) {
+  .article-body {
+    font-size: 1.06rem;
+  }
+  .article-body h2 {
+    font-size: 1.4rem;
+  }
 }

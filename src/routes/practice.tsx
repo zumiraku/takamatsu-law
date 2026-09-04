@@ -22,7 +22,7 @@ function AreaCard({ p, i }: { p: Practice; i: number }) {
     <li id={p.id} className="light-pass scroll-mt-28 overflow-hidden border border-border bg-card">
       <Reveal delay={(i % 2) * 80}>
         <FrameImg
-          src={IMG.practices[p.id]}
+          src={IMG.practices[p.id] ?? IMG.scales}
           alt=""
           className="aspect-[16/9]"
           sizes="(min-width: 768px) 50vw, 100vw"
@@ -52,7 +52,7 @@ function Practice() {
       <PageHero
         title="取扱業務"
         en="PRACTICE AREAS"
-        image={IMG.practices.komon}
+        image={IMG.practices["komon"] ?? IMG.scales}
         imageAlt="会議室"
         lead="個人の方、企業の方、いずれにも対応しています。各分野の考え方は、コラムでも公開しています。"
       />

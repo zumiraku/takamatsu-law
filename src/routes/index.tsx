@@ -3,7 +3,13 @@ import { SectionTitle, JournalBand } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
 import { DiamondField, FrameImg, ScrollHint, TextLink, VerticalEn } from "@/components/site/Decor";
 import { LogoMark } from "@/components/site/LogoMark";
-import { columnsByDate, formatDate, readingMinutes } from "@/lib/columns";
+import {
+  CATEGORIES,
+  columnsByDate,
+  countInCategory,
+  formatDate,
+  readingMinutes,
+} from "@/lib/columns";
 import { news } from "@/lib/news";
 import { PRACTICES } from "@/lib/practices";
 import { FIRM, DEFAULT_DESCRIPTION, SITE_TITLE } from "@/lib/firm";
@@ -99,7 +105,8 @@ function Home() {
                 公開する事務所でありたい。
               </h1>
               <p className="mt-8 max-w-lg text-sm leading-9 text-white/80">
-                {FIRM.name}は、香川県高松市の法律事務所です。集客のためのサイトではなく、事務所の姿勢と、実務に根ざした情報発信の場としてこのサイトを置いています。
+                {FIRM.name}
+                は、香川県高松市の法律事務所です。集客のためのサイトではなく、事務所の姿勢と、実務に根ざした情報発信の場としてこのサイトを置いています。
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <Link
@@ -159,7 +166,9 @@ function Home() {
                   <span className="border border-brand/35 px-3 py-0.5 text-xs text-brand">
                     {featured.category}
                   </span>
-                  <span className="text-xs text-muted-foreground">{readingMinutes(featured)}分</span>
+                  <span className="text-xs text-muted-foreground">
+                    {readingMinutes(featured)}分
+                  </span>
                 </div>
                 <h3 className="mt-4 text-2xl leading-9 transition-colors group-hover:text-primary">
                   {featured.title}
@@ -190,8 +199,27 @@ function Home() {
             </li>
           ))}
         </ul>
-        <div className="mt-10">
+        <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-4">
           <TextLink to="/column">コラムの一覧を見る</TextLink>
+          <TextLink to="/publishing">発信の方針について</TextLink>
+        </div>
+
+        <div className="mt-14 border-t border-border pt-10">
+          <p className="text-[11px] tracking-[0.32em] text-brand">CATEGORIES</p>
+          <ul className="mt-5 flex flex-wrap gap-3">
+            {CATEGORIES.map((c) => (
+              <li key={c.slug}>
+                <Link
+                  to="/column/category/$slug"
+                  params={{ slug: c.slug }}
+                  className="light-pass inline-flex items-baseline gap-2 border border-border px-5 py-2.5 text-sm text-muted-foreground transition-colors hover:border-brand hover:text-brand"
+                >
+                  {c.name}
+                  <span className="text-xs opacity-70">{countInCategory(c.name)}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -272,6 +300,45 @@ function Home() {
         </ul>
       </section>
 
+      <section className="border-t border-border">
+        <div className="container-page py-16 md:py-20">
+          <Reveal>
+            <SectionTitle title="はじめての方へ" en="FIRST VISIT" />
+          </Reveal>
+          <ul className="grid gap-px border border-border bg-border sm:grid-cols-3">
+            {[
+              {
+                to: "/flow" as const,
+                t: "相談までの流れ",
+                d: "ご予約から相談当日まで、どう進むのかをご説明します。紹介は不要です。",
+              },
+              {
+                to: "/fees" as const,
+                t: "弁護士費用",
+                d: "相談料と、分野ごとの着手金・報酬金の目安を公開しています。",
+              },
+              {
+                to: "/faq" as const,
+                t: "よくあるご質問",
+                d: "相談方法、費用、当日の持ち物について、よくいただくご質問をまとめました。",
+              },
+            ].map((c, i) => (
+              <li key={c.to} className="bg-background">
+                <Reveal delay={i * 70}>
+                  <Link
+                    to={c.to}
+                    className="group block h-full p-8 transition-colors hover:bg-surface"
+                  >
+                    <h3 className="text-lg transition-colors group-hover:text-primary">{c.t}</h3>
+                    <p className="mt-3 text-sm leading-8 text-muted-foreground">{c.d}</p>
+                  </Link>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section className="bg-surface">
         <div className="container-page py-20 md:py-28">
           <Reveal>
@@ -293,6 +360,9 @@ function Home() {
               </li>
             ))}
           </ul>
+          <div className="mt-10">
+            <TextLink to="/news">お知らせの一覧を見る</TextLink>
+          </div>
         </div>
       </section>
 

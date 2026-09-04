@@ -113,12 +113,12 @@ export function TextLink({
   light = false,
 }: {
   to: string;
-  hash?: string;
+  hash?: string | undefined;
   children: ReactNode;
   light?: boolean;
 }) {
   return (
-    <Link to={to} hash={hash} className={cn("text-link", light && "is-light")}>
+    <Link to={to} {...(hash ? { hash } : {})} className={cn("text-link", light && "is-light")}>
       {children}
       <span className="text-link-rule" aria-hidden />
     </Link>

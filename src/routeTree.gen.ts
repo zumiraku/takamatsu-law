@@ -12,16 +12,19 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as FeesRouteImport } from './routes/fees'
 import { Route as FlowRouteImport } from './routes/flow'
 import { Route as LawyersRouteImport } from './routes/lawyers'
 import { Route as PracticeRouteImport } from './routes/practice'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PublishingRouteImport } from './routes/publishing'
 import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as ColumnIndexRouteImport } from './routes/column/index'
 import { Route as ColumnSlugRouteImport } from './routes/column/$slug'
 import { Route as NewsIndexRouteImport } from './routes/news/index'
 import { Route as NewsSlugRouteImport } from './routes/news/$slug'
+import { Route as ColumnCategorySlugRouteImport } from './routes/column/category/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -36,6 +39,11 @@ const AboutRoute = AboutRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FeesRoute = FeesRouteImport.update({
@@ -63,6 +71,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PublishingRoute = PublishingRouteImport.update({
+  id: '/publishing',
+  path: '/publishing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapRoute = SitemapRouteImport.update({
   id: '/sitemap',
   path: '/sitemap',
@@ -88,52 +101,66 @@ const NewsSlugRoute = NewsSlugRouteImport.update({
   path: '/news/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ColumnCategorySlugRoute = ColumnCategorySlugRouteImport.update({
+  id: '/column/category/$slug',
+  path: '/column/category/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/fees': typeof FeesRoute
   '/flow': typeof FlowRoute
   '/lawyers': typeof LawyersRoute
   '/practice': typeof PracticeRoute
   '/privacy': typeof PrivacyRoute
+  '/publishing': typeof PublishingRoute
   '/sitemap': typeof SitemapRoute
   '/column/$slug': typeof ColumnSlugRoute
   '/news/$slug': typeof NewsSlugRoute
   '/column/': typeof ColumnIndexRoute
   '/news/': typeof NewsIndexRoute
+  '/column/category/$slug': typeof ColumnCategorySlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/fees': typeof FeesRoute
   '/flow': typeof FlowRoute
   '/lawyers': typeof LawyersRoute
   '/practice': typeof PracticeRoute
   '/privacy': typeof PrivacyRoute
+  '/publishing': typeof PublishingRoute
   '/sitemap': typeof SitemapRoute
   '/column/$slug': typeof ColumnSlugRoute
   '/news/$slug': typeof NewsSlugRoute
   '/column': typeof ColumnIndexRoute
   '/news': typeof NewsIndexRoute
+  '/column/category/$slug': typeof ColumnCategorySlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/fees': typeof FeesRoute
   '/flow': typeof FlowRoute
   '/lawyers': typeof LawyersRoute
   '/practice': typeof PracticeRoute
   '/privacy': typeof PrivacyRoute
+  '/publishing': typeof PublishingRoute
   '/sitemap': typeof SitemapRoute
   '/column/$slug': typeof ColumnSlugRoute
   '/news/$slug': typeof NewsSlugRoute
   '/column/': typeof ColumnIndexRoute
   '/news/': typeof NewsIndexRoute
+  '/column/category/$slug': typeof ColumnCategorySlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,62 +168,74 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/faq'
     | '/fees'
     | '/flow'
     | '/lawyers'
     | '/practice'
     | '/privacy'
+    | '/publishing'
     | '/sitemap'
     | '/column/$slug'
     | '/news/$slug'
     | '/column/'
     | '/news/'
+    | '/column/category/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/contact'
+    | '/faq'
     | '/fees'
     | '/flow'
     | '/lawyers'
     | '/practice'
     | '/privacy'
+    | '/publishing'
     | '/sitemap'
     | '/column/$slug'
     | '/news/$slug'
     | '/column'
     | '/news'
+    | '/column/category/$slug'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/contact'
+    | '/faq'
     | '/fees'
     | '/flow'
     | '/lawyers'
     | '/practice'
     | '/privacy'
+    | '/publishing'
     | '/sitemap'
     | '/column/$slug'
     | '/news/$slug'
     | '/column/'
     | '/news/'
+    | '/column/category/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  FaqRoute: typeof FaqRoute
   FeesRoute: typeof FeesRoute
   FlowRoute: typeof FlowRoute
   LawyersRoute: typeof LawyersRoute
   PracticeRoute: typeof PracticeRoute
   PrivacyRoute: typeof PrivacyRoute
+  PublishingRoute: typeof PublishingRoute
   SitemapRoute: typeof SitemapRoute
   ColumnSlugRoute: typeof ColumnSlugRoute
   NewsSlugRoute: typeof NewsSlugRoute
   ColumnIndexRoute: typeof ColumnIndexRoute
   NewsIndexRoute: typeof NewsIndexRoute
+  ColumnCategorySlugRoute: typeof ColumnCategorySlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -220,6 +259,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fees': {
@@ -257,6 +303,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/publishing': {
+      id: '/publishing'
+      path: '/publishing'
+      fullPath: '/publishing'
+      preLoaderRoute: typeof PublishingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap': {
       id: '/sitemap'
       path: '/sitemap'
@@ -292,6 +345,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/column/category/$slug': {
+      id: '/column/category/$slug'
+      path: '/column/category/$slug'
+      fullPath: '/column/category/$slug'
+      preLoaderRoute: typeof ColumnCategorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -299,16 +359,19 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  FaqRoute: FaqRoute,
   FeesRoute: FeesRoute,
   FlowRoute: FlowRoute,
   LawyersRoute: LawyersRoute,
   PracticeRoute: PracticeRoute,
   PrivacyRoute: PrivacyRoute,
+  PublishingRoute: PublishingRoute,
   SitemapRoute: SitemapRoute,
   ColumnSlugRoute: ColumnSlugRoute,
   NewsSlugRoute: NewsSlugRoute,
   ColumnIndexRoute: ColumnIndexRoute,
   NewsIndexRoute: NewsIndexRoute,
+  ColumnCategorySlugRoute: ColumnCategorySlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

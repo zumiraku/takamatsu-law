@@ -1,0 +1,8 @@
+# 改行コードは LF に統一する（Windows でも lint/format が通るようにするため）。
+* text=auto eol=lf
+
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary
+*.ico binary

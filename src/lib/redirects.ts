@@ -1,9 +1,12 @@
-import { columns } from "./columns";
+import { columns, CATEGORIES } from "./columns";
 import { PRACTICES } from "./practices";
 
 /**
  * 現行URL → 新URL。移行時のSEO評価を引き継ぐための 301 用マップ。
  * パスは先頭スラッシュ付き、末尾スラッシュなしで正規化する。
+ *
+ * 個別記事は columns の oldPaths、取扱業務は practices の oldPaths から
+ * 自動生成する。記事を足しても、ここを触る必要はない。
  */
 const STATIC: Record<string, string> = {
   "/office": "/about",
@@ -18,6 +21,20 @@ const STATIC: Record<string, string> = {
   "/consult": "/column",
   "/voice": "/about",
   "/link": "/",
+  "/faq.html": "/faq",
+  "/note": "/publishing",
+  "/column/category": "/column",
+};
+
+/** 現行ブログのカテゴリーURL → 新しいカテゴリーアーカイブ。 */
+const OLD_CATEGORY: Record<string, string> = {
+  koutujiko: "kotsu-jiko",
+  souzoku: "souzoku",
+  rikon: "rikon",
+  toushihigai: "toshi-higai",
+  syohisya: "shohisha-higai",
+  "syouhisya-higai": "shohisha-higai",
+  "zakkan-sonota": "zakkan",
 };
 
 function buildMap() {
@@ -31,6 +48,13 @@ function buildMap() {
     for (const old of c.oldPaths) {
       if (old === "/blog") continue;
       map[old] = `/column/${c.slug}`;
+    }
+  }
+  // 個別記事のURLと衝突する場合は、記事側を優先する。
+  for (const [old, slug] of Object.entries(OLD_CATEGORY)) {
+    if (!CATEGORIES.some((c) => c.slug === slug)) continue;
+    for (const from of [`/blog/${old}`, `/category/${old}`]) {
+      if (!map[from]) map[from] = `/column/category/${slug}`;
     }
   }
   return map;
