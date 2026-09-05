@@ -119,3 +119,36 @@ await sharp(ogBackdrop)
   .toFile(join(root, "public", "og.jpg"));
 
 console.log(`og.jpg -> ${(statSync(join(root, "public", "og.jpg")).size / 1024).toFixed(0)} KB`);
+
+/*
+ * ホーム画面に追加したときのアイコン。
+ * 横長のロゴを指定していると、正方形に押し込まれて潰れる。
+ * ロゴのダイヤ部分だけを正方形で書き出す。
+ */
+const TOUCH = 180;
+const touchIcon =
+  Buffer.from(`<svg width="${TOUCH}" height="${TOUCH}" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="d" x1="0.15" y1="1" x2="0.85" y2="0">
+      <stop offset="0" stop-color="#001a4d"/>
+      <stop offset="0.45" stop-color="#0d3d8c"/>
+      <stop offset="1" stop-color="#2b6bc4"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" fill="#ffffff"/>
+  <rect x="10" y="10" width="44" height="44" rx="1" transform="rotate(45 32 32)" fill="url(#d)"/>
+  <g fill="#ffffff" opacity="0.95">
+    <rect x="22.2" y="28" width="3.4" height="12" rx="0.4"/>
+    <rect x="27.2" y="22" width="3.4" height="18" rx="0.4"/>
+    <rect x="32.4" y="18" width="3.4" height="22" rx="0.4"/>
+    <rect x="37.4" y="24" width="3.4" height="16" rx="0.4"/>
+  </g>
+</svg>`);
+
+await sharp(touchIcon)
+  .png({ compressionLevel: 9 })
+  .toFile(join(root, "public", "apple-touch-icon.png"));
+
+console.log(
+  `apple-touch-icon.png -> ${(statSync(join(root, "public", "apple-touch-icon.png")).size / 1024).toFixed(1)} KB`,
+);
