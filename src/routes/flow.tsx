@@ -46,7 +46,7 @@ function Flow() {
         title="相談までの流れ"
         en="CONSULTATION"
         image={IMG.consult}
-        imageAlt="対面でお話を伺う相談室"
+        imageAlt="向かい合わせの椅子"
         lead="紹介は不要です。弁護士への相談が初めての方にも、お気軽にご連絡ください。なお、当事務所は法テラスと契約していないため、法テラスの利用はできません。"
       />
 

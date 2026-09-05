@@ -25,7 +25,7 @@ function Lawyers() {
         title="弁護士紹介"
         en="LAWYERS"
         image={IMG.consult}
-        imageAlt="静かな相談室"
+        imageAlt="静かな室内"
         lead="経歴と取扱分野を簡潔にまとめています。写真は掲載しておりません。"
       />
 
@@ -48,6 +48,11 @@ function Lawyers() {
                       {l.message}
                     </p>
 
+                    {/*
+                      ご要望どおり、現行より簡略化。最初に見えるのは取扱分野と経歴だけで、
+                      役職・所属・判例は畳んでおく。実績を削るのではなく、
+                      読みたい人だけが開ける形にして、初見の情報量を抑える。
+                    */}
                     <div className="mt-10 grid gap-10 md:grid-cols-2">
                       <Field label="取扱分野">
                         <ul className="flex flex-wrap gap-2">
@@ -68,43 +73,44 @@ function Lawyers() {
                           ))}
                         </ul>
                       </Field>
+                    </div>
+
+                    <div className="mt-8 border-t border-border">
                       {l.positions.length > 0 && (
-                        <Field label="役職等">
-                          <ul className="space-y-1.5 text-sm text-muted-foreground">
+                        <More label="役職等" count={l.positions.length}>
+                          <ul className="space-y-2 text-sm leading-7 text-muted-foreground">
                             {l.positions.map((c) => (
                               <li key={c}>{c}</li>
                             ))}
                           </ul>
-                        </Field>
+                        </More>
                       )}
                       {l.affiliations.length > 0 && (
-                        <Field label="所属・資格">
-                          <ul className="space-y-1.5 text-sm text-muted-foreground">
+                        <More label="所属・資格" count={l.affiliations.length}>
+                          <ul className="space-y-2 text-sm leading-7 text-muted-foreground">
                             {l.affiliations.map((c) => (
                               <li key={c}>{c}</li>
                             ))}
                           </ul>
-                        </Field>
+                        </More>
+                      )}
+                      {l.cases.length > 0 && (
+                        <More label="関与した判例（掲載分）" count={l.cases.length}>
+                          <ul className="space-y-5">
+                            {l.cases.map((c) => (
+                              <li key={c.court} className="border-l border-brand/40 pl-4">
+                                <p className="text-xs tracking-wide text-muted-foreground">
+                                  {c.court} / {c.side}
+                                </p>
+                                <p className="mt-1 text-sm leading-7 text-foreground/80">
+                                  {c.summary}
+                                </p>
+                              </li>
+                            ))}
+                          </ul>
+                        </More>
                       )}
                     </div>
-
-                    {l.cases.length > 0 && (
-                      <div className="mt-10">
-                        <h3 className="text-sm text-primary">関与した判例（掲載分）</h3>
-                        <ul className="mt-4 space-y-5">
-                          {l.cases.map((c) => (
-                            <li key={c.court} className="border-l border-brand/40 pl-4">
-                              <p className="text-xs tracking-wide text-muted-foreground">
-                                {c.court} / {c.side}
-                              </p>
-                              <p className="mt-1 text-sm leading-7 text-foreground/80">
-                                {c.summary}
-                              </p>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
                   </div>
                 </div>
               </Reveal>
@@ -115,6 +121,29 @@ function Lawyers() {
 
       <JournalBand />
     </>
+  );
+}
+
+/**
+ * 折りたたみ。JavaScript を使わない details 要素なので、
+ * 読み上げソフトでも、印刷でも、通信が途切れても開ける。
+ * 件数を出しておくと、開く前に中身の量がわかる。
+ */
+function More({ label, count, children }: { label: string; count: number; children: ReactNode }) {
+  return (
+    <details className="group border-b border-border">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-sm text-primary transition-colors hover:text-brand [&::-webkit-details-marker]:hidden">
+        <span>
+          {label}
+          <span className="ml-3 text-xs text-muted-foreground">{count}件</span>
+        </span>
+        <span
+          aria-hidden
+          className="relative size-4 shrink-0 before:absolute before:left-0 before:top-1/2 before:h-px before:w-4 before:bg-brand after:absolute after:left-1/2 after:top-0 after:h-4 after:w-px after:bg-brand after:transition-transform after:duration-500 group-open:after:scale-y-0"
+        />
+      </summary>
+      <div className="pb-7">{children}</div>
+    </details>
   );
 }
 

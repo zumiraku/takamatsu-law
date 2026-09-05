@@ -64,10 +64,58 @@ for (const [src, out] of [
   console.log(`${out} -> ${(statSync(output).size / 1024).toFixed(0)} KB`);
 }
 
-await sharp(join(assets, "hero-cinematic.jpg"))
+/*
+ * SNS で共有されたときに出るカード（og.jpg）。
+ *
+ * 以前は写真をそのまま切り出していたが、それだと誰の記事か分からない。
+ * コラムが共有されるたびに事務所名が出る形にしたいので、ロゴを載せた
+ * カードに作り替える。文字は描画せず、ロゴ画像をそのまま使うので、
+ * 実行環境にフォントが入っていなくても崩れない。
+ */
+const OG_W = 1200;
+const OG_H = 630;
+const BAND_H = 96;
+
+const ogBackdrop =
+  Buffer.from(`<svg width="${OG_W}" height="${OG_H}" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#001a4d"/>
+      <stop offset="0.5" stop-color="#0d3d8c"/>
+      <stop offset="1" stop-color="#2b6bc4"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <g opacity="0.06" fill="url(#g)">
+    <rect x="930" y="70" width="220" height="220" transform="rotate(45 1040 180)"/>
+    <rect x="85" y="435" width="130" height="130" transform="rotate(45 150 500)"/>
+  </g>
+  <rect x="540" y="408" width="120" height="2" fill="#0d3d8c"/>
+</svg>`);
+
+const ogLogo = await sharp(join(assets, "takamatsu-logo.jpg")).resize({ width: 620 }).toBuffer();
+
+// 下端に瀬戸内の帯を敷いて、場所が伝わるようにする。
+const ogBand = await sharp(join(assets, "takamatsu-seto.jpg"))
   .rotate()
-  .resize(1200, 630, { fit: "cover", position: "centre" })
-  .jpeg({ quality: 68, mozjpeg: true })
+  .resize(OG_W, BAND_H, { fit: "cover", position: "centre" })
+  .composite([
+    {
+      input: Buffer.from(
+        `<svg width="${OG_W}" height="${BAND_H}"><rect width="100%" height="100%" fill="#001a4d" opacity="0.72"/></svg>`,
+      ),
+      top: 0,
+      left: 0,
+    },
+  ])
+  .toBuffer();
+
+await sharp(ogBackdrop)
+  .composite([
+    { input: ogLogo, left: 290, top: 210 },
+    { input: ogBand, left: 0, top: OG_H - BAND_H },
+  ])
+  .jpeg({ quality: 82, mozjpeg: true })
   .toFile(join(root, "public", "og.jpg"));
 
-console.log("og.jpg updated");
+console.log(`og.jpg -> ${(statSync(join(root, "public", "og.jpg")).size / 1024).toFixed(0)} KB`);

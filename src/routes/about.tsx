@@ -33,7 +33,7 @@ function About() {
         title="事務所案内"
         en="ABOUT US"
         image={IMG.corridor}
-        imageAlt="光の差す事務所の廊下"
+        imageAlt="光の差す廊下"
         lead="一般の方にも、事業者の方にも、弁護士によるリーガルサービスが届くべきだと考えています。事務所の考えは、コラムでも公開しています。"
       />
 
@@ -58,12 +58,12 @@ function About() {
             <div className="grid grid-cols-2 gap-3">
               <FrameImg
                 src={IMG.consult}
-                alt="相談室"
+                alt="室内"
                 className="col-span-2 aspect-[16/9]"
                 sizes="(min-width: 1024px) 40vw, 100vw"
               />
               <FrameImg src={IMG.scales} alt="法律書と天秤" className="aspect-square" />
-              <FrameImg src={IMG.heroOffice} alt="朝の光が入る執務室" className="aspect-square" />
+              <FrameImg src={IMG.heroOffice} alt="朝の光が入る室内" className="aspect-square" />
             </div>
           </Reveal>
         </div>

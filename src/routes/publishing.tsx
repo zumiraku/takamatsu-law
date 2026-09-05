@@ -86,7 +86,7 @@ function Publishing() {
         title="発信について"
         en="PUBLISHING"
         image={IMG.corridor}
-        imageAlt="光の差す事務所の廊下"
+        imageAlt="光の差す廊下"
         lead="広告で名前を広げるのではなく、書いたものを読んでいただくことで事務所を知っていただきたいと考えています。そのための置き方を、あらかじめ決めています。"
       />
 
@@ -116,8 +116,8 @@ function Publishing() {
                 className="col-span-2 aspect-[16/9]"
                 sizes="(min-width: 1024px) 40vw, 100vw"
               />
-              <FrameImg src={IMG.heroOffice} alt="執務室" className="aspect-square" />
-              <FrameImg src={IMG.consult} alt="相談室" className="aspect-square" />
+              <FrameImg src={IMG.heroOffice} alt="机上" className="aspect-square" />
+              <FrameImg src={IMG.consult} alt="室内" className="aspect-square" />
             </div>
           </Reveal>
         </div>

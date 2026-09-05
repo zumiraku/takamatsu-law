@@ -38,7 +38,7 @@ function Contact() {
         title="お問い合わせ"
         en="CONTACT"
         image={IMG.consult}
-        imageAlt="相談室"
+        imageAlt="室内"
         lead="法律相談は原則として来所面談です。電話・メールでの法律相談は、顧問先を除きお受けできません。フォームは来所予約のご連絡用です。"
       />
 
