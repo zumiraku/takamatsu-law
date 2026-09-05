@@ -1,4 +1,4 @@
-import { FIRM, DEFAULT_DESCRIPTION, SITE_TITLE } from "@/lib/firm";
+import { FIRM, DEFAULT_DESCRIPTION, SITE_TITLE, isProductionSite } from "@/lib/firm";
 
 export const absoluteUrl = (path: string) =>
   path === "/" ? FIRM.siteUrl : `${FIRM.siteUrl}${path}`;
@@ -111,7 +111,11 @@ export function seoMeta({
     meta: [
       { title },
       { name: "description", content: desc },
-      { name: "robots", content: noindex ? "noindex,follow" : "index,follow" },
+      // 本番ドメイン以外は常に noindex。デモが検索結果に出ないようにする。
+      {
+        name: "robots",
+        content: noindex || !isProductionSite ? "noindex,nofollow" : "index,follow",
+      },
       { property: "og:title", content: title },
       { property: "og:description", content: desc },
       { property: "og:type", content: type },
