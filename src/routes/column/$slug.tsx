@@ -23,7 +23,7 @@ import {
 } from "@/lib/columns";
 import { useArticleReading } from "@/hooks/use-article-reading";
 import { representativeLawyer } from "@/lib/lawyers";
-import { FIRM, pageTitle } from "@/lib/firm";
+import { FIRM, isProductionSite, pageTitle } from "@/lib/firm";
 import { absoluteUrl, jsonLdBreadcrumb } from "@/lib/seo";
 import { CATEGORY_IMG, IMG } from "@/lib/media";
 
@@ -52,7 +52,7 @@ export const Route = createFileRoute("/column/$slug")({
       meta: [
         { title },
         { name: "description", content: column.excerpt },
-        { name: "robots", content: "index,follow" },
+        { name: "robots", content: isProductionSite ? "index,follow" : "noindex,nofollow" },
         { property: "og:title", content: title },
         { property: "og:description", content: column.excerpt },
         { property: "og:type", content: "article" },

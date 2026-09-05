@@ -12,8 +12,8 @@ import {
 } from "@/lib/columns";
 import { news } from "@/lib/news";
 import { PRACTICES } from "@/lib/practices";
-import { FIRM, DEFAULT_DESCRIPTION, SITE_TITLE } from "@/lib/firm";
-import { jsonLdLegalService } from "@/lib/seo";
+import { FIRM, DEFAULT_DESCRIPTION, SITE_TITLE, isProductionSite } from "@/lib/firm";
+import { absoluteUrl, jsonLdLegalService } from "@/lib/seo";
 import { IMG, CATEGORY_IMG, srcSetFor } from "@/lib/media";
 
 export const Route = createFileRoute("/")({
@@ -21,6 +21,11 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: SITE_TITLE },
       { name: "description", content: DEFAULT_DESCRIPTION },
+      // 他ページと同じく、本番ドメイン以外では検索エンジンに載せない。
+      {
+        name: "robots",
+        content: isProductionSite ? "index,follow" : "noindex,nofollow",
+      },
       { property: "og:title", content: SITE_TITLE },
       { property: "og:description", content: DEFAULT_DESCRIPTION },
       { property: "og:type", content: "website" },
@@ -29,7 +34,7 @@ export const Route = createFileRoute("/")({
       { property: "og:locale", content: "ja_JP" },
     ],
     links: [
-      { rel: "canonical", href: "/" },
+      { rel: "canonical", href: absoluteUrl("/") },
       // 先読みも srcset に合わせる。合わせないと携帯で大小2枚を読みに行く。
       {
         rel: "preload",

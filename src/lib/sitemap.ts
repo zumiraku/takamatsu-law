@@ -1,6 +1,6 @@
 import { CATEGORIES, columns, columnsInCategory } from "./columns";
 import { news } from "./news";
-import { FIRM } from "./firm";
+import { FIRM, isProductionSite } from "./firm";
 
 type Entry = {
   path: string;
@@ -82,4 +82,16 @@ export function buildSitemapXml() {
     .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
+}
+
+/**
+ * robots.txt。本番ドメインのときだけクロールを許可する。
+ * デモや検証用のURLで同じ内容が拾われると、事務所のサイトと紛らわしいため、
+ * そちらは全面的に拒否する。
+ */
+export function buildRobotsTxt() {
+  if (!isProductionSite) {
+    return ["User-agent: *", "Disallow: /", ""].join("\n");
+  }
+  return ["User-agent: *", "Allow: /", "", `Sitemap: ${FIRM.siteUrl}/sitemap.xml`, ""].join("\n");
 }
