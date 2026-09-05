@@ -33,11 +33,11 @@ canonical・OGP・sitemap・RSS はすべて同じ URL を基準にします。�
 `vite.config.ts` がビルド時に決めます（実行時にホスト名から組み立てると、
 サーバーとブラウザで値がずれて表示が壊れるため）。
 
-| 優先 | 元 | 用途 |
-| --- | --- | --- |
-| 1 | 環境変数 `SITE_URL`（または `VITE_SITE_URL`） | 本番サーバー。ここに本番ドメインを設定する |
-| 2 | `VERCEL_PROJECT_PRODUCTION_URL` / `VERCEL_URL` | 確認用のデモ。デモ自身の URL で完結する |
-| 3 | `vite.config.ts` の `PRODUCTION_SITE_URL` | ローカル開発の既定値 |
+| 優先 | 元                                             | 用途                                       |
+| ---- | ---------------------------------------------- | ------------------------------------------ |
+| 1    | 環境変数 `SITE_URL`（または `VITE_SITE_URL`）  | 本番サーバー。ここに本番ドメインを設定する |
+| 2    | `VERCEL_PROJECT_PRODUCTION_URL` / `VERCEL_URL` | 確認用のデモ。デモ自身の URL で完結する    |
+| 3    | `vite.config.ts` の `PRODUCTION_SITE_URL`      | ローカル開発の既定値                       |
 
 **本番ドメイン以外では自動的に `noindex,nofollow` を出し、`robots.txt` も
 全面拒否にします。** 確認用のURLが検索結果に出ると、事務所の本サイトと
