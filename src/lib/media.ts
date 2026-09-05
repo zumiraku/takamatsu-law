@@ -1,3 +1,13 @@
+/**
+ * 掲載画像。
+ *
+ * ここにあるのはすべて仮の写真です。事務所さんからお預かりする写真に
+ * 差し替える前提で組んでいます。差し替えは opt/ の同名ファイルを置き換えるだけで、
+ * 幅ちがい（srcset）も scripts/optimize-images.mjs が作り直します。
+ *
+ * 仮写真である以上、代替テキスト（alt）で「当事務所の相談室」等と
+ * 名乗らせないこと。実際の場所ではないものを、そうだと書かないためです。
+ */
 import heroCinematic from "@/assets/opt/hero-cinematic.webp";
 import heroCinematic1280 from "@/assets/opt/hero-cinematic-1280.webp";
 import heroCinematic768 from "@/assets/opt/hero-cinematic-768.webp";

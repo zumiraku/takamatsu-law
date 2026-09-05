@@ -48,7 +48,11 @@ function Fees() {
           <div>
             <SectionTitle title="ご相談料" en="CONSULTATION" />
           </div>
-          <FrameImg src={IMG.consult} alt="相談の場" className="hidden aspect-[4/3] lg:block" />
+          <FrameImg
+            src={IMG.consult}
+            alt="椅子とテーブル"
+            className="hidden aspect-[4/3] lg:block"
+          />
         </div>
         <div className="grid gap-px bg-border sm:grid-cols-3">
           {[
@@ -96,24 +100,35 @@ function Fees() {
         </p>
 
         <FeeBlock title="一般民事事件">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border text-left text-primary">
-                <th className="py-3 font-normal">経済的利益</th>
-                <th className="py-3 font-normal">着手金</th>
-                <th className="py-3 font-normal">報酬金</th>
-              </tr>
-            </thead>
-            <tbody>
-              {CIVIL.map(([a, b, c]) => (
-                <tr key={a} className="border-b border-border">
-                  <td className="py-3">{a}</td>
-                  <td className="py-3 text-muted-foreground">{b}</td>
-                  <td className="py-3 text-muted-foreground">{c}</td>
+          {/* 3列あるので、狭い画面でははみ出さずに横スクロールさせる。 */}
+          <div className="-mx-6 overflow-x-auto px-6 md:mx-0 md:px-0">
+            <table className="w-full min-w-[30rem] text-sm">
+              <thead>
+                <tr className="border-b border-border text-left text-primary">
+                  <th scope="col" className="py-3 pr-4 font-normal">
+                    経済的利益
+                  </th>
+                  <th scope="col" className="py-3 pr-4 font-normal">
+                    着手金
+                  </th>
+                  <th scope="col" className="py-3 font-normal">
+                    報酬金
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {CIVIL.map(([a, b, c]) => (
+                  <tr key={a} className="border-b border-border">
+                    <th scope="row" className="py-3 pr-4 text-left font-normal">
+                      {a}
+                    </th>
+                    <td className="py-3 pr-4 text-muted-foreground">{b}</td>
+                    <td className="py-3 text-muted-foreground">{c}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </FeeBlock>
 
         <FeeBlock title="交通事故（被害者側）">

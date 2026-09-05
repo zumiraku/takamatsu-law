@@ -42,7 +42,7 @@ function Faq() {
         title="よくあるご質問"
         en="FAQ"
         image={IMG.consult}
-        imageAlt="静かな相談室"
+        imageAlt="静かな室内"
         lead="ご相談の前に確かめておきたいことを、まとめました。ここにない事柄は、お電話でお尋ねください。"
       />
 
