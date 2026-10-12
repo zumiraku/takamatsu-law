@@ -84,11 +84,3 @@ npm run format   # 整形
 
 本番ドメイン以外でビルドした場合は `noindex` を出し、`robots.txt` も全面拒否に
 なります。確認用のURLが検索結果に出ないようにするためです。
-
----
-
-## 補足
-
-本リポジトリは Lovable（[https://lovable.dev](https://lovable.dev)）で作成した試作環境です。
-[Lovable エディタ](https://lovable.dev/projects/84408e52-2683-41b5-85b3-0d4ad9cda01c)からも編集できます。
-main ブランチへの push は Lovable 側にも同期されるため、公開済みの履歴は書き換えません。

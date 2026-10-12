@@ -1,13 +1,3 @@
-/**
- * 掲載画像。
- *
- * ここにあるのはすべて仮の写真です。事務所さんからお預かりする写真に
- * 差し替える前提で組んでいます。差し替えは opt/ の同名ファイルを置き換えるだけで、
- * 幅ちがい（srcset）も scripts/optimize-images.mjs が作り直します。
- *
- * 仮写真である以上、代替テキスト（alt）で「当事務所の相談室」等と
- * 名乗らせないこと。実際の場所ではないものを、そうだと書かないためです。
- */
 import heroCinematic from "@/assets/opt/hero-cinematic.webp";
 import heroCinematic1280 from "@/assets/opt/hero-cinematic-1280.webp";
 import heroCinematic768 from "@/assets/opt/hero-cinematic-768.webp";
@@ -40,6 +30,7 @@ import practiceSaisei640 from "@/assets/opt/practice-saisei-640.webp";
 import practiceRoumu from "@/assets/opt/practice-roumu.webp";
 import practiceRoumu640 from "@/assets/opt/practice-roumu-640.webp";
 
+// すべて仮の写真。実在の場所ではないので、alt で「当事務所の相談室」などと書かないこと。
 export const IMG = {
   hero: heroCinematic,
   heroOffice,
@@ -70,11 +61,6 @@ export const CATEGORY_IMG: Record<string, string> = {
   "雑感・その他": stillScales,
 };
 
-/**
- * 画像ごとの srcset。既定の src をキーに引く。
- * 画面幅に合ったサイズだけを読み込ませ、スマートフォンに大きな画像を
- * 送らないようにする。呼び出し側は src を渡すだけでよい。
- */
 export const SRCSET: Record<string, string> = {
   [heroCinematic]: `${heroCinematic768} 768w, ${heroCinematic1280} 1280w, ${heroCinematic} 1920w`,
   [takamatsuSeto]: `${takamatsuSeto768} 768w, ${takamatsuSeto} 1600w`,
@@ -93,5 +79,4 @@ export const SRCSET: Record<string, string> = {
   [practiceRoumu]: `${practiceRoumu640} 640w, ${practiceRoumu} 1100w`,
 };
 
-/** src に対応する srcset。無ければ undefined（属性を出さない）。 */
 export const srcSetFor = (src: string) => SRCSET[src];

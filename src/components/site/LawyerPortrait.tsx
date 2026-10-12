@@ -1,4 +1,3 @@
-/** 顔写真の代わりに、ロゴのダイヤをモチーフにしたシルエット。温度感のある抽象グラフィック。 */
 export function LawyerPortrait({ mark, name }: { mark: string; name: string }) {
   const gid = `portrait-${mark}`;
   return (

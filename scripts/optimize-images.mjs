@@ -9,10 +9,6 @@ const outDir = join(assets, "opt");
 
 mkdirSync(outDir, { recursive: true });
 
-/**
- * 大きく出る画像は、幅ちがいを複数書き出して srcset で出し分ける。
- * スマートフォンに 1920px の画像を送らないようにするための処理。
- */
 const jobs = [
   { file: "hero-cinematic.jpg", widths: [768, 1280, 1920], quality: 72 },
   { file: "takamatsu-seto.jpg", widths: [768, 1600], quality: 70 },
@@ -37,7 +33,6 @@ for (const job of jobs) {
   const widest = Math.max(...job.widths);
 
   for (const width of job.widths) {
-    // 最大幅のものだけ従来どおりの名前にして、既存の import をそのまま使う。
     const name = width === widest ? `${base}.webp` : `${base}-${width}.webp`;
     const output = join(outDir, name);
     await sharp(input)
@@ -49,7 +44,6 @@ for (const job of jobs) {
   }
 }
 
-// ロゴはヘッダー・フッターで全ページに出るので WebP にしておく。
 for (const [src, out] of [
   ["takamatsu-logo.jpg", "takamatsu-logo.webp"],
   ["takamatsu-logo.jpg", "takamatsu-logo@2x.webp"],
@@ -64,14 +58,6 @@ for (const [src, out] of [
   console.log(`${out} -> ${(statSync(output).size / 1024).toFixed(0)} KB`);
 }
 
-/*
- * SNS で共有されたときに出るカード（og.jpg）。
- *
- * 以前は写真をそのまま切り出していたが、それだと誰の記事か分からない。
- * コラムが共有されるたびに事務所名が出る形にしたいので、ロゴを載せた
- * カードに作り替える。文字は描画せず、ロゴ画像をそのまま使うので、
- * 実行環境にフォントが入っていなくても崩れない。
- */
 const OG_W = 1200;
 const OG_H = 630;
 const BAND_H = 96;
@@ -95,7 +81,6 @@ const ogBackdrop =
 
 const ogLogo = await sharp(join(assets, "takamatsu-logo.jpg")).resize({ width: 620 }).toBuffer();
 
-// 下端に瀬戸内の帯を敷いて、場所が伝わるようにする。
 const ogBand = await sharp(join(assets, "takamatsu-seto.jpg"))
   .rotate()
   .resize(OG_W, BAND_H, { fit: "cover", position: "centre" })
@@ -120,11 +105,6 @@ await sharp(ogBackdrop)
 
 console.log(`og.jpg -> ${(statSync(join(root, "public", "og.jpg")).size / 1024).toFixed(0)} KB`);
 
-/*
- * ホーム画面に追加したときのアイコン。
- * 横長のロゴを指定していると、正方形に押し込まれて潰れる。
- * ロゴのダイヤ部分だけを正方形で書き出す。
- */
 const TOUCH = 180;
 const touchIcon =
   Buffer.from(`<svg width="${TOUCH}" height="${TOUCH}" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">

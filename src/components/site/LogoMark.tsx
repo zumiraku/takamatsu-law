@@ -1,6 +1,5 @@
 import { useId } from "react";
 
-/** 現行ロゴのダイヤマークを SVG で再構成。 */
 export function LogoMark({ className }: { className?: string }) {
   const id = useId().replace(/:/g, "");
   return (

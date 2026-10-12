@@ -1,21 +1,11 @@
+/* 未使用の components/ui まで走査すると不要なクラスが CSS に入るので、対象を絞る。 */
 @import "tailwindcss" source(none);
-/*
- * 走査対象は実際に画面を作っているファイルだけに限定する。
- * 未使用の UI キット（src/components/ui/*）まで走査すると、
- * 使っていないクラスが CSS に載り、初回表示を遅くする。
- */
 @source "../src/routes";
 @source "../src/components/site";
 @source "../src/components/ui/sonner.tsx";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-
-/*
- * 高松総合法律事務所 デザインシステム
- * ロゴ：ダイヤマークの紺〜ロイヤルブルー ＋ 明朝の黒
- * 参考：西村あさひの余白と静けさ。敷居は上げすぎない。
- */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -623,11 +613,6 @@ body,
   background-size: 280px;
 }
 
-/*
- * 読み物としてのコラム本文。
- * 30代〜70代が読む前提で、本文は 16.5px / 行間 2.05。段落間を広めに取り、
- * 見出しの前に十分な余白を置いて、スクロールしても現在地を見失わないようにする。
- */
 .article-body {
   font-size: 1.03rem;
   line-height: 2.05;

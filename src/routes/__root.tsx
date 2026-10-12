@@ -10,7 +10,6 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Grain, LightPass } from "@/components/site/Decor";
@@ -45,9 +44,6 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
     <div className="flex min-h-[70vh] items-center justify-center bg-background px-4">
@@ -92,7 +88,6 @@ export const Route = createRootRoute({
       { name: "twitter:card", content: "summary_large_image" },
       { name: "format-detection", content: "telephone=no" },
       { name: "theme-color", content: "#001a4d" },
-      // Search Console の所有権確認。src/lib/firm.ts に値を入れると出力される。
       ...(FIRM.searchConsoleToken
         ? [{ name: "google-site-verification", content: FIRM.searchConsoleToken }]
         : []),
@@ -103,7 +98,6 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        // 本文は 400 のみ使用。日本語フォントは1ウェイトが重いので 500 は読み込まない。
         href: "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500&family=Zen+Kaku+Gothic+New&display=swap",
       },
       {
@@ -146,12 +140,10 @@ function RootComponent() {
     if (!id || document.getElementById("ga4-src")) return;
     window.dataLayer = window.dataLayer ?? [];
     window.gtag = function gtag() {
-      // gtag.js は Arguments オブジェクトをそのまま dataLayer に積むことを前提にしている。
       // eslint-disable-next-line prefer-rest-params
       window.dataLayer?.push(arguments as unknown as Record<string, unknown>);
     };
     window.gtag("js", new Date());
-    // ページ遷移は下の effect から送るので、自動計測は切っておく（二重計上を避ける）。
     window.gtag("config", id, { send_page_view: false });
     const s = document.createElement("script");
     s.id = "ga4-src";
@@ -160,7 +152,6 @@ function RootComponent() {
     document.head.appendChild(s);
   }, []);
 
-  // 画面遷移でページが再読み込みされないため、遷移のたびに page_view を送る。
   useEffect(() => {
     if (!FIRM.gaMeasurementId) return;
     window.gtag?.("event", "page_view", {

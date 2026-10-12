@@ -2,10 +2,6 @@ import { trackOutbound } from "@/lib/analytics";
 import { NOTE, formatYen, noteRefVisible, type NoteRef } from "@/lib/note";
 import { cn } from "@/lib/utils";
 
-/**
- * note 導線の見た目。
- * 実リンク（live）と、開設前に発信ページで示す掲載イメージ（preview）で共用する。
- */
 function NoteCard({
   label,
   headline,
@@ -39,7 +35,6 @@ function NoteCard({
 const ACTION_CLS =
   "light-pass inline-flex w-full items-center justify-center whitespace-nowrap border border-primary px-7 py-3.5 text-sm text-primary transition-colors hover:bg-primary hover:text-primary-foreground md:w-auto";
 
-/** 記事下の note 導線。アカウント未開設・URL 未設定なら何も出さない。 */
 export function ArticleNoteLink({
   noteRef,
   articleSlug,
@@ -78,7 +73,6 @@ export function ArticleNoteLink({
   );
 }
 
-/** コラム一覧・発信ページに置く、アカウントへの導線。 */
 export function NoteAccountLink({ context }: { context: string }) {
   if (NOTE.status !== "live" || !NOTE.accountUrl) return null;
   return (
@@ -114,7 +108,6 @@ const PREVIEWS = [
   },
 ];
 
-/** 開設前に、記事下へどう出るかを示す掲載イメージ。リンクは張らない。 */
 export function NotePreview() {
   return (
     <div className="space-y-8">

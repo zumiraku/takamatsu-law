@@ -18,8 +18,8 @@ async function getServerEntry(): Promise<ServerEntry> {
   return serverEntryPromise;
 }
 
-// h3 swallows in-handler throws into a normal 500 Response with body
-// {"unhandled":true,"message":"HTTPError"} — try/catch alone never fires for those.
+// h3 は SSR 中の例外を {"unhandled":true,"message":"HTTPError"} の 500 にしてしまい、
+// try/catch には届かない。
 async function normalizeCatastrophicSsrResponse(response: Response): Promise<Response> {
   if (response.status < 500) return response;
   const contentType = response.headers.get("content-type") ?? "";
@@ -49,7 +49,6 @@ export default {
     try {
       const url = new URL(request.url);
       if (request.method === "GET" || request.method === "HEAD") {
-        // コラム・お知らせを足せばそのまま反映されるよう、データから組み立てる。
         if (url.pathname === "/robots.txt") {
           const { buildRobotsTxt } = await import("./lib/sitemap");
           return new Response(buildRobotsTxt(), {

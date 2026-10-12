@@ -1,10 +1,6 @@
 import { useEffect } from "react";
 import { trackArticleProgress, trackArticleView } from "@/lib/analytics";
 
-/**
- * 記事の閲覧と読了率を計測する。
- * 表示で article_view、本文の 50% / 90% 到達で article_progress を一度ずつ送る。
- */
 export function useArticleReading(
   ref: React.RefObject<HTMLElement | null>,
   article: { slug: string; title: string; category: string },

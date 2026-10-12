@@ -1,14 +1,5 @@
 import type { NoteRef } from "./note";
 
-/**
- * コラム（独立した投稿タイプとして設計）。
- *
- * WordPress 移行時は、カスタム投稿タイプ `column` ＋ カスタムタクソノミー
- * `column_category` に対応する。本文は見出し・段落・箇条書き・引用のブロックで
- * 保持し、目次と構造化データを自動生成する。管理画面から入力するだけで、
- * 見出しの階層・目次・関連記事・note 導線がすべて自動で整う。
- */
-
 export type ColumnCategory =
   "交通事故" | "相続" | "離婚・男女問題" | "投資被害" | "消費者被害" | "雑感・その他";
 
@@ -23,22 +14,17 @@ export type Column = {
   title: string;
   category: ColumnCategory;
   date: string;
-  /** 加筆・修正した日。未設定なら公開日を用いる。 */
   updated?: string;
   excerpt: string;
-  /** 冒頭に置く要点。note に要約を出す際は、この3点をそのまま使える。 */
   summary: string[];
   tags: string[];
   body: Block[];
-  /** 現行サイトのURL。301 リダイレクトの元になる。 */
   oldPaths: string[];
-  /** note 側の掲載（開設後に URL を入れると記事下に導線が出る）。 */
   noteRef?: NoteRef;
 };
 
 export type CategoryMeta = {
   name: ColumnCategory;
-  /** アーカイブURL（/column/category/<slug>）。 */
   slug: string;
   en: string;
   lead: string;
@@ -95,10 +81,6 @@ export function categoryMeta(name: ColumnCategory): CategoryMeta {
 
 export const categorySlug = (name: ColumnCategory) => categoryMeta(name).slug;
 
-/**
- * 現行サイトのブログ／解説記事を移行したもの。
- * oldPaths は 301 リダイレクト用。各記事の canonical は新URLを指す。
- */
 export const columns: Column[] = [
   {
     slug: "nini-hoken-teigaku",
@@ -406,7 +388,6 @@ export const columnsInCategory = (name: ColumnCategory) =>
 export const countInCategory = (name: ColumnCategory) =>
   columns.filter((c) => c.category === name).length;
 
-/** 公開日の新しい順に並べたときの前後。記事下のページ送りに使う。 */
 export function siblings(slug: string) {
   const i = columnsByDate.findIndex((c) => c.slug === slug);
   return {
@@ -423,7 +404,6 @@ export function readingMinutes(col: Column) {
   return Math.max(1, Math.round(plainText(col).length / 500));
 }
 
-/** 目次に出す見出し。id は本文側の見出しと対応させる。 */
 export function headings(col: Column) {
   const out: { id: string; text: string }[] = [];
   let n = 0;
@@ -435,12 +415,7 @@ export function headings(col: Column) {
   return out;
 }
 
-/**
- * 日付の表示。
- * timeZone を固定しないと、サーバー（UTC）と閲覧者のブラウザ（JST）で
- * 表示が1日ずれ、SSR と画面の内容が食い違う。事務所は日本にあるので
- * 常に日本時間で表示する。
- */
+// timeZone を指定しないと、UTC のサーバーと JST のブラウザで日付が1日ずれる。
 export const formatDate = (iso: string) =>
   new Date(`${iso}T00:00:00+09:00`).toLocaleDateString("ja-JP", {
     year: "numeric",

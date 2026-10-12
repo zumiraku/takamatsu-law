@@ -100,7 +100,6 @@ function Fees() {
         </p>
 
         <FeeBlock title="一般民事事件">
-          {/* 3列あるので、狭い画面でははみ出さずに横スクロールさせる。 */}
           <div className="-mx-6 overflow-x-auto px-6 md:mx-0 md:px-0">
             <table className="w-full min-w-[30rem] text-sm">
               <thead>

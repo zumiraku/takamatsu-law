@@ -1,15 +1,9 @@
 import { FIRM } from "./firm";
 
-/**
- * よくあるご質問。
- * 構造化データ（FAQPage）にもそのまま使うため、回答はリンクを含まない
- * 一文完結の文章で持つ。管理画面からは質問・回答の2項目だけを入力する。
- */
 export type FaqItem = { q: string; a: string; group: FaqGroup };
 
 export type FaqGroup = "ご相談の前に" | "費用について" | "ご相談の当日";
 
-/** 見出しの id は ASCII で持つ。ページ内リンクを URL に載せても壊れない。 */
 export const FAQ_GROUPS: { name: FaqGroup; id: string }[] = [
   { name: "ご相談の前に", id: "before" },
   { name: "費用について", id: "cost" },
