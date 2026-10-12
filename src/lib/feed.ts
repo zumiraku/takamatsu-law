@@ -2,23 +2,12 @@ import { columnsByDate, plainText } from "./columns";
 import { news } from "./news";
 import { FIRM, DEFAULT_DESCRIPTION } from "./firm";
 
-/**
- * コラムの RSS フィード。
- *
- * 発信を軸にする以上、読み手が購読して追える状態にしておく。
- * note やメール配信など、あとから別の場所へ記事を流したくなったときも、
- * この一本があれば繋ぎ込みができる（手作業の転記が要らない）。
- */
 const escape = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-/**
- * RFC822 の日付を日本時間の表記で書く。
- * UTC に直して書くと、購読ソフトの表示上は前日になることがある。
- */
 const rfc822 = (iso: string) => {
   const [y, m, d] = iso.split("-").map(Number);
   const at = new Date(Date.UTC(y ?? 1970, (m ?? 1) - 1, d ?? 1));
@@ -33,7 +22,6 @@ export function buildFeedXml() {
       date: c.updated ?? c.date,
       category: c.category,
       description: c.excerpt,
-      // 要点は本文の冒頭代わりになる。全文は載せない（正本はサイト）。
       summary: c.summary,
       length: plainText(c).length,
     })),

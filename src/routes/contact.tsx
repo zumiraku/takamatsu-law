@@ -32,7 +32,6 @@ function Contact() {
 
   return (
     <>
-      {/* トーストはこのページでしか使わないので、他ページの初期読み込みには載せない。 */}
       <Toaster position="top-center" />
       <PageHero
         title="お問い合わせ"

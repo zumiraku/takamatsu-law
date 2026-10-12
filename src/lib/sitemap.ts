@@ -9,10 +9,6 @@ type Entry = {
   changefreq: string;
 };
 
-/**
- * sitemap.xml の中身。コラムやお知らせを足せば自動で反映されるよう、
- * 静的ファイルではなくデータから組み立てる（src/server.ts が配信する）。
- */
 export function sitemapEntries(): Entry[] {
   const latestColumn = columns.reduce((a, c) => (c.date > a ? c.date : a), "");
   const latestNews = news.reduce((a, n) => (n.date > a ? n.date : a), "");
@@ -84,11 +80,6 @@ export function buildSitemapXml() {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
 }
 
-/**
- * robots.txt。本番ドメインのときだけクロールを許可する。
- * デモや検証用のURLで同じ内容が拾われると、事務所のサイトと紛らわしいため、
- * そちらは全面的に拒否する。
- */
 export function buildRobotsTxt() {
   if (!isProductionSite) {
     return ["User-agent: *", "Disallow: /", ""].join("\n");

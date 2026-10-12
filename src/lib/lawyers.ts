@@ -1,8 +1,3 @@
-/**
- * 弁護士プロフィール。
- * 管理画面から入力する想定の項目（氏名・役職・取扱分野・経歴・役職等・実績・メッセージ）
- * をデータとして切り出してある。画面側はこれを整形して表示するだけ。
- */
 export type LawyerCase = {
   court: string;
   summary: string;
@@ -115,7 +110,6 @@ export const lawyers: Lawyer[] = [
 
 export const getLawyer = (id: string) => lawyers.find((l) => l.id === id);
 
-/** 記事の執筆者として表示する弁護士（協力弁護士を除く筆頭）。 */
 export function representativeLawyer(): Lawyer {
   const found = lawyers.find((l) => !l.cooperating) ?? lawyers[0];
   if (!found) throw new Error("lawyers が空です");

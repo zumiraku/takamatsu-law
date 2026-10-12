@@ -6,7 +6,6 @@ import { trackEvent } from "@/lib/analytics";
 import { FIRM } from "@/lib/firm";
 import { cn } from "@/lib/utils";
 
-/** 本文。見出しには目次から飛べる id を振る。 */
 export function ArticleBody({ blocks }: { blocks: Block[] }) {
   let h = 0;
   return (
@@ -43,7 +42,6 @@ export function ArticleBody({ blocks }: { blocks: Block[] }) {
   );
 }
 
-/** 記事冒頭の要点。長い本文を読む前に、結論の輪郭がつかめるようにする。 */
 export function KeyPoints({ items }: { items: string[] }) {
   return (
     <aside className="border-l-2 border-brand bg-surface px-6 py-7 md:px-8">
@@ -123,7 +121,6 @@ export function TableOfContents({
   );
 }
 
-/** 記事の共有。事務所の言葉が読者の手で広がる導線。 */
 export function ShareRow({ title, path }: { title: string; path: string }) {
   const [copied, setCopied] = useState(false);
   const url = `${FIRM.siteUrl}${path}`;
@@ -170,7 +167,6 @@ export function ShareRow({ title, path }: { title: string; path: string }) {
   );
 }
 
-/** 前後の記事へのページ送り。読み終えた人が次を読める状態にしておく。 */
 export function ArticleNav({
   newer,
   older,
@@ -209,7 +205,6 @@ export function ArticleNav({
   );
 }
 
-/** 記事のパンくず。カテゴリーはアーカイブへ繋ぐ。 */
 export function ArticleBreadcrumb({ column }: { column: Column }) {
   return (
     <nav aria-label="パンくず" className="text-xs text-muted-foreground">

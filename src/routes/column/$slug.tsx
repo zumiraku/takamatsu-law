@@ -64,7 +64,6 @@ export const Route = createFileRoute("/column/$slug")({
         { property: "article:section", content: column.category },
         { name: "twitter:card", content: "summary_large_image" },
       ],
-      // 正本はこのサイト。note に要約を載せても、評価はこの URL に集約する。
       links: [{ rel: "canonical", href: url }],
       scripts: [
         {

@@ -16,12 +16,6 @@ export const Route = createFileRoute("/practice")({
   component: Practice,
 });
 
-/*
- * ご要望どおり、現行より簡略化。
- * 以前は分野ごとに写真を1枚ずつ敷いていたが、事務所の写真ではない一般的な
- * 室内写真は「交通事故」と「相続」の違いを何も語らない。読む妨げになり、
- * 通信量も増えるだけなので外し、番号とロゴのダイヤで区切る形にした。
- */
 function AreaCard({ p, i }: { p: Practice; i: number }) {
   return (
     <li id={p.id} className="scroll-mt-28 bg-background">

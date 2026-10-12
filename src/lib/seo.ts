@@ -44,7 +44,6 @@ export function jsonLdLegalService() {
   };
 }
 
-/** パンくずの構造化データ。検索結果に階層が出る。 */
 export function jsonLdBreadcrumb(trail: { name: string; path: string }[]) {
   return {
     "@context": "https://schema.org",
@@ -70,7 +69,6 @@ export function jsonLdFaq(items: { q: string; a: string }[]) {
   };
 }
 
-/** コラム全体をひとつの Blog として示す。 */
 export function jsonLdBlog(posts: { title: string; path: string; date: string }[]) {
   return {
     "@context": "https://schema.org",
@@ -111,7 +109,6 @@ export function seoMeta({
     meta: [
       { title },
       { name: "description", content: desc },
-      // 本番ドメイン以外は常に noindex。デモが検索結果に出ないようにする。
       {
         name: "robots",
         content: noindex || !isProductionSite ? "noindex,nofollow" : "index,follow",

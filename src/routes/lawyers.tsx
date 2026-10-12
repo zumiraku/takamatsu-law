@@ -48,11 +48,6 @@ function Lawyers() {
                       {l.message}
                     </p>
 
-                    {/*
-                      ご要望どおり、現行より簡略化。最初に見えるのは取扱分野と経歴だけで、
-                      役職・所属・判例は畳んでおく。実績を削るのではなく、
-                      読みたい人だけが開ける形にして、初見の情報量を抑える。
-                    */}
                     <div className="mt-10 grid gap-10 md:grid-cols-2">
                       <Field label="取扱分野">
                         <ul className="flex flex-wrap gap-2">
@@ -124,11 +119,6 @@ function Lawyers() {
   );
 }
 
-/**
- * 折りたたみ。JavaScript を使わない details 要素なので、
- * 読み上げソフトでも、印刷でも、通信が途切れても開ける。
- * 件数を出しておくと、開く前に中身の量がわかる。
- */
 function More({ label, count, children }: { label: string; count: number; children: ReactNode }) {
   return (
     <details className="group border-b border-border">

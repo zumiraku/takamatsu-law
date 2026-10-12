@@ -21,7 +21,6 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: SITE_TITLE },
       { name: "description", content: DEFAULT_DESCRIPTION },
-      // 他ページと同じく、本番ドメイン以外では検索エンジンに載せない。
       {
         name: "robots",
         content: isProductionSite ? "index,follow" : "noindex,nofollow",
@@ -35,7 +34,6 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: absoluteUrl("/") },
-      // 先読みも srcset に合わせる。合わせないと携帯で大小2枚を読みに行く。
       {
         rel: "preload",
         href: IMG.hero,
@@ -77,7 +75,6 @@ const POINTS = [
   },
 ];
 
-/** 発信の姿勢。トップで先に示し、詳細は /publishing に置く。 */
 const PUBLISHING_STANCE = [
   {
     t: "全文は、ここに置く",

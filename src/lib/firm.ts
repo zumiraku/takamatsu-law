@@ -1,24 +1,14 @@
-/** 事務所の基本情報。ヘッダー・フッター・構造化データで共用する。 */
-
 import { NOTE } from "./note";
 
-/** 公開先。ビルド時に vite.config.ts が埋め込む。 */
 const SITE_URL = import.meta.env.VITE_SITE_URL;
 
-/**
- * 本番ドメインで動いているか。
- * デモや検証用のURLでは false になり、検索エンジンに載せない扱いにする。
- * 事務所のサイトと同じ内容が別のURLで拾われると、紛らわしいため。
- */
 export const isProductionSite = import.meta.env.VITE_IS_PRODUCTION_SITE;
 
 export const FIRM = {
   name: "高松総合法律事務所",
   nameEn: "TAKAMATSU LAW OFFICE",
   tagline: "クライアントの安心と最良の結果のために",
-  /** GA4 の測定 ID。入れると記事閲覧・読了率がイベントとして記録される。 */
   gaMeasurementId: "",
-  /** Google Search Console の所有権確認用メタタグ（content の値のみ）。 */
   searchConsoleToken: "",
   representative: "玉井邦芳",
   bar: "香川県弁護士会",
@@ -44,14 +34,8 @@ export const FIRM = {
   mapQuery: "香川県高松市磨屋町3-1 合田不動産磨屋町ビル",
   mapEmbed:
     "https://maps.google.com/maps?q=%E9%A6%99%E5%B7%9D%E7%9C%8C%E9%AB%98%E6%9D%BE%E5%B8%82%E7%A3%A8%E5%B1%8B%E7%94%BA3-1&hl=ja&z=17&output=embed",
-  /**
-   * 公開先のドメイン。canonical と構造化データの基準になる。
-   * 値は vite.config.ts がビルド時に決める（本番サーバーでは SITE_URL を設定、
-   * Vercel のデモではその URL、未設定ならローカル既定）。
-   */
   siteUrl: SITE_URL,
   facebook: "https://www.facebook.com/takamatsu.law/",
-  /** 事務所として公開している外部アカウント。構造化データの sameAs に載る。 */
   sameAs: [
     "https://www.facebook.com/takamatsu.law/",
     NOTE.status === "live" ? NOTE.accountUrl : "",
