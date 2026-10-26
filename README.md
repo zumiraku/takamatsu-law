@@ -27,8 +27,49 @@
 | コラム分野別（6分野） | `/column/category/<slug>` |
 | 発信について | `/publishing` |
 | 事務所案内 | `/about` |
+| 弁護士紹介 | `/lawyers` |
+| 取扱業務 | `/practice` |
+| 弁護士費用 | `/fees` |
+| 相談までの流れ | `/flow` |
+| よくあるご質問 | `/faq` |
+| お知らせ一覧 / 記事 | `/news`, `/news/<slug>` |
+| お問い合わせ | `/contact` |
+| プライバシーポリシー | `/privacy` |
+| サイトマップ | `/sitemap` |
 
-詳細は [`docs/`](./docs) を参照してください。
+## ドキュメント
+
+| 資料 | 内容 |
+| --- | --- |
+| [docs/wordpress-spec.md](./docs/wordpress-spec.md) | 投稿タイプ・カスタムフィールド・管理画面から更新できる範囲 |
+| [docs/note-operation.md](./docs/note-operation.md) | note との併用ルール、重複コンテンツの回避、開設時の手順 |
+| [docs/seo-migration.md](./docs/seo-migration.md) | 301 リダイレクト、サイトマップ、構造化データ、GA4 / Search Console |
+
+## 設定を変える場所
+
+| 変えたいもの | ファイル |
+| --- | --- |
+| 事務所情報・公開ドメイン・GA4 測定ID・Search Console トークン | `src/lib/firm.ts` |
+| note のアカウントと公開状態 | `src/lib/note.ts` |
+| コラム／お知らせ／弁護士／取扱業務／FAQ | `src/lib/*.ts` |
+| 公開先URL（canonical・OGP・sitemap・RSS の基準） | 環境変数 `SITE_URL`（[docs/README.md](./docs/README.md)） |
+| 旧URL → 新URL | `src/lib/redirects.ts` |
+
+## 開発
+
+Node.js が必要です。
+
+```sh
+npm install
+npm run dev      # 開発サーバー
+npm run build    # 本番ビルド
+npm run lint     # ESLint + Prettier
+npm run format   # 整形
+```
+
+`sitemap.xml`・`robots.txt`・`feed.xml`（RSS）は静的ファイルではなく、コラムやお知らせのデータから `src/server.ts` が生成して配信します。記事を追加すれば自動で反映され、更新漏れが起きません。
+
+本番ドメイン以外でビルドした場合は `noindex` を出し、`robots.txt` も全面拒否になります。確認用のURLが検索結果に出ないようにするためです。
 
 ---
 
